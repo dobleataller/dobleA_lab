@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DobleA LAB – Taller de investigación aplicada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-deep: #3B0F8C;
+      --purple-mid: #6B21C8;
+      --purple-light: #8B5CF6;
+      --magenta: #E040A0;
+      --magenta-bright: #F520A0;
+      --pink: #EC4899;
+      --dark: #0A0A0A;
+      --light-bg: #F0EDE8;
+      --text-dark: #111;
+      --text-mid: #444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      background: rgba(20, 0, 60, 0.92);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+    }
+    nav .logo { color: #fff; font-size: 1.15rem; font-weight: 700; letter-spacing: .03em; }
+    nav .logo span { color: var(--magenta); }
+    nav ul { display: flex; gap: 28px; list-style: none; }
+    nav ul a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .85rem; font-weight: 500; transition: color .2s; }
+    nav ul a:hover { color: var(--magenta); }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #2D0A8A 0%, #5B21B6 40%, #9333EA 70%, #C026D3 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 120px 40px 80px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(236,72,153,.25) 0%, transparent 65%);
+    }
+    .hero-tag {
+      color: rgba(255,255,255,.75);
+      font-size: .9rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .hero-subtitle {
+      color: rgba(255,255,255,.9);
+      font-size: 1.25rem; font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .hero-divider {
+      width: 320px; height: 1.5px;
+      background: rgba(255,255,255,.35);
+      margin: 0 auto 28px;
+    }
+    .hero-title {
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+      max-width: 680px;
+      margin: 0 auto 28px;
+    }
+    .hero-divider2 {
+      width: 320px; height: 1.5px;
+      background: rgba(255,255,255,.35);
+      margin: 0 auto;
+    }
+    .spinner-icon {
+      position: absolute; bottom: 60px; left: 60px;
+      width: 70px; height: 70px; opacity: .7;
+    }
+    .spinner-icon svg { width: 100%; height: 100%; }
+
+    /* ── SECTION COMMON ─────────────────────────────────── */
+    section { padding: 80px 40px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--purple-mid); margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700;
+      color: var(--magenta-bright); margin-bottom: 18px; line-height: 1.3;
+    }
+    .section-rule { width: 100%; height: 1px; background: #ccc; margin: 18px 0 28px; }
+    .section-rule-dark { width: 100%; height: 1px; background: rgba(255,255,255,.2); margin: 18px 0 28px; }
+
+    /* ── QUIENES SOMOS + QUE OFRECEMOS ─────────────────── */
+    #oferta { background: var(--light-bg); }
+    .flor-icon { font-size: 2rem; color: var(--magenta); margin-bottom: 14px; display: block; }
+
+    .two-block { display: grid; gap: 60px; }
+
+    .bullet-list { list-style: none; padding: 0; }
+    .bullet-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid #d4d0cb;
+      font-size: .95rem; color: var(--text-mid);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .bullet-list li::before { content: '•'; color: var(--magenta); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .bullet-list li:last-child { border-bottom: none; }
+
+    .quienes-box {
+      background: #fff;
+      border-left: 4px solid var(--purple-mid);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .quienes-box h2 {
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--purple-mid); margin-bottom: 12px;
+    }
+    .quienes-box p { font-size: .97rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── DIRIGIDO / APRENDEMOS ──────────────────────────── */
+    #audiencia { background: var(--dark); color: #fff; }
+    .two-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    }
+    .card-dark {
+      background: #1A0A3E;
+      border-radius: 16px; padding: 32px;
+    }
+    .card-light {
+      background: var(--light-bg);
+      border-radius: 16px; padding: 32px;
+    }
+    .card-dark h3, .card-light h3 {
+      font-size: 1.4rem; font-weight: 800;
+      text-transform: uppercase; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .card-dark h3 { color: #fff; }
+    .card-light h3 { color: var(--purple-mid); }
+    .card-dark p { color: rgba(255,255,255,.75); font-size: .9rem; margin-bottom: 16px; }
+    .card-light p { color: var(--text-mid); font-size: .9rem; margin-bottom: 16px; }
+    .diagonal-icon { font-size: 1.8rem; margin-bottom: 18px; display: block; }
+
+    .bullet-list-dark { list-style: none; }
+    .bullet-list-dark li {
+      padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.12);
+      font-size: .88rem; color: rgba(255,255,255,.8);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .bullet-list-dark li::before { content: '•'; color: var(--magenta); flex-shrink: 0; margin-top: 2px; }
+    .bullet-list-dark li:last-child { border-bottom: none; }
+    .bullet-list-light { list-style: none; }
+    .bullet-list-light li {
+      padding: 11px 0; border-bottom: 1px solid #d4d0cb;
+      font-size: .88rem; color: var(--text-mid);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .bullet-list-light li::before { content: '•'; color: var(--magenta); flex-shrink: 0; margin-top: 2px; }
+    .bullet-list-light li:last-child { border-bottom: none; }
+
+    /* ── MÓDULOS BASE ───────────────────────────────────── */
+    #modulos-base { background: var(--dark); color: #fff; }
+    .modulos-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; color: #fff; margin-bottom: 8px;
+    }
+    .modulos-title span { font-weight: 300; color: rgba(255,255,255,.65); }
+
+    .modulo-card {
+      background: #111;
+      border-radius: 14px;
+      padding: 28px 32px 32px;
+      margin-bottom: 28px;
+    }
+    .modulo-label {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid var(--purple-light);
+      color: var(--purple-light);
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      border-radius: 4px; padding: 3px 9px; margin-bottom: 12px;
+    }
+    .modulo-num {
+      float: right;
+      width: 44px; height: 44px;
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700; color: rgba(255,255,255,.6);
+    }
+    .modulo-card h3 {
+      font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.25;
+      clear: both;
+    }
+    .modulo-desc {
+      font-size: .88rem; font-weight: 600; color: rgba(255,255,255,.75);
+      margin-bottom: 20px; line-height: 1.55;
+    }
+
+    /* ── MÓDULOS PROFUNDIZACIÓN ─────────────────────────── */
+    #modulos-prof { background: var(--dark); color: #fff; padding-top: 0; }
+    .prof-card {
+      background: var(--light-bg);
+      border-radius: 14px; padding: 36px 40px;
+    }
+    .prof-card-header {
+      margin-bottom: 28px;
+    }
+    .diagonal-arr { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 16px; }
+    .prof-card h3 {
+      font-size: 1.15rem; font-weight: 700; color: var(--magenta-bright); line-height: 1.35;
+      margin-bottom: 0;
+    }
+    .prof-note {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--magenta);
+      border-radius: 30px; padding: 12px 20px;
+      margin-top: 28px;
+    }
+    .prof-note span { font-size: .85rem; color: #fff; line-height: 1.45; }
+    .prof-asterisk { font-size: 1.3rem; color: #fff; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── EQUIPO ─────────────────────────────────────────── */
+    #equipo { background: var(--light-bg); }
+    .equipo-title { font-size: 1.5rem; font-weight: 700; color: var(--purple-mid); margin-bottom: 40px; }
+    .team-grid { display: grid; gap: 32px; }
+    .team-member {
+      display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: start;
+    }
+    .member-photo {
+      width: 140px; height: 160px; border-radius: 10px;
+      background: linear-gradient(145deg, #5B21B6, #9333EA);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .member-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+    .member-info {}
+    .member-name-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    }
+    .member-star { color: var(--purple-mid); font-size: 1.2rem; }
+    .member-name { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); }
+    .member-rule { width: 100%; height: 1px; background: #ccc; margin-bottom: 10px; }
+    .member-bio { font-size: .87rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── INFO GENERAL ───────────────────────────────────── */
+    #info {
+      background: linear-gradient(145deg, #2D0A8A 0%, #5B21B6 45%, #9333EA 75%, #C026D3 100%);
+      color: #fff;
+    }
+    .info-logo { text-align: right; margin-bottom: 40px; }
+    .info-logo-mark {
+      display: inline-block;
+      background: rgba(255,255,255,.1);
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 1.6rem; font-weight: 900; color: #fff; letter-spacing: .04em;
+    }
+    .info-title { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .info-rule { width: 200px; height: 1.5px; background: rgba(255,255,255,.3); margin-bottom: 48px; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 48px; margin-bottom: 48px; }
+    .info-row { }
+    .info-icon { font-size: 1.4rem; color: rgba(255,255,255,.6); margin-bottom: 8px; }
+    .info-key {
+      font-size: .7rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(255,255,255,.55); margin-bottom: 6px;
+    }
+    .info-rule-sm { width: 80px; height: 1px; background: rgba(255,255,255,.3); margin-bottom: 10px; }
+    .info-val { font-size: .95rem; color: #fff; font-weight: 400; line-height: 1.5; }
+    .info-val strong { font-weight: 700; }
+    .info-contact-pill {
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,.4);
+      border-radius: 30px; padding: 10px 22px;
+      font-size: .88rem; color: #fff; margin-top: 4px;
+    }
+    .info-spinner {
+      display: flex; justify-content: flex-end; margin-top: 20px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #0A0010; color: rgba(255,255,255,.45);
+      text-align: center; padding: 24px 40px;
+      font-size: .8rem;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 12px 20px; }
+      nav ul { gap: 14px; }
+      section { padding: 60px 20px; }
+      .two-cols { grid-template-columns: 1fr; }
+      .team-member { grid-template-columns: 1fr; }
+      .member-photo { width: 100%; height: 200px; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">doble<span>A</span> LAB</div>
+  <ul>
+    <li><a href="#oferta">Oferta</a></li>
+    <li><a href="#audiencia">¿A quién?</a></li>
+    <li><a href="#modulos-base">Módulos</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#info">Inscripción</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag">DobleA LAB</p>
+  <p class="hero-subtitle">Taller de investigación aplicada</p>
+  <div class="hero-divider"></div>
+  <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
+  <div class="hero-divider2"></div>
+  <!-- Spinner decoration -->
+  <div class="spinner-icon">
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.8">
+        <line x1="40" y1="4" x2="40" y2="16" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="40" y1="64" x2="40" y2="76" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="4" y1="40" x2="16" y2="40" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="64" y1="40" x2="76" y2="40" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14.1" y1="14.1" x2="22.5" y2="22.5" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="57.5" y1="57.5" x2="65.9" y2="65.9" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="65.9" y1="14.1" x2="57.5" y2="22.5" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="22.5" y1="57.5" x2="14.1" y2="65.9" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- QUIÉNES SOMOS + QUÉ OFRECEMOS -->
+<section id="oferta">
+  <div class="container">
+
+    <!-- Quiénes somos -->
+    <div class="quienes-box">
+      <h2>¿Quiénes somos?</h2>
+      <p>Somos un puente entre la investigación académica de frontera y el mundo de las organizaciones. Integramos rigor metodológico con una orientación práctica para apoyar la toma de decisiones en empresas, consultoras e instituciones públicas.</p>
+    </div>
+
+    <!-- ¿Cómo estructurar...? -->
+    <span class="flor-icon">✿</span>
+    <div class="section-rule"></div>
+
+    <h2 class="section-title">¿Cómo estructurar un proceso de trabajo que entregue resultados para la toma de decisiones?</h2>
+
+    <div class="section-rule"></div>
+
+    <ul class="bullet-list" style="margin-bottom: 56px;">
+      <li>En investigación aplicada no bastan ni las técnicas ni las buenas preguntas: el valor está en su integración en un flujo de trabajo riguroso y eficiente.</li>
+      <li>La calidad de un estudio depende de definir bien la pregunta, elegir el diseño metodológico adecuado y analizar los datos con rigor.</li>
+      <li>Hoy existen herramientas —incluida la IA— que permiten ejecutar análisis complejos, pero su uso exige saber qué preguntar, cómo medir y cómo interpretar los resultados.</li>
+    </ul>
+
+    <!-- ¿Qué ofrecemos? -->
+    <span class="flor-icon">✿</span>
+    <div class="section-rule"></div>
+
+    <h2 class="section-title">¿Qué ofrecemos?</h2>
+
+    <div class="section-rule"></div>
+
+    <ul class="bullet-list">
+      <li>Un taller de investigación aplicada de 12 horas, estructurado en un programa base que recorre las principales etapas del proceso, con la posibilidad de profundizar en módulos especializados según interés o necesidad.</li>
+      <li>Revisaremos, desde la demanda inicial del cliente hasta la interpretación de resultados, combinando fundamentos metodológicos con herramientas utilizadas en contextos reales.</li>
+      <li>El objetivo es entregar la lógica de trabajo de la investigación, para transformar necesidades de información en resultados que faciliten la toma de decisiones.</li>
+      <li>Nuestro objetivo es llevar herramientas analíticas de frontera al mundo de las organizaciones, combinando el rigor metodológico de la investigación académica con la orientación práctica que requieren empresas, consultoras e instituciones públicas.</li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- A QUIÉN / QUÉ APRENDEREMOS -->
+<section id="audiencia">
+  <div class="container">
+    <div class="two-cols">
+
+      <div class="card-dark">
+        <span class="diagonal-icon" style="color:var(--magenta);">↙</span>
+        <div class="section-rule-dark"></div>
+        <h3>¿A QUIÉN<br>ESTÁ DIRIGIDO?</h3>
+        <div class="section-rule-dark"></div>
+        <p>Profesionales que trabajan o quieren desarrollarse en <strong style="color:#fff;">investigación aplicada</strong>, especialmente:</p>
+        <ul class="bullet-list-dark">
+          <li>Analistas en consultoras de estudios de mercado u opinión pública.</li>
+          <li>Equipos de research o insights en empresas.</li>
+          <li>Investigadores que buscan actualizar conocimientos metodológicos aplicados.</li>
+          <li>Asistentes de investigación.</li>
+          <li>Profesionales del sector público que trabajan con estudios o encuestas.</li>
+          <li>Estudiantes universitarios interesados en investigación aplicada.</li>
+        </ul>
+      </div>
+
+      <div class="card-light">
+        <span class="diagonal-icon" style="color:var(--purple-mid);">↙</span>
+        <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
+        <h3>¿QUÉ<br>APRENDEREMOS?</h3>
+        <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
+        <ul class="bullet-list-light">
+          <li>Traducir una inquietud de investigación en un diseño de estudio adecuado.</li>
+          <li>Entender el flujo de trabajo en investigación y cómo hacerlo más eficiente.</li>
+          <li>Elegir la estrategia metodológica más pertinente (cualitativa, cuantitativa o combinada).</li>
+          <li>Diseñar instrumentos de medición claros y rigurosos.</li>
+          <li>Identificar errores de diseño y sesgos de medición.</li>
+          <li>Evaluar la calidad de los datos e interpretar resultados con rigor.</li>
+          <li>Comprender la lógica detrás de herramientas analíticas.</li>
+          <li>Aplicar estos aprendizajes en casos prácticos reales.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTENIDOS TALLER BASE -->
+<section id="modulos-base">
+  <div class="container">
+    <h2 class="modulos-title"><strong>Contenidos</strong> <span>Taller Base</span></h2>
+    <div class="section-rule-dark" style="margin-bottom:40px;"></div>
+
+    <!-- Módulo 1 -->
+    <div class="modulo-card">
+      <div class="modulo-num">1</div>
+      <span class="modulo-label">Módulo 1</span>
+      <h3>De la inquietud del cliente<br>al diseño de estudio</h3>
+      <p class="modulo-desc">Cómo traducir una necesidad de información en una pregunta de investigación y un diseño metodológico adecuado.</p>
+      <ul class="bullet-list-dark">
+        <li>Recoger y estructurar la necesidad de información del cliente.</li>
+        <li>Traducir problemas en preguntas de investigación claras.</li>
+        <li>Definir objetivos y conceptos medibles.</li>
+        <li>Evaluar alternativas metodológicas (cualitativa, cuantitativa, combinada u otra).</li>
+        <li>Definir la estrategia de estudio (tipo, alcance y población).</li>
+        <li>Introducción a experimentos como herramienta de medición.</li>
+      </ul>
+    </div>
+
+    <!-- Módulo 2 -->
+    <div class="modulo-card">
+      <div class="modulo-num">2</div>
+      <span class="modulo-label">Módulo 2</span>
+      <h3>Diseño de instrumentos<br>y calidad en la medición</h3>
+      <p class="modulo-desc">Enfocado en el diseño de instrumentos de medición y la calidad de los datos en investigación aplicada, incluyendo cuestionarios y pautas cualitativas.</p>
+      <ul class="bullet-list-dark">
+        <li>Diseño de instrumentos de medición (cuestionarios y pautas cualitativas).</li>
+        <li>Traducción de conceptos en preguntas claras y comparables.</li>
+        <li>Tipos de preguntas, escalas y estructura de instrumentos.</li>
+        <li>Identificación de errores y sesgos de medición (ej. deseabilidad social).</li>
+        <li>Uso de experimentos como herramienta para mejorar la medición.</li>
+      </ul>
+    </div>
+
+    <!-- Módulo 3 -->
+    <div class="modulo-card">
+      <div class="modulo-num">3</div>
+      <span class="modulo-label">Módulo 3</span>
+      <h3>Producción y<br>análisis de datos</h3>
+      <p class="modulo-desc">Cómo trabajar con datos en investigación aplicada de manera ordenada, rigurosa y eficiente.</p>
+      <ul class="bullet-list-dark">
+        <li>Organización y estructuración de información para el análisis.</li>
+        <li>Evaluación de calidad de datos y detección de problemas.</li>
+        <li>Análisis de resultados e identificación de patrones.</li>
+        <li>Síntesis de hallazgos para su interpretación.</li>
+        <li>Optimización del flujo de trabajo con herramientas disponibles.</li>
+        <li>Aplicación en casos reales.</li>
+      </ul>
+    </div>
+
+    <!-- Módulo 4 -->
+    <div class="modulo-card">
+      <div class="modulo-num">4</div>
+      <span class="modulo-label">Módulo 4</span>
+      <h3>Interpretación de resultados<br>y toma de decisiones</h3>
+      <p class="modulo-desc">Criterios para evaluar resultados, identificar lo relevante y traducir hallazgos en decisiones.</p>
+      <ul class="bullet-list-dark">
+        <li>Interpretación de resultados según la pregunta de investigación.</li>
+        <li>Jerarquización de hallazgos: lo central vs. lo accesorio.</li>
+        <li>Evaluación de robustez y límites.</li>
+        <li>Definición del para qué de los hallazgos.</li>
+        <li>Formulación de recomendaciones accionables.</li>
+        <li>Discusión de casos reales.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- MÓDULOS DE PROFUNDIZACIÓN -->
+<section id="modulos-prof">
+  <div class="container">
+    <h2 class="modulos-title"><strong>Contenidos</strong> <span>Módulos de Profundización</span></h2>
+    <div class="section-rule-dark" style="margin-bottom:40px;"></div>
+
+    <div class="prof-card">
+      <div class="prof-card-header">
+        <div class="diagonal-arr">↘</div>
+        <div style="width:100%;height:1px;background:#ccc;margin-bottom:16px;"></div>
+        <h3>Profundización en herramientas y procesos específicos según necesidad</h3>
+        <div style="width:100%;height:1px;background:#ccc;margin-top:16px;"></div>
+      </div>
+      <ul class="bullet-list-light">
+        <li>Diseño de flujos de trabajo y automatización de reportes (ej. GitHub, Quarto).</li>
+        <li>Uso de software de investigación (R, Python).</li>
+        <li>Uso de plataformas de microworking para levantamiento de datos (ej. AMT, Prolific).</li>
+        <li>Diseño e implementación de A/B testing.</li>
+        <li>Programación de encuestas (ej. Qualtrics).</li>
+        <li>Diseño de experimentos en encuestas.</li>
+        <li>Conjoint y herramientas de pricing.</li>
+      </ul>
+      <div class="prof-note">
+        <span class="prof-asterisk">✳</span>
+        <span>Estos módulos se realizan posterior al taller base y requieren un número mínimo de participantes para su ejecución.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section id="equipo">
+  <div class="container">
+    <span class="flor-icon">✿</span>
+    <div class="section-rule"></div>
+    <h2 class="equipo-title">¿Quiénes te acompañarán?</h2>
+    <div class="section-rule"></div>
+
+    <div class="team-grid">
+
+      <div class="team-member">
+        <div class="member-photo">
+          <img src="img/mauricio.jpg" alt="Mauricio Bucca" onerror="this.style.display='none'" />
+        </div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <span class="member-name">Mauricio Bucca PhD</span>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">P.hD en Sociología Universidad de Cornell. Profesor en la Universidad Católica de Chile. Experto en movilidad social, modelación Bayesiana, estratificación y diseño de encuestas. Experiencia en consultoría, métodos experimentales y análisis de opinión pública.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-photo">
+          <img src="img/pablo.jpg" alt="Pablo Argote" onerror="this.style.display='none'" />
+        </div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <span class="member-name">Pablo Argote PhD / MPA</span>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">P.hD en Ciencia Política de la Universidad de Columbia. Investigador postdoctoral en University of Southern California. Especialista en comportamiento político, diseño de encuestas, estadística aplicada, inferencia causal. Experiencia en el ámbito académico y en consultoría.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-photo">
+          <img src="img/lucia.jpg" alt="Lucía Argote" onerror="this.style.display='none'" />
+        </div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <div>
+              <div class="member-name">Lucía Argote</div>
+              <div style="font-size:.8rem;color:var(--text-mid);">Socia Fundadora DobleA</div>
+            </div>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">Socióloga de la Universidad Diego Portales, con Magíster en Políticas Públicas y Diplomado en Análisis de Datos Avanzado. Experta en estudios de mercado, branding y consultoría estratégica para organizaciones públicas y privadas.</p>
+        </div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-photo">
+          <img src="img/isidora.jpg" alt="Isidora Aninat" onerror="this.style.display='none'" />
+        </div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <div>
+              <div class="member-name">Isidora Aninat</div>
+              <div style="font-size:.8rem;color:var(--text-mid);">Socia Fundadora DobleA</div>
+            </div>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">Socióloga de la Pontificia Universidad Católica de Chile, con Diplomado en Marketing Estratégico. Especialista en investigación cualitativa y moderación de grupos de conversación en estudios de mercado.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFORMACIÓN GENERAL -->
+<section id="info">
+  <div class="container">
+
+    <div class="info-logo">
+      <span class="info-logo-mark">doble<strong style="color:var(--magenta);">A</strong></span>
+    </div>
+
+    <div style="width:100%;height:1px;background:rgba(255,255,255,.25);margin-bottom:28px;"></div>
+    <h2 class="info-title">Información general</h2>
+    <div class="info-rule"></div>
+
+    <div class="info-grid">
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Fechas</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">
+          <strong>Taller base:</strong><br>Mayo 2026 (por confirmar fechas exactas)
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key"></div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">
+          <strong>Módulos de profundización:</strong><br>Posterior al Taller base
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Valores</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">
+          <strong>Taller base:</strong><br>$180.000 clp
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key"></div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">
+          <strong>Módulos de profundización:</strong><br>$90.000 clp
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Formato</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">Híbrido</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Beneficio</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">Descuento a estudiantes de pregrado</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Conocimiento previo</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">Nociones básicas de encuestas y análisis de datos</div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">↗</div>
+        <div class="info-key">Mayor información</div>
+        <div class="info-rule-sm"></div>
+        <div class="info-val">
+          <div class="info-contact-pill">María Paz Carreño &nbsp;|&nbsp; mpaz.carreno@dobleachile.cl &nbsp;|&nbsp; +56 9 747 646 63</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-spinner">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.5">
+        <line x1="40" y1="4" x2="40" y2="16" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="40" y1="64" x2="40" y2="76" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="4" y1="40" x2="16" y2="40" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="64" y1="40" x2="76" y2="40" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14.1" y1="14.1" x2="22.5" y2="22.5" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="57.5" y1="57.5" x2="65.9" y2="65.9" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="65.9" y1="14.1" x2="57.5" y2="22.5" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="22.5" y1="57.5" x2="14.1" y2="65.9" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 DobleA Estudios &amp; Estrategia · dobleachile.cl</p>
+</footer>
+
+</body>
+</html>
