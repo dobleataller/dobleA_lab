@@ -329,20 +329,18 @@
 
     /* ── INSTRUCTORES ASOCIADOS ──────────────────────────── */
     .asociados-title {
-      font-size: 1rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--text-mid); margin: 48px 0 20px;
+      font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--purple-mid); margin: 52px 0 16px;
     }
-    .team-member-asociado {
-      display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: start;
-      opacity: .85;
+    .asociados-list { display: grid; gap: 20px; }
+    .asociado-item {
+      border-left: 3px solid var(--purple-light);
+      padding: 14px 20px;
+      background: #fff;
+      border-radius: 0 8px 8px 0;
     }
-    .member-photo-sm {
-      width: 160px; height: 160px; border-radius: 10px;
-      background: #d8d4cf;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .member-photo-sm img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 10px; }
+    .asociado-name { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .asociado-bio { font-size: .85rem; color: var(--text-mid); line-height: 1.55; }
 
     /* ── FOOTER ─────────────────────────────────────────── */
     footer {
@@ -386,7 +384,7 @@
   <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
   <div class="hero-divider2"></div>
   <div style="margin-top:36px;">
-    <a href="#cta" class="cta-btn" style="font-size:1rem;padding:16px 44px;">Inscríbete acá →</a>
+    <a href="mailto:mpaz.carreno@dobleachile.cl?subject=Inscripción DobleA LAB" style="display:inline-block;background:linear-gradient(135deg,#F520A0,#6B21C8);color:#fff;font-weight:800;font-size:1rem;text-decoration:none;padding:16px 44px;border-radius:50px;letter-spacing:.04em;box-shadow:0 8px 32px rgba(240,32,160,.45);">Inscríbete acá →</a>
   </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
@@ -671,30 +669,16 @@
     <!-- Instructores Asociados -->
     <div class="section-rule" style="margin-top:48px;"></div>
     <p class="asociados-title">Instructores asociados</p>
-    <div class="team-grid">
+    <div class="asociados-list">
 
-      <div class="team-member-asociado">
-        <div class="member-photo-sm"></div>
-        <div class="member-info">
-          <div class="member-name-row">
-            <span class="member-star">✳</span>
-            <span class="member-name">Daniela Urbina</span>
-          </div>
-          <div class="member-rule"></div>
-          <p class="member-bio">University of Southern California (USC).</p>
-        </div>
+      <div class="asociado-item">
+        <div class="asociado-name">Daniela Urbina &nbsp;·&nbsp; <span style="font-weight:400;color:var(--purple-mid);">PhD Princeton · USC Dornsife</span></div>
+        <p class="asociado-bio">Doctora en Sociología y Política Social por la Universidad de Princeton. Profesora asistente en USC Dornsife. Especialista en demografía familiar, desigualdad de género y métodos cuantitativos. Su investigación examina las implicancias demográficas y culturales del avance educativo y económico de las mujeres en EE.UU. y América Latina, con foco en formación de parejas y desigualdades al interior del hogar. Ha publicado en <em>Demography</em>, <em>Journal of Marriage and Family</em> y <em>Sociological Methods and Research</em>.</p>
       </div>
 
-      <div class="team-member-asociado">
-        <div class="member-photo-sm"></div>
-        <div class="member-info">
-          <div class="member-name-row">
-            <span class="member-star">✳</span>
-            <span class="member-name">Giancarlo Viscoti</span>
-          </div>
-          <div class="member-rule"></div>
-          <p class="member-bio">University of Maryland.</p>
-        </div>
+      <div class="asociado-item">
+        <div class="asociado-name">Giancarlo Visconti &nbsp;·&nbsp; <span style="font-weight:400;color:var(--purple-mid);">PhD Columbia · University of Maryland</span></div>
+        <p class="asociado-bio">Doctor en Ciencia Política por la Universidad de Columbia. Profesor asistente en el Departamento de Gobierno y Política de la Universidad de Maryland. Especialista en métodos cuantitativos para inferencia causal —tanto en datos experimentales como observacionales— y en comportamiento político. Su investigación examina cómo el crimen, la migración y la incertidumbre moldean actitudes políticas, ideología y accountability.</p>
       </div>
 
     </div>
