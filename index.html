@@ -242,15 +242,15 @@
     .equipo-title { font-size: 1.5rem; font-weight: 700; color: var(--purple-mid); margin-bottom: 40px; }
     .team-grid { display: grid; gap: 32px; }
     .team-member {
-      display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: start;
+      display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: start;
     }
     .member-photo {
-      width: 160px; height: 200px; border-radius: 10px;
-      background: #e8e4df;
+      width: 160px; height: 210px; border-radius: 10px;
+      background: #d8d4cf;
       overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
-    .member-photo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+    .member-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 10px; }
     .member-info {}
     .member-name-row {
       display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
@@ -295,6 +295,55 @@
       display: flex; justify-content: flex-end; margin-top: 20px;
     }
 
+    /* ── CTA ─────────────────────────────────────────────── */
+    #cta {
+      background: var(--dark);
+      text-align: center;
+      padding: 80px 40px;
+    }
+    .cta-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--magenta); margin-bottom: 18px;
+    }
+    .cta-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: #fff;
+      max-width: 600px; margin: 0 auto 16px; line-height: 1.2;
+    }
+    .cta-sub {
+      font-size: 1rem; color: rgba(255,255,255,.65); margin-bottom: 40px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--magenta-bright), var(--purple-mid));
+      color: #fff; font-weight: 800; font-size: 1.1rem;
+      text-decoration: none;
+      padding: 20px 52px; border-radius: 50px;
+      letter-spacing: .04em;
+      box-shadow: 0 8px 32px rgba(240,32,160,.4);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(240,32,160,.55); }
+    .cta-note {
+      margin-top: 20px; font-size: .82rem; color: rgba(255,255,255,.4);
+    }
+
+    /* ── INSTRUCTORES ASOCIADOS ──────────────────────────── */
+    .asociados-title {
+      font-size: 1rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-mid); margin: 48px 0 20px;
+    }
+    .team-member-asociado {
+      display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: start;
+      opacity: .85;
+    }
+    .member-photo-sm {
+      width: 160px; height: 160px; border-radius: 10px;
+      background: #d8d4cf;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .member-photo-sm img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 10px; }
+
     /* ── FOOTER ─────────────────────────────────────────── */
     footer {
       background: #0A0010; color: rgba(255,255,255,.45);
@@ -325,6 +374,7 @@
     <li><a href="#modulos-base">Módulos</a></li>
     <li><a href="#equipo">Equipo</a></li>
     <li><a href="#info">Inscripción</a></li>
+    <li><a href="#cta" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
   </ul>
 </nav>
 
@@ -335,6 +385,9 @@
   <div class="hero-divider"></div>
   <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
   <div class="hero-divider2"></div>
+  <div style="margin-top:36px;">
+    <a href="#cta" class="cta-btn" style="font-size:1rem;padding:16px 44px;">Inscríbete acá →</a>
+  </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -614,6 +667,49 @@
       </div>
 
     </div>
+
+    <!-- Instructores Asociados -->
+    <div class="section-rule" style="margin-top:48px;"></div>
+    <p class="asociados-title">Instructores asociados</p>
+    <div class="team-grid">
+
+      <div class="team-member-asociado">
+        <div class="member-photo-sm"></div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <span class="member-name">Daniela Urbina</span>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">University of Southern California (USC).</p>
+        </div>
+      </div>
+
+      <div class="team-member-asociado">
+        <div class="member-photo-sm"></div>
+        <div class="member-info">
+          <div class="member-name-row">
+            <span class="member-star">✳</span>
+            <span class="member-name">Giancarlo Viscoti</span>
+          </div>
+          <div class="member-rule"></div>
+          <p class="member-bio">University of Maryland.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA INSCRIPCIÓN -->
+<section id="cta">
+  <div class="container">
+    <p class="cta-label">¿Listo para dar el siguiente paso?</p>
+    <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
+    <p class="cta-sub">Taller base · Mayo 2026 · Formato híbrido · $180.000 clp</p>
+    <a href="mailto:mpaz.carreno@dobleachile.cl?subject=Inscripción DobleA LAB" class="cta-btn">Inscríbete acá</a>
+    <p class="cta-note">Contacto: mpaz.carreno@dobleachile.cl &nbsp;·&nbsp; +56 9 747 646 63</p>
   </div>
 </section>
 
