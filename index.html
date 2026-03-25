@@ -38,8 +38,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 40px;
     }
-    nav .logo { color: #fff; font-size: 1.15rem; font-weight: 700; letter-spacing: .03em; }
-    nav .logo span { color: var(--magenta); }
+    nav .logo img { height: 42px; display: block; mix-blend-mode: screen; }
     nav ul { display: flex; gap: 28px; list-style: none; }
     nav ul a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .85rem; font-weight: 500; transition: color .2s; }
     nav ul a:hover { color: var(--magenta); }
@@ -366,14 +365,14 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">doble<span>A</span> LAB</div>
+  <div class="logo"><a href="#"><img src="img/logo.jpg" alt="DobleA LAB"></a></div>
   <ul>
     <li><a href="#oferta">Oferta</a></li>
     <li><a href="#audiencia">¿A quién?</a></li>
     <li><a href="#modulos-base">Módulos</a></li>
     <li><a href="#equipo">Equipo</a></li>
     <li><a href="#info">Inscripción</a></li>
-    <li><a href="#cta" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
   </ul>
 </nav>
 
@@ -385,7 +384,7 @@
   <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
   <div class="hero-divider2"></div>
   <div style="margin-top:36px;">
-    <a href="#cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'});return false;" style="display:inline-block;background:linear-gradient(135deg,#F520A0,#6B21C8);color:#fff;font-weight:800;font-size:1rem;text-decoration:none;padding:16px 44px;border-radius:50px;letter-spacing:.04em;box-shadow:0 8px 32px rgba(240,32,160,.45);">Inscríbete acá →</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#F520A0,#6B21C8);color:#fff;font-weight:800;font-size:1rem;text-decoration:none;padding:16px 44px;border-radius:50px;letter-spacing:.04em;box-shadow:0 8px 32px rgba(240,32,160,.45);position:relative;z-index:10;">Inscríbete acá →</a>
   </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
@@ -693,7 +692,7 @@
     <p class="cta-label">¿Listo para dar el siguiente paso?</p>
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
     <p class="cta-sub">Taller base · Mayo 2026 · Formato híbrido · $180.000 clp</p>
-    <a href="mailto:mpaz.carreno@dobleachile.cl?subject=Inscripción DobleA LAB" class="cta-btn">Inscríbete acá</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" class="cta-btn">Inscríbete acá</a>
     <p class="cta-note">Contacto: mpaz.carreno@dobleachile.cl &nbsp;·&nbsp; +56 9 747 646 63</p>
   </div>
 </section>
