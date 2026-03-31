@@ -220,6 +220,46 @@
       font-size: .8rem; font-weight: 700; letter-spacing: .04em;
       margin-bottom: 10px;
     }
+    .modulo-instructors {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 18px;
+    }
+    .modulo-instructors span {
+      background: rgba(107,33,200,.15);
+      border: 1px solid var(--purple-light);
+      color: var(--purple-light);
+      font-size: .75rem; font-weight: 700;
+      padding: 3px 11px; border-radius: 20px;
+    }
+    .modulo-instructors .instructor-guest {
+      background: rgba(245,100,30,.1);
+      border-color: #f5641e; color: #f5a070;
+    }
+    .modulo-sessions { margin-top: 4px; }
+    .modulo-session { margin-bottom: 4px; }
+    .session-header {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .session-num {
+      background: var(--purple-light); color: #fff;
+      font-size: .7rem; font-weight: 800;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .session-time {
+      font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.45);
+      letter-spacing: .05em;
+    }
+    .session-who {
+      font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.55);
+      font-style: italic;
+    }
+    .session-break {
+      text-align: center; font-size: .68rem; color: rgba(255,255,255,.25);
+      letter-spacing: .1em; padding: 4px 0 8px;
+    }
     .modulo-num {
       float: right;
       width: 44px; height: 44px;
@@ -523,14 +563,32 @@
       <span class="modulo-fecha">Miércoles 6 de mayo · 6–9 PM</span>
       <h3>De la inquietud del cliente<br>al diseño de estudio</h3>
       <p class="modulo-desc">Cómo traducir una necesidad de información en una pregunta de investigación y un diseño metodológico adecuado.</p>
-      <ul class="bullet-list-dark">
-        <li>Recoger y estructurar la necesidad de información del cliente.</li>
-        <li>Traducir problemas en preguntas de investigación claras.</li>
-        <li>Definir objetivos y conceptos medibles.</li>
-        <li>Evaluar alternativas metodológicas (cualitativa, cuantitativa, combinada u otra).</li>
-        <li>Definir la estrategia de estudio (tipo, alcance y población).</li>
-        <li>Introducción a experimentos como herramienta de medición.</li>
-      </ul>
+      <div class="modulo-instructors"><span>Isidora Aninat</span><span>Lucía Argote</span></div>
+      <div class="modulo-sessions">
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">1</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Recoger y estructurar la necesidad del cliente.</li>
+            <li>Traducir problemas en preguntas de investigación claras.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">2</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Definir objetivos y conceptos medibles.</li>
+            <li>Evaluar alternativas metodológicas (cualitativa, cuantitativa, combinada).</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">3</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Definir la estrategia de estudio (tipo, alcance y población).</li>
+            <li>Ejercicio práctico.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Módulo 2 -->
@@ -539,14 +597,33 @@
       <span class="modulo-label">Módulo 2</span>
       <span class="modulo-fecha">Miércoles 13 de mayo · 6–9 PM</span>
       <h3>Diseño de instrumentos<br>y calidad en la medición</h3>
-      <p class="modulo-desc">Enfocado en el diseño de instrumentos de medición y la calidad de los datos en investigación aplicada, incluyendo cuestionarios y pautas cualitativas.</p>
-      <ul class="bullet-list-dark">
-        <li>Diseño de instrumentos de medición (cuestionarios y pautas cualitativas).</li>
-        <li>Traducción de conceptos en preguntas claras y comparables.</li>
-        <li>Tipos de preguntas, escalas y estructura de instrumentos.</li>
-        <li>Identificación de errores y sesgos de medición (ej. deseabilidad social).</li>
-        <li>Uso de experimentos como herramienta para mejorar la medición.</li>
-      </ul>
+      <p class="modulo-desc">Diseño de instrumentos de medición, calidad de datos y experimentos aplicados a la investigación.</p>
+      <div class="modulo-instructors"><span>Pablo Argote</span><span class="instructor-guest">Giancarlo Visconti <em>·&nbsp;invitado</em></span></div>
+      <div class="modulo-sessions">
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">1</span><span class="session-time">50 min</span><span class="session-who">Pablo Argote</span></div>
+          <ul class="bullet-list-dark">
+            <li>Traducción de conceptos en preguntas claras y comparables.</li>
+            <li>Tipos de preguntas, escalas y estructura de instrumentos.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">2</span><span class="session-time">50 min</span><span class="session-who">Pablo Argote</span></div>
+          <ul class="bullet-list-dark">
+            <li>Diseño de cuestionarios y pautas cualitativas.</li>
+            <li>Identificación de errores y sesgos de medición (ej. deseabilidad social).</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">3</span><span class="session-time">50 min</span><span class="session-who">Giancarlo Visconti</span></div>
+          <ul class="bullet-list-dark">
+            <li>Experimentos como herramienta para mejorar la medición.</li>
+            <li>Diseños experimentales en encuestas: aplicación práctica.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Módulo 3 -->
@@ -556,14 +633,32 @@
       <span class="modulo-fecha">Martes 19 de mayo · 6–9 PM</span>
       <h3>Producción y<br>análisis de datos</h3>
       <p class="modulo-desc">Cómo trabajar con datos en investigación aplicada de manera ordenada, rigurosa y eficiente.</p>
-      <ul class="bullet-list-dark">
-        <li>Organización y estructuración de información para el análisis.</li>
-        <li>Evaluación de calidad de datos y detección de problemas.</li>
-        <li>Análisis de resultados e identificación de patrones.</li>
-        <li>Síntesis de hallazgos para su interpretación.</li>
-        <li>Optimización del flujo de trabajo con herramientas disponibles.</li>
-        <li>Aplicación en casos reales.</li>
-      </ul>
+      <div class="modulo-instructors"><span>Pablo Argote</span><span>Mauricio Bucca</span></div>
+      <div class="modulo-sessions">
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">1</span><span class="session-time">50 min</span><span class="session-who">Pablo Argote</span></div>
+          <ul class="bullet-list-dark">
+            <li>Organización de información para el análisis.</li>
+            <li>Evaluación de calidad de datos y detección de problemas.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">2</span><span class="session-time">50 min</span><span class="session-who">Pablo Argote · Mauricio Bucca</span></div>
+          <ul class="bullet-list-dark">
+            <li>Análisis de resultados e identificación de patrones.</li>
+            <li>Uso de software y AI para análisis de datos.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">3</span><span class="session-time">50 min</span><span class="session-who">Mauricio Bucca</span></div>
+          <ul class="bullet-list-dark">
+            <li>Síntesis de hallazgos para su interpretación.</li>
+            <li>Aplicación en casos reales.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Módulo 4 -->
@@ -573,14 +668,32 @@
       <span class="modulo-fecha">Miércoles 27 de mayo · 6–9 PM</span>
       <h3>Interpretación de resultados<br>y toma de decisiones</h3>
       <p class="modulo-desc">Criterios para evaluar resultados, identificar lo relevante y traducir hallazgos en decisiones.</p>
-      <ul class="bullet-list-dark">
-        <li>Interpretación de resultados según la pregunta de investigación.</li>
-        <li>Jerarquización de hallazgos: lo central vs. lo accesorio.</li>
-        <li>Evaluación de robustez y límites.</li>
-        <li>Definición del para qué de los hallazgos.</li>
-        <li>Formulación de conclusiones y recomendaciones.</li>
-        <li>Discusión de casos reales.</li>
-      </ul>
+      <div class="modulo-instructors"><span>Mauricio Bucca</span></div>
+      <div class="modulo-sessions">
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">1</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Interpretación de resultados según la pregunta de investigación.</li>
+            <li>Jerarquización de hallazgos: lo central vs. lo accesorio.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">2</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Evaluación de robustez y límites.</li>
+            <li>Definición del para qué de los hallazgos.</li>
+          </ul>
+        </div>
+        <div class="session-break">— break 10 min —</div>
+        <div class="modulo-session">
+          <div class="session-header"><span class="session-num">3</span><span class="session-time">50 min</span></div>
+          <ul class="bullet-list-dark">
+            <li>Formulación de conclusiones y recomendaciones.</li>
+            <li>Discusión de casos reales.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
   </div>
