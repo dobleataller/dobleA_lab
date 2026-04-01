@@ -7,21 +7,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-DNFLXYYRFY', {
-      send_page_view: false,
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: window.location.pathname + window.location.search
-    });
-
-    window.addEventListener('load', function () {
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: window.location.href,
-        page_path: window.location.pathname + window.location.search
-      });
-    });
+    gtag('config', 'G-DNFLXYYRFY');
 
     document.addEventListener('click', function (event) {
       var link = event.target.closest('a');
@@ -1297,15 +1283,15 @@
     <div class="visual-topline">
       <div class="visual-copy">
         <p class="section-label" style="color:rgba(255,255,255,.58);">Recursos y ejemplos</p>
-        <h2 class="section-title" style="color:#fff;margin-bottom:14px;">La media nacional no cuenta toda la historia</h2>
+        <h2 class="section-title" style="color:#fff;margin-bottom:14px;">Aprobación presidencial de Gabriel Boric en Chile, 2025</h2>
         <div class="section-rule-dark"></div>
-        <p>Un ejemplo concreto del tipo de recurso aplicado que queremos ir subiendo a esta web. Estimamos aprobación presidencial regional para Chile usando microdatos públicos del CEP y un modelo multinivel con postestratificación. La línea punteada marca la media nacional, pero el punto del gráfico es otro: mostrar cuánta heterogeneidad queda escondida cuando miramos solo un promedio.</p>
+        <p>Un ejemplo concreto del tipo de recurso aplicado que queremos ir subiendo a esta web. El gráfico muestra una estimación regional de la aprobación presidencial de Gabriel Boric en Chile, construida con microdatos públicos de la encuesta CEP 2025 y un modelo multinivel con postestratificación (MRP), una técnica desarrollada en este campo por Thomas Little y Andrew Gelman. La gracia es que CEP no está diseñada para ser representativa a nivel regional y, en varias regiones, hay pocas observaciones. Justamente por eso MRP importa: permite obtener porcentajes regionales mucho más robustos e informativos, incluso cuando el N local es bajo, en vez de leer los datos crudos como si cada región tuviera muestra suficiente.</p>
       </div>
 
       <div class="national-card">
         <span class="national-kicker">Media nacional</span>
         <div class="national-value">29,4%</div>
-        <p class="national-note">Sirve como referencia, no como resumen suficiente. Trabajo de campo CEP entre el 22 de septiembre y el 17 de octubre de 2025.</p>
+        <p class="national-note">Sirve como referencia, no como resumen suficiente. Estimación basada en CEP 2025, con trabajo de campo entre el 22 de septiembre y el 17 de octubre.</p>
       </div>
     </div>
 
@@ -1313,8 +1299,8 @@
       <div class="visual-chart-card">
         <div class="chart-head">
           <div>
-            <div class="chart-title">Heterogeneidad regional de la aprobación</div>
-            <div class="chart-subtitle">Estimación MRP ordenada de mayor a menor para ver dispersión, no solo promedio</div>
+            <div class="chart-title">Heterogeneidad regional en la aprobación de Boric</div>
+            <div class="chart-subtitle">Estimación MRP a partir de microdatos CEP 2025, ordenada para ver dispersión y no solo promedio</div>
           </div>
           <div class="chart-legend">
             <span class="chart-legend-line"></span>
@@ -1398,14 +1384,14 @@
           </div>
         </div>
 
-        <p class="visual-footnote">Fuente: microdatos públicos CEP N°95. Estimación propia con MRP. En regiones con pocos casos, la lectura debe ser direccional y no literal.</p>
+        <p class="visual-footnote">Fuente: microdatos públicos CEP N°95. Estimación propia con MRP. Como CEP no es representativa por región, el ajuste es precisamente lo que permite producir estimaciones regionales más plausibles con pocos casos locales.</p>
       </div>
 
       <div class="visual-insight-card">
         <div class="insight-chip">Recurso aplicado</div>
         <h3>La referencia nacional aplana diferencias importantes</h3>
         <p>El 29,4% nacional esconde un rango regional amplio: desde 18,6% en Los Lagos hasta 39,5% en Magallanes. Dicho simple, hablar solo de “la aprobación del presidente” deja fuera brechas territoriales de más de 20 puntos.</p>
-        <p>Metropolitana queda sobre la media y además tiene la base muestral más robusta. En regiones con pocos casos, la lectura tiene que ser más cuidadosa: ahí el valor del MRP es justamente ayudar a separar señal de ruido.</p>
+        <p>Metropolitana queda sobre la media y además tiene la base muestral más robusta. En regiones con pocos casos, la lectura tiene que ser más cuidadosa: ahí el valor del MRP es justamente ayudar a separar señal de ruido y hacer posible una estimación regional aunque la encuesta no haya sido diseñada para representar bien a cada región por separado.</p>
 
         <div class="insight-mini-grid">
           <div class="insight-mini">
