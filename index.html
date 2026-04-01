@@ -35,10 +35,20 @@
           link_url: link.href
         });
       }
+
+      if (link.href && link.href.indexOf('Brochure_TallerDobleA.pdf') !== -1) {
+        gtag('event', 'file_download', {
+          event_category: 'engagement',
+          event_label: 'Brochure Taller DobleA',
+          file_name: 'Brochure_TallerDobleA.pdf',
+          link_url: link.href
+        });
+      }
     });
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Taller de investigación aplicada para transformar necesidades de información en decisiones. Fechas, módulos y detalles de DobleA LAB." />
   <meta property="og:title" content="Taller DobleA Lab — Análisis de datos para decisiones" />
   <meta property="og:description" content="Aprende a transformar necesidades de información en resultados que orientan decisiones. Formato híbrido, inicia el 6 de mayo 2026." />
   <meta property="og:image" content="https://dobleataller.github.io/dobleA_lab/img/og-preview.jpg" />
@@ -49,6 +59,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://dobleataller.github.io/dobleA_lab/img/og-preview.jpg" />
   <title>DobleA LAB – Taller de investigación aplicada</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -136,6 +147,78 @@
       width: 70px; height: 70px; opacity: .7;
     }
     .spinner-icon svg { width: 100%; height: 100%; }
+    .hero-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+    .hero-btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg,#F520A0,#6B21C8);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 16px 44px;
+      border-radius: 50px;
+      letter-spacing: .04em;
+      box-shadow: 0 8px 32px rgba(240,32,160,.45);
+    }
+    .hero-btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 15px 36px;
+      border-radius: 50px;
+      letter-spacing: .04em;
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+
+    /* ── RESUMEN RÁPIDO ─────────────────────────────────── */
+    #resumen {
+      background: #fff;
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .summary-card {
+      background: linear-gradient(180deg, #fff 0%, #f8f5f0 100%);
+      border: 1px solid #e0d8d0;
+      border-radius: 18px;
+      padding: 22px 20px;
+      min-height: 156px;
+    }
+    .summary-kicker {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--purple-mid);
+      margin-bottom: 10px;
+    }
+    .summary-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .summary-note {
+      font-size: .86rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
 
     /* ── SECTION COMMON ─────────────────────────────────── */
     section { padding: 80px 40px; }
@@ -179,9 +262,33 @@
       color: var(--purple-mid); margin-bottom: 12px;
     }
     .quienes-box p { font-size: .97rem; color: var(--text-mid); line-height: 1.65; }
+    .value-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 28px;
+    }
+    .value-card {
+      background: #fff;
+      border: 1px solid #ddd7d0;
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .value-card h3 {
+      color: var(--purple-mid);
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .value-card p {
+      color: var(--text-mid);
+      font-size: .92rem;
+      line-height: 1.6;
+    }
 
     /* ── DIRIGIDO / APRENDEMOS ──────────────────────────── */
     #audiencia { background: var(--dark); color: #fff; }
+    .audiencia-stack { display: grid; gap: 24px; }
     .two-cols {
       display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
     }
@@ -220,6 +327,17 @@
     }
     .bullet-list-light li::before { content: '•'; color: var(--magenta); flex-shrink: 0; margin-top: 2px; }
     .bullet-list-light li:last-child { border-bottom: none; }
+    .wide-light-card {
+      background: var(--light-bg);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .wide-light-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--purple-mid);
+      margin-bottom: 18px;
+    }
 
     /* ── MÓDULOS BASE ───────────────────────────────────── */
     #modulos-base { background: var(--dark); color: #fff; }
@@ -268,6 +386,7 @@
     .session-header {
       display: flex; align-items: center; gap: 8px;
       margin-bottom: 6px;
+      flex-wrap: wrap;
     }
     .session-num {
       background: var(--purple-light); color: #fff;
@@ -327,6 +446,41 @@
     }
     .prof-note span { font-size: .85rem; color: #fff; line-height: 1.45; }
     .prof-asterisk { font-size: 1.3rem; color: #fff; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── PRONTO ─────────────────────────────────────────── */
+    #pronto { background: #fff; }
+    .pronto-box {
+      background: linear-gradient(145deg, rgba(59,15,140,.06) 0%, rgba(224,64,160,.08) 100%);
+      border: 1px solid rgba(59,15,140,.12);
+      border-radius: 18px;
+      padding: 36px;
+    }
+    .pronto-box h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--purple-mid);
+      margin-bottom: 12px;
+    }
+    .pronto-box p {
+      color: var(--text-mid);
+      font-size: .95rem;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill-row span {
+      background: rgba(107,33,200,.08);
+      border: 1px solid rgba(107,33,200,.2);
+      color: var(--purple-mid);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: .84rem;
+      font-weight: 700;
+    }
 
     /* ── EQUIPO ─────────────────────────────────────────── */
     #equipo { background: var(--light-bg); }
@@ -433,22 +587,80 @@
     .asociado-name { font-size: .95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
     .asociado-bio { font-size: .85rem; color: var(--text-mid); line-height: 1.55; }
 
+    /* ── FAQ ────────────────────────────────────────────── */
+    #faq { background: #fff; }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .faq-item {
+      background: #faf7f3;
+      border: 1px solid #e2dbd3;
+      border-radius: 16px;
+      padding: 22px;
+    }
+    .faq-item h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--purple-mid);
+      margin-bottom: 10px;
+    }
+    .faq-item p {
+      font-size: .92rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
     /* ── FOOTER ─────────────────────────────────────────── */
     footer {
       background: #0A0010; color: rgba(255,255,255,.45);
       text-align: center; padding: 24px 40px;
       font-size: .8rem;
     }
+    .footer-links {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+    }
 
     /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: 1fr 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 700px) {
       nav { padding: 12px 20px; }
-      nav ul { gap: 14px; }
+      nav ul { gap: 12px; overflow-x: auto; padding-bottom: 4px; }
+      nav .logo img { height: 56px; }
       section { padding: 60px 20px; }
       .two-cols { grid-template-columns: 1fr; }
       .team-member { grid-template-columns: 1fr; }
       .member-photo { width: 100%; height: 200px; }
       .info-grid { grid-template-columns: 1fr; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-btn-primary, .hero-btn-secondary { text-align: center; }
+      .modulo-card { padding: 22px 20px 24px; }
+      .modulo-num { width: 36px; height: 36px; font-size: .78rem; }
+      .modulo-session {
+        background: rgba(255,255,255,.03);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 0;
+      }
+      .modulo-sessions { display: grid; gap: 12px; }
+      .session-break { padding: 0; }
+      .info-contact-pill { padding: 10px 14px; line-height: 1.5; }
+      .pronto-box, .wide-light-card, .card-dark, .card-light, .faq-item { padding: 24px; }
     }
   </style>
 </head>
@@ -462,8 +674,9 @@
     <li><a href="#audiencia">¿A quién?</a></li>
     <li><a href="#modulos-base">Módulos</a></li>
     <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#info">Información general</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
   </ul>
 </nav>
 
@@ -474,9 +687,9 @@
   <div class="hero-divider"></div>
   <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
   <div class="hero-divider2"></div>
-  <div style="margin-top:36px;">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#F520A0,#6B21C8);color:#fff;font-weight:800;font-size:1rem;text-decoration:none;padding:16px 44px;border-radius:50px;letter-spacing:.04em;box-shadow:0 8px 32px rgba(240,32,160,.45);position:relative;z-index:10;">Inscríbete acá →</a>
-    <a href="Brochure_TallerDobleA.pdf" download style="display:inline-block;margin-left:16px;background:transparent;color:#fff;font-weight:700;font-size:1rem;text-decoration:none;padding:15px 36px;border-radius:50px;letter-spacing:.04em;border:2px solid rgba(255,255,255,0.7);position:relative;z-index:10;">↓ Descargar brochure</a>
+  <div class="hero-actions">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
+    <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
   </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
@@ -492,6 +705,33 @@
         <line x1="22.5" y1="57.5" x2="14.1" y2="65.9" stroke="white" stroke-width="3" stroke-linecap="round"/>
       </g>
     </svg>
+  </div>
+</section>
+
+<section id="resumen">
+  <div class="container">
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-kicker">Fechas</div>
+        <div class="summary-value">6, 13, 19 y 27 de mayo</div>
+        <p class="summary-note">Cuatro módulos base, de 6 a 9 PM, en formato híbrido.</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Valores</div>
+        <div class="summary-value">$180.000 general</div>
+        <p class="summary-note">$160.000 pagando antes del 6 de abril. Estudiantes: $150.000 y preventa a $130.000.</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Formato</div>
+        <div class="summary-value">Híbrido + 16 horas</div>
+        <p class="summary-note">Un recorrido estructurado por el ciclo completo de la investigación aplicada.</p>
+      </div>
+      <div class="summary-card">
+        <div class="summary-kicker">Base mínima</div>
+        <div class="summary-value">Nociones básicas de encuestas y datos</div>
+        <p class="summary-note">No necesitas ser experto, pero sí llegar con interés por aprender y aplicar.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -533,47 +773,69 @@
       <li>Entregamos una lógica de trabajo clara y replicable, orientada a transformar necesidades de información en resultados útiles para la toma de decisiones.</li>
     </ul>
 
+    <div class="value-grid">
+      <div class="value-card">
+        <h3>¿Por qué tomar este taller?</h3>
+        <p>Porque no se queda solo en herramientas sueltas: ordena el proceso completo, desde la pregunta inicial hasta la lectura de resultados y su traducción en decisiones concretas.</p>
+      </div>
+      <div class="value-card">
+        <h3>¿Con qué te vas?</h3>
+        <p>Con una forma de trabajar más clara y replicable para diseñar estudios, elegir estrategias metodológicas, ordenar información, analizar datos y comunicar hallazgos con criterio.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- A QUIÉN / QUÉ APRENDEREMOS -->
 <section id="audiencia">
   <div class="container">
-    <div class="two-cols">
+    <div class="audiencia-stack">
+      <div class="two-cols">
 
-      <div class="card-dark">
-        <span class="diagonal-icon" style="color:var(--magenta);">↙</span>
-        <div class="section-rule-dark"></div>
-        <h3>¿A QUIÉN<br>ESTÁ DIRIGIDO?</h3>
-        <div class="section-rule-dark"></div>
-        <p>Profesionales que trabajan o quieren desarrollarse en <strong style="color:#fff;">investigación aplicada</strong>, especialmente:</p>
-        <ul class="bullet-list-dark">
-          <li>Analistas en consultoras de estudios de mercado u opinión pública.</li>
-          <li>Equipos de research o insights en empresas.</li>
-          <li>Investigadores que buscan actualizar conocimientos metodológicos aplicados.</li>
-          <li>Asistentes de investigación.</li>
-          <li>Profesionales del sector público que trabajan con estudios o encuestas.</li>
-          <li>Estudiantes universitarios interesados en investigación aplicada.</li>
-        </ul>
+        <div class="card-dark">
+          <span class="diagonal-icon" style="color:var(--magenta);">↙</span>
+          <div class="section-rule-dark"></div>
+          <h3>ESTO ES<br>PARA TI SI...</h3>
+          <div class="section-rule-dark"></div>
+          <p>Quieres trabajar mejor en <strong style="color:#fff;">investigación aplicada</strong> y ordenar de forma más rigurosa tu proceso de trabajo.</p>
+          <ul class="bullet-list-dark">
+            <li>Trabajas en consultoría, estudios de mercado, opinión pública o insights.</li>
+            <li>Participas en diseño de encuestas, estudios cualitativos o análisis de resultados.</li>
+            <li>Quieres actualizar conocimientos metodológicos con una lógica aplicada.</li>
+            <li>Te interesa conectar mejor diseño, medición, análisis y toma de decisiones.</li>
+            <li>Buscas herramientas útiles para sector privado, academia o sector público.</li>
+          </ul>
+        </div>
+
+        <div class="card-light">
+          <span class="diagonal-icon" style="color:var(--purple-mid);">↙</span>
+          <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
+          <h3>NO NECESITAS...</h3>
+          <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
+          <ul class="bullet-list-light">
+            <li>No necesitas venir con manejo avanzado de software.</li>
+            <li>No necesitas tener experiencia profunda programando.</li>
+            <li>No necesitas dedicarte exclusivamente al mundo académico.</li>
+            <li>No necesitas dominar todas las metodologías antes de entrar.</li>
+            <li>Sí ayuda llegar con nociones básicas de encuestas y análisis de datos.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="card-light">
-        <span class="diagonal-icon" style="color:var(--purple-mid);">↙</span>
-        <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
-        <h3>¿QUÉ<br>APRENDEREMOS?</h3>
-        <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
+      <div class="wide-light-card">
+        <h3>¿Qué te llevarás del taller?</h3>
         <ul class="bullet-list-light">
           <li>Traducir una inquietud de investigación en un diseño de estudio adecuado.</li>
           <li>Entender el flujo de trabajo en investigación y cómo hacerlo más eficiente.</li>
-          <li>Elegir la estrategia metodológica más pertinente (cualitativa, cuantitativa o combinada).</li>
+          <li>Elegir la estrategia metodológica más pertinente: cualitativa, cuantitativa o combinada.</li>
           <li>Diseñar instrumentos de medición claros y rigurosos.</li>
           <li>Identificar errores de diseño y sesgos de medición.</li>
           <li>Evaluar la calidad de los datos e interpretar resultados con rigor.</li>
-          <li>Comprender la lógica detrás de herramientas analíticas.</li>
+          <li>Comprender la lógica detrás de herramientas analíticas, incluyendo software e IA.</li>
           <li>Aplicar estos aprendizajes en casos prácticos reales.</li>
         </ul>
       </div>
-
     </div>
   </div>
 </section>
@@ -760,6 +1022,26 @@
   </div>
 </section>
 
+<section id="pronto">
+  <div class="container">
+    <span class="flor-icon">✿</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">Pronto en la web</h2>
+    <div class="section-rule"></div>
+    <div class="pronto-box">
+      <h3>Vamos a seguir completando esta página con más contenido</h3>
+      <p>Durante las próximas semanas iremos subiendo material para mostrar mejor el enfoque del taller y abrir parte de la cocina de trabajo de DobleA LAB. La idea es que la web vaya creciendo junto con el programa.</p>
+      <div class="pill-row">
+        <span>Visualizaciones</span>
+        <span>Código</span>
+        <span>Ejemplos aplicados</span>
+        <span>Programa más detallado</span>
+        <span>Material complementario</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- EQUIPO -->
 <section id="equipo">
   <div class="container">
@@ -773,7 +1055,7 @@
 
       <div class="team-member">
         <div class="member-photo">
-          <img src="img/mauricio.jpg" alt="Mauricio Bucca" onerror="this.style.display='none'" />
+          <img src="img/mauricio.jpg" alt="Mauricio Bucca" loading="lazy" decoding="async" onerror="this.style.display='none'" />
         </div>
         <div class="member-info">
           <div class="member-name-row">
@@ -787,7 +1069,7 @@
 
       <div class="team-member">
         <div class="member-photo">
-          <img src="img/pablo.jpg" alt="Pablo Argote" onerror="this.style.display='none'" />
+          <img src="img/pablo.jpg" alt="Pablo Argote" loading="lazy" decoding="async" onerror="this.style.display='none'" />
         </div>
         <div class="member-info">
           <div class="member-name-row">
@@ -801,7 +1083,7 @@
 
       <div class="team-member">
         <div class="member-photo">
-          <img src="img/lucia.jpg" alt="Lucía Argote" onerror="this.style.display='none'" />
+          <img src="img/lucia.jpg" alt="Lucía Argote" loading="lazy" decoding="async" onerror="this.style.display='none'" />
         </div>
         <div class="member-info">
           <div class="member-name-row">
@@ -818,7 +1100,7 @@
 
       <div class="team-member">
         <div class="member-photo">
-          <img src="img/isidora.jpg" alt="Isidora Aninat" onerror="this.style.display='none'" />
+          <img src="img/isidora.jpg" alt="Isidora Aninat" loading="lazy" decoding="async" onerror="this.style.display='none'" />
         </div>
         <div class="member-info">
           <div class="member-name-row">
@@ -865,12 +1147,47 @@
   </div>
 </section>
 
+<section id="faq">
+  <div class="container">
+    <span class="flor-icon">✿</span>
+    <div class="section-rule"></div>
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <div class="section-rule"></div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>¿Necesito saber programar?</h3>
+        <p>No. Ayuda tener familiaridad básica con datos y encuestas, pero el taller no está pensado solo para personas que programan.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Es solo para academia?</h3>
+        <p>No. El foco es investigación aplicada, por lo que el contenido conversa con consultoría, empresas, sector público y también con quienes vienen del mundo académico.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Qué software se va a usar?</h3>
+        <p>Trabajaremos con la lógica detrás de distintas herramientas y mostraremos usos de software e IA aplicados al análisis de datos e investigación.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Puedo tomar solo algunos módulos?</h3>
+        <p>El taller está pensado como un recorrido completo. Si más adelante abrimos modalidades más flexibles, lo vamos a anunciar en esta misma web.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Habrá un programa más detallado?</h3>
+        <p>Sí. Ya tenemos definidas las fechas de los módulos y pronto subiremos un programa más específico con mayor detalle por sesión.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Habrá material disponible en la página?</h3>
+        <p>Sí. Vamos a ir subiendo visualizaciones, código, ejemplos y material complementario para que la web también funcione como vitrina del proyecto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA INSCRIPCIÓN -->
 <section id="cta">
   <div class="container">
     <p class="cta-label">¿Listo para dar el siguiente paso?</p>
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" class="cta-btn">Inscríbete acá</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
     <p class="cta-note">Contacto: mpaz.carreno@dobleachile.cl &nbsp;·&nbsp; +56 9 747 646 63</p>
   </div>
 </section>
@@ -972,6 +1289,10 @@
 
 <footer>
   <p>© 2026 DobleA Estudios &amp; Estrategia · dobleachile.cl</p>
+  <div class="footer-links">
+    <a href="mailto:mpaz.carreno@dobleachile.cl">mpaz.carreno@dobleachile.cl</a>
+    <a href="https://dobleachile.cl" target="_blank" rel="noopener noreferrer">dobleachile.cl</a>
+  </div>
 </footer>
 
 </body>
