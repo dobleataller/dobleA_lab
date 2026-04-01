@@ -447,6 +447,266 @@
     .prof-note span { font-size: .85rem; color: #fff; line-height: 1.45; }
     .prof-asterisk { font-size: 1.3rem; color: #fff; flex-shrink: 0; margin-top: 1px; }
 
+    /* ── VISUALIZACIÓN ─────────────────────────────────── */
+    #recursos {
+      background:
+        radial-gradient(circle at top right, rgba(245,32,160,.18), transparent 34%),
+        radial-gradient(circle at left 20%, rgba(139,92,246,.2), transparent 28%),
+        linear-gradient(160deg, #12041f 0%, #1b0838 45%, #0b0614 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .visual-shell {
+      position: relative;
+      z-index: 1;
+    }
+    .visual-topline {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, .9fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 32px;
+    }
+    .visual-copy p {
+      color: rgba(255,255,255,.72);
+      font-size: .98rem;
+      line-height: 1.7;
+      max-width: 640px;
+    }
+    .national-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px;
+      padding: 24px 26px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.2);
+    }
+    .national-kicker {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.68);
+      margin-bottom: 12px;
+    }
+    .national-value {
+      font-size: clamp(2.3rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .national-note {
+      color: rgba(255,255,255,.78);
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .visual-frame {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(260px, .9fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .visual-chart-card,
+    .visual-insight-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 26px;
+      padding: 28px;
+      backdrop-filter: blur(10px);
+    }
+    .visual-chart-card {
+      --national: 29.4;
+    }
+    .chart-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    .chart-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .chart-subtitle {
+      margin-top: 6px;
+      color: rgba(255,255,255,.62);
+      font-size: .86rem;
+    }
+    .chart-legend {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,.72);
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+    .chart-legend-line {
+      width: 34px;
+      height: 0;
+      border-top: 2px dashed rgba(255,255,255,.8);
+    }
+    .chart-scale {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      color: rgba(255,255,255,.34);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 14px 164px;
+    }
+    .regional-list {
+      display: grid;
+      gap: 10px;
+    }
+    .regional-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+    .regional-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .regional-name {
+      font-size: .91rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .regional-sample {
+      color: rgba(255,255,255,.46);
+      font-size: .74rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .regional-bar-track {
+      position: relative;
+      min-height: 34px;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.03) 100%);
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+    .regional-bar-track::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 20% 100%;
+      pointer-events: none;
+    }
+    .regional-bar-track::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      bottom: -1px;
+      left: calc(var(--national) * 2%);
+      width: 2px;
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.08);
+      pointer-events: none;
+    }
+    .regional-bar {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      width: calc(var(--value) * 2%);
+      max-width: calc(100% - 8px);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f520a0 0%, #a855f7 52%, #6b21c8 100%);
+      box-shadow: 0 10px 20px rgba(245,32,160,.22);
+    }
+    .regional-bar.below {
+      background: linear-gradient(90deg, rgba(236,72,153,.72) 0%, rgba(107,33,200,.74) 100%);
+      opacity: .86;
+    }
+    .regional-value {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      font-size: .82rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .02em;
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+    .visual-insight-card {
+      display: grid;
+      gap: 16px;
+    }
+    .insight-chip {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(245,32,160,.12);
+      border: 1px solid rgba(245,32,160,.26);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .visual-insight-card h3 {
+      font-size: 1.2rem;
+      line-height: 1.35;
+      color: #fff;
+    }
+    .visual-insight-card p {
+      color: rgba(255,255,255,.74);
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+    .insight-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .insight-mini {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .insight-mini-label {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.56);
+      margin-bottom: 8px;
+    }
+    .insight-mini-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .insight-mini-note {
+      color: rgba(255,255,255,.68);
+      font-size: .8rem;
+      line-height: 1.45;
+    }
+    .visual-footnote {
+      margin-top: 16px;
+      color: rgba(255,255,255,.44);
+      font-size: .76rem;
+      line-height: 1.5;
+    }
+
     /* ── PRONTO ─────────────────────────────────────────── */
     #pronto { background: #fff; }
     .pronto-box {
@@ -635,6 +895,8 @@
       .summary-grid { grid-template-columns: 1fr 1fr; }
       .faq-grid { grid-template-columns: 1fr; }
       .value-grid { grid-template-columns: 1fr; }
+      .visual-topline, .visual-frame { grid-template-columns: 1fr; }
+      .insight-mini-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 700px) {
       nav { padding: 12px 20px; }
@@ -650,6 +912,13 @@
       .hero-btn-primary, .hero-btn-secondary { text-align: center; }
       .modulo-card { padding: 22px 20px 24px; }
       .modulo-num { width: 36px; height: 36px; font-size: .78rem; }
+      .visual-chart-card, .visual-insight-card, .national-card { padding: 22px; }
+      .chart-head { flex-direction: column; align-items: flex-start; }
+      .chart-scale { margin-left: 0; }
+      .regional-row { grid-template-columns: 1fr; gap: 8px; }
+      .regional-bar-track { min-height: 32px; }
+      .regional-value { right: 10px; font-size: .78rem; }
+      .insight-mini-grid { grid-template-columns: 1fr; }
       .modulo-session {
         background: rgba(255,255,255,.03);
         border: 1px solid rgba(255,255,255,.08);
@@ -673,6 +942,7 @@
     <li><a href="#oferta">Oferta</a></li>
     <li><a href="#audiencia">¿A quién?</a></li>
     <li><a href="#modulos-base">Módulos</a></li>
+    <li><a href="#recursos">Recursos</a></li>
     <li><a href="#equipo">Equipo</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#info">Información general</a></li>
@@ -811,14 +1081,14 @@
         <div class="card-light">
           <span class="diagonal-icon" style="color:var(--purple-mid);">↙</span>
           <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
-          <h3>NO NECESITAS...</h3>
+          <h3>¿QUÉ BASE CONVIENE TENER?</h3>
           <div style="width:100%;height:1px;background:#ccc;margin-bottom:18px;"></div>
           <ul class="bullet-list-light">
-            <li>No necesitas venir con manejo avanzado de software.</li>
-            <li>No necesitas tener experiencia profunda programando.</li>
-            <li>No necesitas dedicarte exclusivamente al mundo académico.</li>
-            <li>No necesitas dominar todas las metodologías antes de entrar.</li>
-            <li>Sí ayuda llegar con nociones básicas de encuestas y análisis de datos.</li>
+            <li>Se aprovecha mejor con una familiaridad básica con encuestas y análisis de datos.</li>
+            <li>No hace falta un manejo avanzado de software para seguir el taller.</li>
+            <li>Tampoco es necesario venir del mundo académico.</li>
+            <li>Puedes entrar aunque no domines todas las metodologías desde el inicio.</li>
+            <li>Lo más importante es llegar con interés por ordenar mejor el proceso de investigación aplicada.</li>
           </ul>
         </div>
       </div>
@@ -1019,6 +1289,138 @@
       </ul>
     </div>
 
+  </div>
+</section>
+
+<section id="recursos">
+  <div class="container visual-shell">
+    <div class="visual-topline">
+      <div class="visual-copy">
+        <p class="section-label" style="color:rgba(255,255,255,.58);">Recursos y ejemplos</p>
+        <h2 class="section-title" style="color:#fff;margin-bottom:14px;">La media nacional no cuenta toda la historia</h2>
+        <div class="section-rule-dark"></div>
+        <p>Un ejemplo concreto del tipo de recurso aplicado que queremos ir subiendo a esta web. Estimamos aprobación presidencial regional para Chile usando microdatos públicos del CEP y un modelo multinivel con postestratificación. La línea punteada marca la media nacional, pero el punto del gráfico es otro: mostrar cuánta heterogeneidad queda escondida cuando miramos solo un promedio.</p>
+      </div>
+
+      <div class="national-card">
+        <span class="national-kicker">Media nacional</span>
+        <div class="national-value">29,4%</div>
+        <p class="national-note">Sirve como referencia, no como resumen suficiente. Trabajo de campo CEP entre el 22 de septiembre y el 17 de octubre de 2025.</p>
+      </div>
+    </div>
+
+    <div class="visual-frame">
+      <div class="visual-chart-card">
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">Heterogeneidad regional de la aprobación</div>
+            <div class="chart-subtitle">Estimación MRP ordenada de mayor a menor para ver dispersión, no solo promedio</div>
+          </div>
+          <div class="chart-legend">
+            <span class="chart-legend-line"></span>
+            <span>Media nacional 29,4%</span>
+          </div>
+        </div>
+
+        <div class="chart-scale">
+          <span>0</span>
+          <span>10</span>
+          <span>20</span>
+          <span>30</span>
+          <span>40</span>
+          <span>50%</span>
+        </div>
+
+        <div class="regional-list">
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Magallanes</span><span class="regional-sample">n = 16</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:39.5;"></span><span class="regional-value">39,5%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Valparaíso</span><span class="regional-sample">n = 115</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:35.2;"></span><span class="regional-value">35,2%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Coquimbo</span><span class="regional-sample">n = 58</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:32.9;"></span><span class="regional-value">32,9%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Arica y Parinacota</span><span class="regional-sample">n = 14</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:32.1;"></span><span class="regional-value">32,1%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Metropolitana</span><span class="regional-sample">n = 500</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:31.4;"></span><span class="regional-value">31,4%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Atacama</span><span class="regional-sample">n = 18</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:30.6;"></span><span class="regional-value">30,6%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Tarapacá</span><span class="regional-sample">n = 26</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:30.0;"></span><span class="regional-value">30,0%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">La Araucanía</span><span class="regional-sample">n = 46</span></div>
+            <div class="regional-bar-track"><span class="regional-bar" style="--value:29.7;"></span><span class="regional-value">29,7%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Maule</span><span class="regional-sample">n = 62</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:29.0;"></span><span class="regional-value">29,0%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Aysén</span><span class="regional-sample">n = 12</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:28.6;"></span><span class="regional-value">28,6%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Antofagasta</span><span class="regional-sample">n = 36</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:26.5;"></span><span class="regional-value">26,5%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Los Ríos</span><span class="regional-sample">n = 31</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:25.4;"></span><span class="regional-value">25,4%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Ñuble</span><span class="regional-sample">n = 34</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:23.9;"></span><span class="regional-value">23,9%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">O’Higgins</span><span class="regional-sample">n = 53</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:23.5;"></span><span class="regional-value">23,5%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Biobío</span><span class="regional-sample">n = 94</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:20.6;"></span><span class="regional-value">20,6%</span></div>
+          </div>
+          <div class="regional-row">
+            <div class="regional-meta"><span class="regional-name">Los Lagos</span><span class="regional-sample">n = 49</span></div>
+            <div class="regional-bar-track"><span class="regional-bar below" style="--value:18.6;"></span><span class="regional-value">18,6%</span></div>
+          </div>
+        </div>
+
+        <p class="visual-footnote">Fuente: microdatos públicos CEP N°95. Estimación propia con MRP. En regiones con pocos casos, la lectura debe ser direccional y no literal.</p>
+      </div>
+
+      <div class="visual-insight-card">
+        <div class="insight-chip">Recurso aplicado</div>
+        <h3>La referencia nacional aplana diferencias importantes</h3>
+        <p>El 29,4% nacional esconde un rango regional amplio: desde 18,6% en Los Lagos hasta 39,5% en Magallanes. Dicho simple, hablar solo de “la aprobación del presidente” deja fuera brechas territoriales de más de 20 puntos.</p>
+        <p>Metropolitana queda sobre la media y además tiene la base muestral más robusta. En regiones con pocos casos, la lectura tiene que ser más cuidadosa: ahí el valor del MRP es justamente ayudar a separar señal de ruido.</p>
+
+        <div class="insight-mini-grid">
+          <div class="insight-mini">
+            <div class="insight-mini-label">Brecha regional</div>
+            <div class="insight-mini-value">20,9 pts</div>
+            <div class="insight-mini-note">Entre la región más alta y la más baja del ranking estimado.</div>
+          </div>
+          <div class="insight-mini">
+            <div class="insight-mini-label">Mayor base</div>
+            <div class="insight-mini-value">Metropolitana</div>
+            <div class="insight-mini-note">Con n = 500, es la estimación regional más robusta del ejercicio.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
