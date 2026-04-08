@@ -166,6 +166,19 @@
       letter-spacing: .04em;
       border: 2px solid rgba(255,255,255,0.7);
     }
+    .hero-btn-payment {
+      display: inline-block;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      font-weight: 700;
+      font-size: .98rem;
+      text-decoration: none;
+      padding: 15px 28px;
+      border-radius: 50px;
+      letter-spacing: .02em;
+      border: 2px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(8px);
+    }
 
     /* ── RESUMEN RÁPIDO ─────────────────────────────────── */
     #resumen {
@@ -818,6 +831,25 @@
       transition: transform .15s, box-shadow .15s;
     }
     .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(240,32,160,.55); }
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta-btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 18px 28px;
+      border-radius: 50px;
+      letter-spacing: .02em;
+      border: 1.5px solid rgba(255,255,255,.26);
+    }
     .cta-note {
       margin-top: 20px; font-size: .82rem; color: rgba(255,255,255,.4);
     }
@@ -899,7 +931,9 @@
       .info-grid { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; align-items: stretch; }
-      .hero-btn-primary, .hero-btn-secondary { text-align: center; }
+      .hero-btn-primary, .hero-btn-secondary, .hero-btn-payment { text-align: center; }
+      .cta-actions { flex-direction: column; align-items: stretch; }
+      .cta-btn, .cta-btn-secondary { text-align: center; }
       .modulo-card { padding: 22px 20px 24px; }
       .modulo-num { width: 36px; height: 36px; font-size: .78rem; }
       .visual-chart-card, .visual-insight-card, .national-card { padding: 22px; }
@@ -937,6 +971,7 @@
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#info">Información general</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
+    <li><a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer">Paga acá</a></li>
   </ul>
 </nav>
 
@@ -949,6 +984,7 @@
   <div class="hero-divider2"></div>
   <div class="hero-actions">
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
+    <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">¿Ya llenaste el formulario? Paga acá</a>
     <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
   </div>
   <!-- Spinner decoration -->
@@ -1579,7 +1615,10 @@
   <div class="container">
     <p class="cta-label">¿Listo para dar el siguiente paso?</p>
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
+    <div class="cta-actions">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
+      <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">¿Ya llenaste el formulario? Paga acá</a>
+    </div>
     <p class="cta-note">Contacto: mpaz.carreno@dobleachile.cl &nbsp;·&nbsp; +56 9 747 646 63</p>
   </div>
 </section>
