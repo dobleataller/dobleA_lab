@@ -4,227 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mini Encuesta — DobleA LAB</title>
+  <meta http-equiv="refresh" content="0; url=https://docs.google.com/forms/d/e/1FAIpQLSd3T9Ts_D9hvGWqYdAC1XTCxNup2p2Krg5gbqWsFS7lABUl2g/viewform" />
   <link rel="icon" type="image/png" href="img/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --purple-deep: #2d0a8a;
-      --purple-mid: #6b21c8;
-      --magenta: #f520a0;
-      --ink: #161616;
-      --soft: #f4efe8;
-      --line: #ddd4cb;
-    }
     body {
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(245,32,160,.12), transparent 26%),
-        linear-gradient(180deg, #fff 0%, #f7f1eb 100%);
-      color: var(--ink);
-      line-height: 1.6;
+      font-family: Arial, sans-serif;
+      background: #f7f1eb;
+      color: #161616;
+      margin: 0;
       min-height: 100vh;
-      padding: 48px 20px 64px;
-    }
-    .wrap {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .top-link {
-      display: inline-block;
-      margin-bottom: 22px;
-      color: var(--purple-mid);
-      text-decoration: none;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
     }
     .card {
-      background: rgba(255,255,255,.92);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 34px;
-      box-shadow: 0 20px 40px rgba(35, 10, 80, .08);
-    }
-    .kicker {
-      font-size: .76rem;
-      font-weight: 800;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--magenta);
-      margin-bottom: 12px;
-    }
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.08;
-      margin-bottom: 14px;
-    }
-    .intro {
-      max-width: 680px;
-      color: #4c4c4c;
-      margin-bottom: 28px;
-    }
-    .option-list {
-      display: grid;
-      gap: 12px;
-      margin: 28px 0;
-    }
-    .option {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
+      max-width: 640px;
       background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
+      border: 1px solid #ddd4cb;
+      border-radius: 20px;
+      padding: 32px 28px;
     }
-    .option input {
-      margin-top: 3px;
-      accent-color: var(--magenta);
-      transform: scale(1.15);
-    }
-    .option strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-    .option span {
-      color: #555;
-      font-size: .92rem;
-    }
-    label[for="otro"] strong::after {
-      content: " (cuéntanos cuál)";
-      font-weight: 600;
-      color: var(--purple-mid);
-    }
-    textarea {
-      width: 100%;
-      min-height: 120px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      padding: 16px;
-      font: inherit;
-      margin: 10px 0 20px;
-      resize: vertical;
-      background: #fff;
-    }
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-    button, .secondary {
-      border: 0;
-      cursor: pointer;
-      text-decoration: none;
-      font: inherit;
-      border-radius: 999px;
-      padding: 15px 22px;
-      font-weight: 800;
-    }
-    button {
-      background: linear-gradient(135deg, var(--magenta), var(--purple-mid));
-      color: #fff;
-    }
-    .secondary {
-      background: transparent;
-      color: var(--purple-mid);
-      border: 1.5px solid rgba(107,33,200,.22);
-    }
-    .note {
-      margin-top: 22px;
-      color: #666;
-      font-size: .88rem;
-    }
-    @media (max-width: 700px) {
-      .card { padding: 24px; }
-      .actions { flex-direction: column; align-items: stretch; }
-      button, .secondary { text-align: center; }
+    h1 { margin-top: 0; }
+    a {
+      color: #6b21c8;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a class="top-link" href="index.html">← Volver a DobleA LAB</a>
-
-    <div class="card">
-      <div class="kicker">Mini encuesta</div>
-      <h1>¿Qué te gustaría profundizar en futuros talleres ad hoc?</h1>
-      <p class="intro">Queremos priorizar mejor próximos talleres y contenidos ad hoc. Marca la alternativa que más te interese y, si quieres, agrega contexto. Al enviar, se abrirá un correo prellenado para que nos llegue tu respuesta.</p>
-
-      <form id="survey-form">
-        <div class="option-list">
-          <label class="option" for="qualtrics">
-            <input id="qualtrics" type="radio" name="servicio" value="Qualtrics para diseñar encuestas" checked />
-            <div>
-              <strong>Qualtrics para diseñar encuestas</strong>
-              <span>Diseño, estructura y programación de encuestas para equipos de research.</span>
-            </div>
-          </label>
-
-          <label class="option" for="rpython">
-            <input id="rpython" type="radio" name="servicio" value="R y Python para data analysis" />
-            <div>
-              <strong>R y Python para data analysis</strong>
-              <span>Flujos de análisis, limpieza, visualización y automatización de reportes.</span>
-            </div>
-          </label>
-
-          <label class="option" for="aisoftware">
-            <input id="aisoftware" type="radio" name="servicio" value="AI integrado con software para data analysis" />
-            <div>
-              <strong>AI integrado con software para data analysis</strong>
-              <span>Uso práctico de IA junto a herramientas analíticas para acelerar procesos.</span>
-            </div>
-          </label>
-
-          <label class="option" for="aiquali">
-            <input id="aiquali" type="radio" name="servicio" value="AI para análisis de datos cualitativos" />
-            <div>
-              <strong>AI para análisis de datos cualitativos</strong>
-              <span>Apoyos para análisis cualitativo, síntesis y procesamiento de material textual.</span>
-            </div>
-          </label>
-
-          <label class="option" for="otro">
-            <input id="otro" type="radio" name="servicio" value="Otro" />
-            <div>
-              <strong>Otro</strong>
-              <span>Si hay otra necesidad, cuéntanosla abajo.</span>
-            </div>
-          </label>
-        </div>
-
-        <textarea id="detalle" placeholder="Si quieres, agrega un poco más de contexto: equipo, necesidad, problema o servicio que te gustaría ver."></textarea>
-
-        <div class="actions">
-          <button type="submit">Enviar respuesta</button>
-          <a class="secondary" href="mailto:mpaz.carreno@dobleachile.cl?subject=Mini%20encuesta%20DobleA%20LAB">Prefiero escribir directo por correo</a>
-        </div>
-      </form>
-
-      <p class="note">Google Forms: desde este entorno no puedo crear el formulario dentro de tu cuenta de Google, pero la estructura de la encuesta ya quedó definida y esta página puede funcionar mientras tanto. En cuanto tengas el link de Forms, lo reemplazamos en un minuto.</p>
-    </div>
+  <div class="card">
+    <h1>Redirigiendo a la mini encuesta</h1>
+    <p>Si no se abre automáticamente, puedes entrar aquí:</p>
+    <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSd3T9Ts_D9hvGWqYdAC1XTCxNup2p2Krg5gbqWsFS7lABUl2g/viewform">Abrir Google Form</a></p>
   </div>
-
-  <script>
-    document.getElementById('survey-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      var selected = document.querySelector('input[name="servicio"]:checked');
-      var detail = document.getElementById('detalle').value.trim();
-      var option = selected ? selected.value : 'Sin seleccionar';
-      var body = 'Servicio de interés: ' + option;
-
-      if (detail) {
-        body += '\n\nDetalle adicional:\n' + detail;
-      }
-
-      window.location.href =
-        'mailto:mpaz.carreno@dobleachile.cl?subject=' +
-        encodeURIComponent('Mini encuesta DobleA LAB') +
-        '&body=' +
-        encodeURIComponent(body);
-    });
-  </script>
 </body>
 </html>
