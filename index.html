@@ -1005,6 +1005,72 @@
       .info-contact-pill { padding: 10px 14px; line-height: 1.5; }
       .pronto-box, .wide-light-card, .card-dark, .card-light, .faq-item { padding: 24px; }
     }
+
+    /* ── AUTH MODAL ──────────────────────────────────────── */
+    #auth-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,0,30,.75); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    #auth-modal-overlay.open { display: flex; }
+    #auth-modal {
+      background: #1a0050; border: 1px solid rgba(139,92,246,.35);
+      border-radius: 16px; padding: 40px 36px; width: 100%; max-width: 400px;
+      position: relative; box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    }
+    #auth-modal h2 { color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+    #auth-modal p.auth-sub { color: rgba(255,255,255,.55); font-size: .85rem; margin-bottom: 24px; }
+    #auth-modal .auth-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    #auth-modal label { color: rgba(255,255,255,.7); font-size: .8rem; font-weight: 500; }
+    #auth-modal input {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(139,92,246,.4);
+      border-radius: 8px; padding: 10px 14px; color: #fff; font-size: .9rem; font-family: inherit;
+      outline: none; transition: border-color .2s;
+    }
+    #auth-modal input:focus { border-color: var(--purple-light); }
+    #auth-modal .auth-btn {
+      width: 100%; padding: 12px; border: none; border-radius: 10px; cursor: pointer;
+      font-size: .95rem; font-weight: 700; font-family: inherit;
+      background: linear-gradient(90deg, var(--purple-mid), var(--magenta));
+      color: #fff; margin-top: 8px; transition: opacity .2s;
+    }
+    #auth-modal .auth-btn:hover { opacity: .88; }
+    #auth-modal .auth-btn:disabled { opacity: .5; cursor: not-allowed; }
+    #auth-modal .auth-toggle {
+      text-align: center; margin-top: 18px; font-size: .82rem; color: rgba(255,255,255,.5);
+    }
+    #auth-modal .auth-toggle a { color: var(--purple-light); cursor: pointer; text-decoration: underline; }
+    #auth-modal .auth-error {
+      background: rgba(224,64,160,.15); border: 1px solid rgba(224,64,160,.4);
+      border-radius: 8px; padding: 10px 14px; color: #f9a8d4;
+      font-size: .82rem; margin-bottom: 14px; display: none;
+    }
+    #auth-modal .auth-success {
+      background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.4);
+      border-radius: 8px; padding: 10px 14px; color: #c4b5fd;
+      font-size: .82rem; margin-bottom: 14px; display: none;
+    }
+    #auth-modal .close-btn {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; color: rgba(255,255,255,.4);
+      font-size: 1.4rem; cursor: pointer; line-height: 1;
+    }
+    #auth-modal .close-btn:hover { color: #fff; }
+    /* Nav auth button */
+    #nav-auth-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,.35);
+      color: rgba(255,255,255,.8); padding: 6px 14px; border-radius: 20px;
+      font-size: .82rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    #nav-auth-btn:hover { border-color: var(--purple-light); color: #fff; }
+    #nav-user-info { display: flex; align-items: center; gap: 10px; }
+    #nav-user-email { color: rgba(255,255,255,.65); font-size: .78rem; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #nav-logout-btn {
+      background: none; border: none; color: rgba(255,255,255,.45);
+      font-size: .78rem; cursor: pointer; font-family: inherit; text-decoration: underline;
+    }
+    #nav-logout-btn:hover { color: var(--magenta); }
   </style>
 </head>
 <body>
@@ -1022,6 +1088,13 @@
     <li><a href="#info">Información general</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
     <li><a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer">Paga acá</a></li>
+    <li id="nav-auth-area">
+      <button id="nav-auth-btn" onclick="openAuthModal()">Acceder</button>
+      <div id="nav-user-info" style="display:none;">
+        <span id="nav-user-email"></span>
+        <button id="nav-logout-btn" onclick="signOut()">Salir</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -1782,6 +1855,188 @@
     <a href="https://dobleachile.cl" target="_blank" rel="noopener noreferrer">dobleachile.cl</a>
   </div>
 </footer>
+
+<!-- AUTH MODAL -->
+<div id="auth-modal-overlay" onclick="handleOverlayClick(event)">
+  <div id="auth-modal">
+    <button class="close-btn" onclick="closeAuthModal()">×</button>
+    <h2 id="auth-modal-title">Acceder</h2>
+    <p class="auth-sub" id="auth-modal-sub">Ingresa con tu correo y contraseña</p>
+    <div class="auth-error" id="auth-error"></div>
+    <div class="auth-success" id="auth-success"></div>
+    <div class="auth-field">
+      <label for="auth-email">Correo</label>
+      <input type="email" id="auth-email" placeholder="tu@correo.cl" autocomplete="email" />
+    </div>
+    <div class="auth-field" id="auth-name-field" style="display:none;">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" placeholder="Tu nombre" autocomplete="name" />
+    </div>
+    <div class="auth-field">
+      <label for="auth-password">Contraseña</label>
+      <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <button class="auth-btn" id="auth-submit-btn" onclick="handleAuthSubmit()">Entrar</button>
+    <div class="auth-toggle">
+      <span id="auth-toggle-text">¿No tienes cuenta?</span>
+      <a id="auth-toggle-link" onclick="toggleAuthMode()">Regístrate</a>
+    </div>
+    <div class="auth-toggle" style="margin-top:8px;" id="forgot-link-wrap">
+      <a onclick="setResetMode()" style="color:rgba(255,255,255,.35);font-size:.78rem;">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
+</div>
+
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ── CONFIG ── Replace with your Supabase project values ──────────────
+  const SUPABASE_URL  = 'https://nwjptvxsjsndhldizlva.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53anB0dnhzanNuZGhsZGl6bHZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTgyOTcsImV4cCI6MjA5MTY3NDI5N30.n7TQ-91xFqG3fmFhMon3Ae-RzWFsArVmPIuMVLqnfMQ';
+  // ─────────────────────────────────────────────────────────────────────
+
+  const { createClient } = supabase;
+  const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  let authMode = 'login'; // 'login' | 'signup' | 'reset'
+
+  // ── Auth state listener ───────────────────────────────────────────────
+  sb.auth.onAuthStateChange((_event, session) => {
+    updateNavAuth(session?.user ?? null);
+  });
+
+  async function initAuth() {
+    const { data: { session } } = await sb.auth.getSession();
+    updateNavAuth(session?.user ?? null);
+  }
+  initAuth();
+
+  // ── Nav UI ────────────────────────────────────────────────────────────
+  function updateNavAuth(user) {
+    const btn      = document.getElementById('nav-auth-btn');
+    const info     = document.getElementById('nav-user-info');
+    const emailEl  = document.getElementById('nav-user-email');
+    if (user) {
+      btn.style.display  = 'none';
+      info.style.display = 'flex';
+      emailEl.textContent = user.email;
+    } else {
+      btn.style.display  = '';
+      info.style.display = 'none';
+    }
+  }
+
+  // ── Modal open/close ──────────────────────────────────────────────────
+  function openAuthModal() {
+    document.getElementById('auth-modal-overlay').classList.add('open');
+    document.getElementById('auth-email').focus();
+  }
+  function closeAuthModal() {
+    document.getElementById('auth-modal-overlay').classList.remove('open');
+    clearAuthMessages();
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('auth-modal-overlay')) closeAuthModal();
+  }
+
+  // ── Toggle login ↔ signup ─────────────────────────────────────────────
+  function toggleAuthMode() {
+    authMode = authMode === 'login' ? 'signup' : 'login';
+    clearAuthMessages();
+    const isSignup = authMode === 'signup';
+    document.getElementById('auth-modal-title').textContent    = isSignup ? 'Crear cuenta' : 'Acceder';
+    document.getElementById('auth-modal-sub').textContent      = isSignup ? 'Regístrate con tu correo' : 'Ingresa con tu correo y contraseña';
+    document.getElementById('auth-submit-btn').textContent     = isSignup ? 'Crear cuenta' : 'Entrar';
+    document.getElementById('auth-toggle-text').textContent    = isSignup ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?';
+    document.getElementById('auth-toggle-link').textContent    = isSignup ? 'Inicia sesión' : 'Regístrate';
+    document.getElementById('auth-name-field').style.display   = isSignup ? '' : 'none';
+    document.getElementById('auth-password').style.display     = '';
+    document.getElementById('auth-password').autocomplete      = isSignup ? 'new-password' : 'current-password';
+    document.getElementById('forgot-link-wrap').style.display  = '';
+  }
+
+  function setResetMode() {
+    authMode = 'reset';
+    clearAuthMessages();
+    document.getElementById('auth-modal-title').textContent   = 'Restablecer contraseña';
+    document.getElementById('auth-modal-sub').textContent     = 'Te enviaremos un enlace a tu correo';
+    document.getElementById('auth-submit-btn').textContent    = 'Enviar correo';
+    document.getElementById('auth-toggle-text').textContent   = '';
+    document.getElementById('auth-toggle-link').textContent   = '← Volver';
+    document.getElementById('auth-name-field').style.display  = 'none';
+    document.getElementById('auth-password').style.display    = 'none';
+    document.getElementById('forgot-link-wrap').style.display = 'none';
+  }
+
+  // ── Submit ────────────────────────────────────────────────────────────
+  async function handleAuthSubmit() {
+    const email    = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const name     = document.getElementById('auth-name').value.trim();
+    const btn      = document.getElementById('auth-submit-btn');
+
+    if (!email || !password) { showError('Completa todos los campos.'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Cargando…';
+    clearAuthMessages();
+
+    if (authMode === 'reset') {
+      const { error } = await sb.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + window.location.pathname.replace('index.html','') + 'dashboard.html'
+      });
+      if (error) { showError(friendlyError(error.message)); }
+      else        { showSuccess('Revisa tu correo para restablecer tu contraseña.'); }
+      btn.disabled = false; btn.textContent = 'Enviar correo'; return;
+    }
+
+    if (authMode === 'login') {
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) { showError(friendlyError(error.message)); }
+      else {
+        closeAuthModal();
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
+      }
+    } else {
+      const opts = { email, password, options: { data: { full_name: name } } };
+      const { error } = await sb.auth.signUp(opts);
+      if (error) { showError(friendlyError(error.message)); }
+      else        { showSuccess('Revisa tu correo para confirmar tu cuenta.'); }
+    }
+
+    btn.disabled = false;
+    btn.textContent = authMode === 'login' ? 'Entrar' : 'Crear cuenta';
+  }
+
+  async function signOut() {
+    await sb.auth.signOut();
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────
+  function showError(msg) {
+    const el = document.getElementById('auth-error');
+    el.textContent = msg; el.style.display = 'block';
+  }
+  function showSuccess(msg) {
+    const el = document.getElementById('auth-success');
+    el.textContent = msg; el.style.display = 'block';
+  }
+  function clearAuthMessages() {
+    document.getElementById('auth-error').style.display   = 'none';
+    document.getElementById('auth-success').style.display = 'none';
+  }
+  function friendlyError(msg) {
+    if (msg.includes('Invalid login'))      return 'Correo o contraseña incorrectos.';
+    if (msg.includes('already registered')) return 'Este correo ya está registrado.';
+    if (msg.includes('Password should'))    return 'La contraseña debe tener al menos 6 caracteres.';
+    if (msg.includes('Unable to validate')) return 'Correo no válido.';
+    return msg;
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAuthModal(); });
+</script>
 
 </body>
 </html>
