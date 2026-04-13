@@ -253,14 +253,29 @@
     currentUser = session.user;
     document.getElementById('nav-user-email').textContent = currentUser.email;
 
-    const { data: profile, error } = await sb.from('profiles')
+    let { data: profile, error } = await sb.from('profiles')
       .select('*')
       .eq('id', currentUser.id)
       .single();
 
+    // Auto-create profile if missing (e.g. user existed before trigger)
     if (error || !profile) {
-      showAccessDenied('No se encontró tu perfil.');
-      return;
+      const { data: newProfile, error: insertError } = await sb.from('profiles')
+        .upsert({
+          id: currentUser.id,
+          email: currentUser.email,
+          full_name: currentUser.user_metadata?.full_name || '',
+          is_paid: false,
+          is_admin: false
+        }, { onConflict: 'id' })
+        .select()
+        .single();
+
+      if (insertError || !newProfile) {
+        showAccessDenied('No se pudo cargar tu perfil. Intenta nuevamente.');
+        return;
+      }
+      profile = newProfile;
     }
 
     currentProfile = profile;
