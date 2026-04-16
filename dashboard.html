@@ -993,6 +993,20 @@
   let managementTasksAvailable = false;
   let paidUsersCache = [];
 
+  function delay(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
+  }
+
+  async function waitForSession() {
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      const { data: { session }, error } = await sb.auth.getSession();
+      if (error) throw error;
+      if (session) return session;
+      await delay(250 * (attempt + 1));
+    }
+    return null;
+  }
+
   // ── Init ──────────────────────────────────────────────────────────────
   async function init() {
     if (PREVIEW_MODE) {
@@ -1005,49 +1019,54 @@
       return;
     }
 
-    const { data: { session } } = await sb.auth.getSession();
+    try {
+      const session = await waitForSession();
 
-    if (!session) {
-      window.location.href = 'index.html';
-      return;
-    }
-
-    currentUser = session.user;
-    document.getElementById('nav-user-email').textContent = currentUser.email;
-
-    let { data: profile, error } = await sb.from('profiles')
-      .select('*')
-      .eq('id', currentUser.id)
-      .single();
-
-    // Auto-create profile if missing (e.g. user existed before trigger)
-    if (error || !profile) {
-      const { data: newProfile, error: insertError } = await sb.from('profiles')
-        .upsert({
-          id: currentUser.id,
-          email: currentUser.email,
-          full_name: currentUser.user_metadata?.full_name || '',
-          is_paid: false,
-          is_admin: false
-        }, { onConflict: 'id' })
-        .select()
-        .single();
-
-      if (insertError || !newProfile) {
-        showAccessDenied('No se pudo cargar tu perfil. Intenta nuevamente.');
+      if (!session) {
+        window.location.href = 'index.html';
         return;
       }
-      profile = newProfile;
+
+      currentUser = session.user;
+      document.getElementById('nav-user-email').textContent = currentUser.email;
+
+      let { data: profile, error } = await sb.from('profiles')
+        .select('*')
+        .eq('id', currentUser.id)
+        .single();
+
+      // Auto-create profile if missing (e.g. user existed before trigger)
+      if (error || !profile) {
+        const { data: newProfile, error: insertError } = await sb.from('profiles')
+          .upsert({
+            id: currentUser.id,
+            email: currentUser.email,
+            full_name: currentUser.user_metadata?.full_name || '',
+            is_paid: false,
+            is_admin: false
+          }, { onConflict: 'id' })
+          .select()
+          .single();
+
+        if (insertError || !newProfile) {
+          showAccessDenied('No se pudo cargar tu perfil. Intenta nuevamente.');
+          return;
+        }
+        profile = newProfile;
+      }
+
+      currentProfile = profile;
+
+      if (!profile.is_paid && !profile.is_admin) {
+        showPendingPayment();
+        return;
+      }
+
+      renderDashboard();
+    } catch (err) {
+      console.error('Dashboard init error:', err);
+      showAccessDenied('No se pudo verificar tu acceso en este momento. Vuelve a iniciar sesión e inténtalo de nuevo.');
     }
-
-    currentProfile = profile;
-
-    if (!profile.is_paid && !profile.is_admin) {
-      showPendingPayment();
-      return;
-    }
-
-    renderDashboard();
   }
 
   function startPreviewMode() {
