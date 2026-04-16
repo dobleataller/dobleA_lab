@@ -924,6 +924,12 @@
   const sb = !PREVIEW_MODE && typeof supabase !== 'undefined'
     ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
     : null;
+  const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
+  const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v1';
+  const MANAGEMENT_ADMIN_EMAILS = new Set([
+    'p.argotetironi@gmail.com',
+    'lucia.argote@dobleachile.cl'
+  ]);
   const PAYMENT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0';
   const GOOGLE_DRIVE_RESPONSES_URL = 'https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit';
   const GOOGLE_DRIVE_LOCAL_ROOT = '/Users/pabloargotetironi/Library/CloudStorage/GoogleDrive-p.argotetironi@gmail.com/My Drive';
@@ -991,10 +997,97 @@
   let managementChannel = null;
   let managementTasksCache = [];
   let managementTasksAvailable = false;
+  let managementTasksMode = 'preview';
   let paidUsersCache = [];
 
   function delay(ms) {
     return new Promise((resolve) => window.setTimeout(resolve, ms));
+  }
+
+  function normalizeEmail(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function isManagementAdminEmail(email) {
+    return MANAGEMENT_ADMIN_EMAILS.has(normalizeEmail(email));
+  }
+
+  function readDashboardSessionBridge() {
+    try {
+      const raw = sessionStorage.getItem(DASHBOARD_SESSION_BRIDGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed?.access_token || !parsed?.refresh_token) return null;
+      return parsed;
+    } catch (error) {
+      console.warn('No se pudo leer el puente de sesión del dashboard.', error);
+      return null;
+    }
+  }
+
+  function clearDashboardSessionBridge() {
+    try {
+      sessionStorage.removeItem(DASHBOARD_SESSION_BRIDGE_KEY);
+    } catch (error) {
+      console.warn('No se pudo limpiar el puente de sesión del dashboard.', error);
+    }
+  }
+
+  async function restoreSessionFromBridge() {
+    const bridgedSession = readDashboardSessionBridge();
+    if (!bridgedSession) return null;
+
+    const { data, error } = await sb.auth.setSession(bridgedSession);
+    if (error) {
+      clearDashboardSessionBridge();
+      throw error;
+    }
+
+    return data?.session || null;
+  }
+
+  function sanitizeTask(task, index = 0) {
+    return {
+      id: task?.id ? String(task.id) : `local-task-${Date.now()}-${index}`,
+      section_key: task?.section_key || MANAGEMENT_SECTIONS[0].key,
+      title: String(task?.title || '').trim(),
+      detail: emptyToNull(task?.detail),
+      owner: emptyToNull(task?.owner),
+      link_url: emptyToNull(normalizeOptionalUrl(task?.link_url)),
+      sort_order: Number(task?.sort_order ?? ((index + 1) * 10)),
+      is_done: Boolean(task?.is_done)
+    };
+  }
+
+  function readLocalManagementTasks() {
+    try {
+      const raw = localStorage.getItem(LOCAL_MANAGEMENT_TASKS_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return null;
+      return parsed
+        .map((task, index) => sanitizeTask(task, index))
+        .filter((task) => task.title);
+    } catch (error) {
+      console.warn('No se pudieron leer las tareas locales del management.', error);
+      return null;
+    }
+  }
+
+  function writeLocalManagementTasks(tasks) {
+    try {
+      localStorage.setItem(LOCAL_MANAGEMENT_TASKS_KEY, JSON.stringify(tasks.map((task, index) => sanitizeTask(task, index))));
+    } catch (error) {
+      console.warn('No se pudieron guardar las tareas locales del management.', error);
+    }
+  }
+
+  function localManagementTasks() {
+    const storedTasks = readLocalManagementTasks();
+    if (storedTasks && storedTasks.length) return storedTasks;
+    const seedTasks = DEFAULT_MANAGEMENT_TASKS.map((task, index) => sanitizeTask(task, index));
+    writeLocalManagementTasks(seedTasks);
+    return seedTasks;
   }
 
   async function waitForSession() {
@@ -1002,6 +1095,10 @@
       const { data: { session }, error } = await sb.auth.getSession();
       if (error) throw error;
       if (session) return session;
+      if (attempt === 0) {
+        const bridgedSession = await restoreSessionFromBridge();
+        if (bridgedSession) return bridgedSession;
+      }
       await delay(250 * (attempt + 1));
     }
     return null;
@@ -1028,7 +1125,9 @@
       }
 
       currentUser = session.user;
+      clearDashboardSessionBridge();
       document.getElementById('nav-user-email').textContent = currentUser.email;
+      const emailHasManagementAccess = isManagementAdminEmail(currentUser.email);
 
       let { data: profile, error } = await sb.from('profiles')
         .select('*')
@@ -1053,6 +1152,14 @@
           return;
         }
         profile = newProfile;
+      }
+
+      if (emailHasManagementAccess) {
+        profile = {
+          ...profile,
+          is_admin: true,
+          is_paid: true
+        };
       }
 
       currentProfile = profile;
@@ -1088,7 +1195,8 @@
 
   // ── Sign out ──────────────────────────────────────────────────────────
   async function signOut() {
-    await sb.auth.signOut();
+    clearDashboardSessionBridge();
+    if (sb) await sb.auth.signOut();
     window.location.href = 'index.html';
   }
 
@@ -1527,10 +1635,10 @@
       .order('created_at', { ascending: false });
 
     if (error || !users) {
-      paidUsersCache = [];
-      list.innerHTML = '<p class="empty-paid">No se pudo cargar la lista de pagos.</p>';
-      paidCountEl.textContent = '0';
-      pendingCountEl.textContent = '0';
+      paidUsersCache = PREVIEW_PAID_USERS.slice();
+      list.innerHTML = PREVIEW_PAID_USERS.map((user) => paidUserHTML(user)).join('');
+      paidCountEl.textContent = String(PREVIEW_PAID_USERS.length);
+      pendingCountEl.textContent = String(PREVIEW_USERS.filter((user) => !user.is_paid).length);
       return;
     }
 
@@ -1556,6 +1664,7 @@
     const editorMsgEl = document.getElementById('task-editor-msg');
 
     if (PREVIEW_MODE) {
+      managementTasksMode = 'preview';
       managementTasksAvailable = false;
       managementTasksCache = [];
       renderManagementTasks(DEFAULT_MANAGEMENT_TASKS, { editable: false });
@@ -1579,27 +1688,31 @@
       .order('created_at', { ascending: true });
 
     if (error) {
-      managementTasksAvailable = false;
-      managementTasksCache = [];
-      renderManagementTasks(DEFAULT_MANAGEMENT_TASKS, { editable: false });
+      managementTasksMode = 'local';
+      managementTasksAvailable = true;
+      managementTasksCache = localManagementTasks();
+      renderManagementTasks(managementTasksCache, { editable: true });
       if (statusEl) {
-        statusEl.className = 'management-alert error';
-        statusEl.textContent = 'La agenda quedó visible, pero la edición compartida se activa cuando exista la tabla public.management_tasks en Supabase. Revisa el archivo supabase/management_tasks.sql.';
+        statusEl.className = 'management-alert';
+        statusEl.textContent = 'La agenda está funcionando en modo local desde este navegador. Puedes editar tareas y checks aquí mismo mientras activamos la versión compartida.';
       }
       if (editorStatusEl) {
-        editorStatusEl.textContent = 'La tabla de tareas aún no existe en Supabase. El tablero muestra una versión base y el formulario queda bloqueado hasta correr el SQL de configuración.';
+        editorStatusEl.textContent = 'Edición local activa en este navegador. Puedes crear, editar y marcar tareas aunque la tabla compartida aún no exista.';
       }
-      if (editorMsgEl) showMsg(editorMsgEl, 'error', 'Falta crear la tabla public.management_tasks para habilitar edición compartida.');
+      if (editorMsgEl) {
+        editorMsgEl.style.display = 'none';
+      }
       updateTaskEditorAvailability();
       return;
     }
 
+    managementTasksMode = 'supabase';
     managementTasksAvailable = true;
     managementTasksCache = tasks || [];
     renderManagementTasks(managementTasksCache, { editable: true });
-    if (statusEl) {
-      statusEl.className = 'management-alert';
-      statusEl.textContent = 'Agenda centralizada en Supabase. Comparte el link del dashboard publicado y cualquier cuenta admin podrá editarla en tiempo real.';
+      if (statusEl) {
+        statusEl.className = 'management-alert';
+        statusEl.textContent = 'Agenda centralizada en Supabase. Comparte el link del dashboard publicado y cualquier cuenta admin podrá editarla en tiempo real.';
     }
     if (editorStatusEl) {
       editorStatusEl.textContent = 'Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.';
@@ -1708,7 +1821,9 @@
     document.getElementById('task-done').checked = false;
     if (status) {
       status.textContent = managementTasksAvailable
-        ? 'Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.'
+        ? (managementTasksMode === 'local'
+          ? 'Edición local activa en este navegador. Guarda cambios aquí mientras habilitamos la agenda compartida.'
+          : 'Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.')
         : 'La tabla de tareas aún no existe en Supabase. El tablero muestra una versión base y el formulario queda bloqueado hasta correr el SQL de configuración.';
     }
   }
@@ -1760,7 +1875,25 @@
     hideMsg(msgEl);
 
     let error = null;
-    if (taskId) {
+    if (managementTasksMode === 'local') {
+      const localTasks = managementTasksCache.slice();
+      const nextTask = sanitizeTask({
+        id: taskId || `local-task-${Date.now()}`,
+        ...payload
+      }, localTasks.length);
+
+      if (taskId) {
+        const taskIndex = localTasks.findIndex((item) => String(item.id) === String(taskId));
+        if (taskIndex >= 0) localTasks[taskIndex] = nextTask;
+      } else {
+        localTasks.push(nextTask);
+      }
+
+      managementTasksCache = localTasks
+        .map((task, index) => sanitizeTask(task, index))
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+      writeLocalManagementTasks(managementTasksCache);
+    } else if (taskId) {
       ({ error } = await sb.from('management_tasks').update(payload).eq('id', taskId));
     } else {
       ({ error } = await sb.from('management_tasks').insert({
@@ -1774,7 +1907,11 @@
     } else {
       showMsg(msgEl, 'success', taskId ? 'Tarea actualizada.' : 'Tarea creada.');
       resetTaskForm();
-      loadManagementTasks();
+      if (managementTasksMode === 'local') {
+        renderManagementTasks(managementTasksCache, { editable: true });
+      } else {
+        loadManagementTasks();
+      }
     }
 
     saveBtn.disabled = false;
@@ -1783,6 +1920,17 @@
 
   async function toggleTaskDone(taskId, nextDone) {
     if (!managementTasksAvailable) return;
+    if (managementTasksMode === 'local') {
+      managementTasksCache = managementTasksCache.map((task) => (
+        String(task.id) === String(taskId)
+          ? { ...task, is_done: nextDone }
+          : task
+      ));
+      writeLocalManagementTasks(managementTasksCache);
+      renderManagementTasks(managementTasksCache, { editable: true });
+      return;
+    }
+
     const { error } = await sb.from('management_tasks')
       .update({ is_done: nextDone })
       .eq('id', taskId);
@@ -1799,6 +1947,14 @@
     if (!managementTasksAvailable) return;
     const confirmed = window.confirm('¿Borrar esta tarea del dashboard?');
     if (!confirmed) return;
+
+    if (managementTasksMode === 'local') {
+      managementTasksCache = managementTasksCache.filter((task) => String(task.id) !== String(taskId));
+      writeLocalManagementTasks(managementTasksCache);
+      if (String(document.getElementById('task-id').value) === String(taskId)) resetTaskForm();
+      renderManagementTasks(managementTasksCache, { editable: true });
+      return;
+    }
 
     const { error } = await sb.from('management_tasks')
       .delete()
@@ -1875,7 +2031,32 @@
 
     const wrap = document.getElementById('users-table-wrap');
     if (error || !users || users.length === 0) {
-      wrap.innerHTML = '<p style="color:rgba(255,255,255,.3);font-size:.82rem;">No hay usuarios aún.</p>';
+      const fallbackUsers = [
+        {
+          id: currentUser?.id || 'fallback-admin',
+          email: currentUser?.email || 'management@doblealab.cl',
+          is_paid: true,
+          is_admin: true
+        },
+        ...PREVIEW_PAID_USERS.filter((user) => normalizeEmail(user.email) !== normalizeEmail(currentUser?.email))
+      ];
+
+      wrap.innerHTML = `
+        <table class="users-table">
+          <thead>
+            <tr><th>Correo</th><th>Pagó</th><th></th></tr>
+          </thead>
+          <tbody>
+            ${fallbackUsers.map(u => `
+              <tr>
+                <td class="email-cell" title="${u.email}">${u.email}</td>
+                <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
+                <td>
+                  ${u.is_admin ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Management</span>' : '<button class="toggle-paid-btn" disabled title="Se activará cuando la base responda">Dar acceso</button>'}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
       return;
     }
 

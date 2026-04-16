@@ -2214,6 +2214,7 @@
 
   const { createClient } = supabase;
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+  const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
 
   let authMode = 'login'; // 'login' | 'signup' | 'reset'
 
@@ -2311,6 +2312,7 @@
       const { data, error } = await sb.auth.signInWithPassword({ email, password });
       if (error) { showError(friendlyError(error.message)); }
       else {
+        persistDashboardSessionBridge(data?.session);
         closeAuthModal();
         // Redirect to dashboard
         window.location.href = 'dashboard.html';
@@ -2327,7 +2329,29 @@
   }
 
   async function signOut() {
+    clearDashboardSessionBridge();
     await sb.auth.signOut();
+  }
+
+  function persistDashboardSessionBridge(session) {
+    if (!session?.access_token || !session?.refresh_token) return;
+
+    try {
+      sessionStorage.setItem(DASHBOARD_SESSION_BRIDGE_KEY, JSON.stringify({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token
+      }));
+    } catch (error) {
+      console.warn('No se pudo guardar el puente de sesión del dashboard.', error);
+    }
+  }
+
+  function clearDashboardSessionBridge() {
+    try {
+      sessionStorage.removeItem(DASHBOARD_SESSION_BRIDGE_KEY);
+    } catch (error) {
+      console.warn('No se pudo limpiar el puente de sesión del dashboard.', error);
+    }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────
