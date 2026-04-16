@@ -752,12 +752,11 @@
               <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
             </div>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Ordenar base de datos con inscritos + pagados</div></div><div class="task-meta"><span class="task-chip">Vale / Valentina</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Ordenar base de datos con inscritos + pagados</div></div><div class="task-meta"><span class="task-chip">Valentina</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Enviar emails personalizados</div></div><div class="task-meta"><span class="task-chip">Pablo / Lucia / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas</a></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Empujar Instagram</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Activar LinkedIn</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Follow up con Pato Navia</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Pensar en PTRPS</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
           </article>
 
@@ -963,12 +962,11 @@
     }
   ];
   const DEFAULT_MANAGEMENT_TASKS = [
-    { id: 'seed-1', section_key: 'captacion', title: 'Ordenar base de datos con inscritos + pagados', owner: 'Vale / Valentina', detail: null, link_url: PAYMENT_SHEET_URL, sort_order: 10, is_done: false },
+    { id: 'seed-1', section_key: 'captacion', title: 'Ordenar base de datos con inscritos + pagados', owner: 'Valentina', detail: null, link_url: PAYMENT_SHEET_URL, sort_order: 10, is_done: false },
     { id: 'seed-2', section_key: 'captacion', title: 'Enviar emails personalizados', owner: 'Pablo / Lucia / Mauricio', detail: null, link_url: GOOGLE_DRIVE_RESPONSES_URL, sort_order: 20, is_done: false },
     { id: 'seed-3', section_key: 'captacion', title: 'Empujar Instagram', owner: 'Equipo', detail: null, link_url: null, sort_order: 30, is_done: false },
     { id: 'seed-4', section_key: 'captacion', title: 'Activar LinkedIn', owner: 'Todos', detail: null, link_url: null, sort_order: 40, is_done: false },
     { id: 'seed-5', section_key: 'captacion', title: 'Follow up con Pato Navia', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 50, is_done: false },
-    { id: 'seed-6', section_key: 'captacion', title: 'Pensar en PTRPS', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 60, is_done: false },
     { id: 'seed-7', section_key: 'seguimiento', title: 'Hacer seguimiento a quienes ya pagaron', owner: 'Clave', detail: 'Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.', link_url: PAYMENT_SHEET_URL, sort_order: 70, is_done: false },
     { id: 'seed-8', section_key: 'modulos', title: 'Editar archivos de módulos en Google Drive', owner: 'Todos', detail: null, link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
     { id: 'seed-9', section_key: 'expansion', title: 'Hablar con Tania Hutt sobre expansión a mineras', owner: 'Mauricio / Pablo', detail: null, link_url: null, sort_order: 90, is_done: false },
@@ -1047,16 +1045,22 @@
   }
 
   function sanitizeTask(task, index = 0) {
+    const normalizedTitle = String(task?.title || '').trim();
+    const normalizedOwner = emptyToNull(task?.owner);
     return {
       id: task?.id ? String(task.id) : `local-task-${Date.now()}-${index}`,
       section_key: task?.section_key || MANAGEMENT_SECTIONS[0].key,
-      title: String(task?.title || '').trim(),
+      title: normalizedTitle,
       detail: emptyToNull(task?.detail),
-      owner: emptyToNull(task?.owner),
+      owner: normalizedOwner === 'Vale / Valentina' ? 'Valentina' : normalizedOwner,
       link_url: emptyToNull(normalizeOptionalUrl(task?.link_url)),
       sort_order: Number(task?.sort_order ?? ((index + 1) * 10)),
       is_done: Boolean(task?.is_done)
     };
+  }
+
+  function shouldKeepManagementTask(task) {
+    return normalizeEmail(task?.title) !== 'pensar en ptrps';
   }
 
   function readLocalManagementTasks() {
@@ -1067,6 +1071,7 @@
       if (!Array.isArray(parsed)) return null;
       return parsed
         .map((task, index) => sanitizeTask(task, index))
+        .filter((task) => shouldKeepManagementTask(task))
         .filter((task) => task.title);
     } catch (error) {
       console.warn('No se pudieron leer las tareas locales del management.', error);
@@ -1076,7 +1081,14 @@
 
   function writeLocalManagementTasks(tasks) {
     try {
-      localStorage.setItem(LOCAL_MANAGEMENT_TASKS_KEY, JSON.stringify(tasks.map((task, index) => sanitizeTask(task, index))));
+      localStorage.setItem(
+        LOCAL_MANAGEMENT_TASKS_KEY,
+        JSON.stringify(
+          tasks
+            .map((task, index) => sanitizeTask(task, index))
+            .filter((task) => shouldKeepManagementTask(task))
+        )
+      );
     } catch (error) {
       console.warn('No se pudieron guardar las tareas locales del management.', error);
     }
@@ -1085,7 +1097,9 @@
   function localManagementTasks() {
     const storedTasks = readLocalManagementTasks();
     if (storedTasks && storedTasks.length) return storedTasks;
-    const seedTasks = DEFAULT_MANAGEMENT_TASKS.map((task, index) => sanitizeTask(task, index));
+    const seedTasks = DEFAULT_MANAGEMENT_TASKS
+      .map((task, index) => sanitizeTask(task, index))
+      .filter((task) => shouldKeepManagementTask(task));
     writeLocalManagementTasks(seedTasks);
     return seedTasks;
   }
@@ -1622,11 +1636,14 @@
     const pendingCountEl = document.getElementById('pending-count');
     if (!list || !paidCountEl || !pendingCountEl) return;
 
+    const manualPaidUsers = PREVIEW_PAID_USERS.slice();
+    const manualPaidEmails = new Set(manualPaidUsers.map((user) => normalizeEmail(user.email)));
+
     if (PREVIEW_MODE) {
-      paidUsersCache = PREVIEW_PAID_USERS.slice();
-      paidCountEl.textContent = String(PREVIEW_PAID_USERS.length);
+      paidUsersCache = manualPaidUsers;
+      paidCountEl.textContent = String(manualPaidUsers.length);
       pendingCountEl.textContent = String(PREVIEW_USERS.filter((user) => !user.is_paid).length);
-      list.innerHTML = PREVIEW_PAID_USERS.map((user) => paidUserHTML(user)).join('');
+      list.innerHTML = manualPaidUsers.map((user) => paidUserHTML(user)).join('');
       return;
     }
 
@@ -1635,15 +1652,18 @@
       .order('created_at', { ascending: false });
 
     if (error || !users) {
-      paidUsersCache = PREVIEW_PAID_USERS.slice();
-      list.innerHTML = PREVIEW_PAID_USERS.map((user) => paidUserHTML(user)).join('');
-      paidCountEl.textContent = String(PREVIEW_PAID_USERS.length);
+      paidUsersCache = manualPaidUsers;
+      list.innerHTML = manualPaidUsers.map((user) => paidUserHTML(user)).join('');
+      paidCountEl.textContent = String(manualPaidUsers.length);
       pendingCountEl.textContent = String(PREVIEW_USERS.filter((user) => !user.is_paid).length);
       return;
     }
 
-    const paidUsers = users.filter((user) => user.is_paid);
-    const pendingUsers = users.filter((user) => !user.is_paid);
+    const paidUsers = manualPaidUsers.map((manualUser) => {
+      const dbUser = users.find((user) => normalizeEmail(user.email) === normalizeEmail(manualUser.email));
+      return dbUser ? { ...dbUser, ...manualUser, is_paid: true } : manualUser;
+    });
+    const pendingUsers = users.filter((user) => !user.is_paid && !manualPaidEmails.has(normalizeEmail(user.email)));
     paidUsersCache = paidUsers;
     paidCountEl.textContent = String(paidUsers.length);
     pendingCountEl.textContent = String(pendingUsers.length);
