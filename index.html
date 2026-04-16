@@ -128,6 +128,185 @@
       background: rgba(255,255,255,.35);
       margin: 0 auto;
     }
+    .hero-carousel {
+      width: min(1120px, 100%);
+      margin-top: 40px;
+      position: relative;
+      z-index: 10;
+    }
+    .hero-carousel-shell {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+    }
+    .hero-carousel-arrow {
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      font-size: 1.7rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .hero-carousel-arrow:hover,
+    .hero-carousel-arrow:focus-visible {
+      background: rgba(255,255,255,.2);
+      border-color: rgba(255,255,255,.4);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .hero-carousel-window {
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(255,255,255,.16);
+      background:
+        linear-gradient(140deg, rgba(22, 8, 68, .88) 0%, rgba(67, 20, 133, .8) 58%, rgba(125, 33, 160, .66) 100%);
+      box-shadow: 0 34px 80px rgba(15, 0, 45, .32);
+      backdrop-filter: blur(16px);
+    }
+    .hero-carousel-track {
+      display: flex;
+      transition: transform .55s cubic-bezier(.22, 1, .36, 1);
+      will-change: transform;
+    }
+    .hero-slide {
+      min-width: 100%;
+      padding: 42px;
+      min-height: 470px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-slide-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
+      gap: 28px;
+      align-items: center;
+      text-align: left;
+    }
+    .hero-slide-intro {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      gap: 24px;
+      text-align: center;
+    }
+    .hero-slide-kicker {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.78);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero-slide-copy .hero-slide-kicker {
+      margin-bottom: 16px;
+    }
+    .hero-slide-copy h2 {
+      color: #fff;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+    .hero-slide-copy p {
+      color: rgba(255,255,255,.8);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .hero-slide-links {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .hero-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: .95rem;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px);
+    }
+    .hero-link-btn--primary {
+      background: linear-gradient(135deg,#F520A0,#6B21C8);
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(240,32,160,.24);
+    }
+    .hero-media-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 28px;
+      padding: 16px;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .hero-media-card iframe {
+      width: 100%;
+      border: 0;
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+    }
+    .hero-media-card--spotify iframe {
+      min-height: 352px;
+    }
+    .hero-media-card--pdf iframe {
+      min-height: 352px;
+      background: #fff;
+    }
+    .hero-carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .hero-carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 0;
+      padding: 0;
+      background: rgba(255,255,255,.28);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .hero-carousel-dot.is-active {
+      background: #fff;
+      transform: scale(1.15);
+    }
+    .hero-carousel-status {
+      margin-top: 12px;
+      color: rgba(255,255,255,.62);
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-align: center;
+    }
     .spinner-icon {
       position: absolute; bottom: 60px; left: 60px;
       width: 70px; height: 70px; opacity: .7;
@@ -969,6 +1148,8 @@
       .value-grid { grid-template-columns: 1fr; }
       .visual-topline, .visual-frame { grid-template-columns: 1fr; }
       .insight-mini-grid { grid-template-columns: 1fr 1fr; }
+      .hero-slide-grid { grid-template-columns: 1fr; }
+      .hero-slide-copy p { max-width: none; }
     }
     @media (max-width: 700px) {
       nav { padding: 12px 20px; }
@@ -981,6 +1162,23 @@
       .info-grid { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-carousel-shell { grid-template-columns: 1fr; gap: 14px; }
+      .hero-carousel-arrow {
+        width: 48px;
+        height: 48px;
+        justify-self: center;
+      }
+      .hero-carousel-arrow[data-carousel-prev] { order: 2; }
+      .hero-carousel-window { order: 1; }
+      .hero-carousel-arrow[data-carousel-next] { order: 3; }
+      .hero-slide { min-height: auto; padding: 28px 22px; }
+      .hero-slide-grid { text-align: center; }
+      .hero-slide-kicker,
+      .hero-slide-copy .hero-slide-kicker { margin-left: auto; margin-right: auto; }
+      .hero-slide-links { justify-content: center; }
+      .hero-media-card { min-height: 280px; }
+      .hero-media-card--spotify iframe,
+      .hero-media-card--pdf iframe { min-height: 300px; }
       .hero-btn-primary, .hero-btn-secondary, .hero-btn-payment { text-align: center; }
       .cta-actions { flex-direction: column; align-items: stretch; }
       .cta-btn, .cta-btn-secondary { text-align: center; }
@@ -1103,12 +1301,63 @@
   <p class="hero-tag">DobleA LAB</p>
   <p class="hero-subtitle">Taller de investigación aplicada</p>
   <div class="hero-divider"></div>
-  <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
-  <div class="hero-divider2"></div>
-  <div class="hero-actions">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
-    <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">¿Ya te inscribiste? Paga acá</a>
-    <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
+  <div class="hero-carousel" data-hero-carousel>
+    <div class="hero-carousel-shell">
+      <button class="hero-carousel-arrow" type="button" aria-label="Ver panel anterior" data-carousel-prev>‹</button>
+      <div class="hero-carousel-window">
+        <div class="hero-carousel-track" data-carousel-track>
+          <article class="hero-slide" data-hero-slide aria-label="Panel 1 de 3">
+            <div class="hero-slide-intro">
+              <span class="hero-slide-kicker">Portada actual</span>
+              <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
+              <div class="hero-divider2"></div>
+              <div class="hero-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
+                <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">¿Ya te inscribiste? Paga acá</a>
+                <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
+              </div>
+            </div>
+          </article>
+          <article class="hero-slide" data-hero-slide aria-label="Panel 2 de 3">
+            <div class="hero-slide-grid">
+              <div class="hero-slide-copy">
+                <span class="hero-slide-kicker">Podcast destacado</span>
+                <h2>Sumemos un episodio al centro de la portada</h2>
+                <p>Este panel muestra el podcast como una ventana destacada del sitio, con reproductor embebido y un acceso directo para abrirlo en Spotify.</p>
+                <div class="hero-slide-links">
+                  <a class="hero-link-btn hero-link-btn--primary" href="https://open.spotify.com/episode/5Jt3u4gGqNu601ootpTum9?si=jJ4D8F-HQgONSgxkG2txnA&amp;nd=1&amp;dlsi=db4d05d400f44cec" target="_blank" rel="noopener noreferrer">Abrir episodio en Spotify</a>
+                </div>
+              </div>
+              <div class="hero-media-card hero-media-card--spotify">
+                <iframe src="https://open.spotify.com/embed/episode/5Jt3u4gGqNu601ootpTum9?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Podcast destacado de Spotify"></iframe>
+              </div>
+            </div>
+          </article>
+          <article class="hero-slide" data-hero-slide aria-label="Panel 3 de 3">
+            <div class="hero-slide-grid">
+              <div class="hero-slide-copy">
+                <span class="hero-slide-kicker">Equipo docente</span>
+                <h2>Mostremos el PDF del equipo desde la portada</h2>
+                <p>Este panel adelanta el material de presentación del equipo docente y permite abrir el PDF completo desde la carpeta Flyer.</p>
+                <div class="hero-slide-links">
+                  <a class="hero-link-btn hero-link-btn--primary" href="../Flyer/Equipo%20docente%20taller.pdf" target="_blank" rel="noopener noreferrer">Abrir PDF del equipo</a>
+                </div>
+              </div>
+              <div class="hero-media-card hero-media-card--pdf">
+                <iframe src="../Flyer/Equipo%20docente%20taller.pdf#view=FitH" loading="lazy" title="PDF equipo docente"></iframe>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button class="hero-carousel-arrow" type="button" aria-label="Ver siguiente panel" data-carousel-next>›</button>
+    </div>
+    <div class="hero-carousel-nav" role="tablist" aria-label="Navegación de paneles de portada">
+      <button class="hero-carousel-dot is-active" type="button" aria-label="Ir al panel 1" aria-selected="true" data-carousel-dot="0"></button>
+      <button class="hero-carousel-dot" type="button" aria-label="Ir al panel 2" aria-selected="false" data-carousel-dot="1"></button>
+      <button class="hero-carousel-dot" type="button" aria-label="Ir al panel 3" aria-selected="false" data-carousel-dot="2"></button>
+    </div>
+    <p class="hero-carousel-status" data-carousel-status>Panel 1 de 3</p>
   </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
@@ -1882,6 +2131,78 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function initHeroCarousel() {
+    const carousel = document.querySelector('[data-hero-carousel]');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('[data-carousel-track]');
+    const slides = Array.from(carousel.querySelectorAll('[data-hero-slide]'));
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+    const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
+    const status = carousel.querySelector('[data-carousel-status]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let currentIndex = 0;
+    let autoRotate = null;
+
+    function render(index) {
+      currentIndex = (index + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+      slides.forEach((slide, slideIndex) => {
+        slide.setAttribute('aria-hidden', slideIndex === currentIndex ? 'false' : 'true');
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === currentIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      status.textContent = 'Panel ' + (currentIndex + 1) + ' de ' + slides.length;
+    }
+
+    function stopAutoRotate() {
+      if (!autoRotate) return;
+      window.clearInterval(autoRotate);
+      autoRotate = null;
+    }
+
+    function startAutoRotate() {
+      if (prefersReducedMotion) return;
+      stopAutoRotate();
+      autoRotate = window.setInterval(() => render(currentIndex + 1), 7000);
+    }
+
+    prevBtn.addEventListener('click', () => {
+      render(currentIndex - 1);
+      startAutoRotate();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      render(currentIndex + 1);
+      startAutoRotate();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        render(index);
+        startAutoRotate();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoRotate);
+    carousel.addEventListener('mouseleave', startAutoRotate);
+    carousel.addEventListener('focusin', stopAutoRotate);
+    carousel.addEventListener('focusout', startAutoRotate);
+
+    render(0);
+    startAutoRotate();
+  }());
+</script>
 
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
