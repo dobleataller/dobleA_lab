@@ -1171,8 +1171,7 @@
       if (emailHasManagementAccess) {
         profile = {
           ...profile,
-          is_admin: true,
-          is_paid: true
+          is_admin: true
         };
       }
 
@@ -1648,7 +1647,7 @@
     }
 
     const { data: users, error } = await sb.from('profiles')
-      .select('id, email, full_name, is_paid, created_at')
+      .select('id, email, full_name, is_paid, is_admin, created_at')
       .order('created_at', { ascending: false });
 
     if (error || !users) {
@@ -1663,7 +1662,10 @@
       const dbUser = users.find((user) => normalizeEmail(user.email) === normalizeEmail(manualUser.email));
       return dbUser ? { ...dbUser, ...manualUser, is_paid: true } : manualUser;
     });
-    const pendingUsers = users.filter((user) => !user.is_paid && !manualPaidEmails.has(normalizeEmail(user.email)));
+    const pendingUsers = users.filter((user) => {
+      const isAdmin = user.is_admin || isManagementAdminEmail(user.email);
+      return !isAdmin && !user.is_paid && !manualPaidEmails.has(normalizeEmail(user.email));
+    });
     paidUsersCache = paidUsers;
     paidCountEl.textContent = String(paidUsers.length);
     pendingCountEl.textContent = String(pendingUsers.length);
@@ -2026,24 +2028,44 @@
       const wrap = document.getElementById('users-table-wrap');
       if (!wrap) return;
 
+      const previewAdmins = PREVIEW_USERS.filter((user) => user.is_admin);
+      const previewMembers = PREVIEW_USERS.filter((user) => !user.is_admin);
+
       wrap.innerHTML = `
-        <table class="users-table">
-          <thead>
-            <tr><th>Correo</th><th>Pagó</th><th></th></tr>
-          </thead>
-          <tbody>
-            ${PREVIEW_USERS.map(u => `
-              <tr>
-                <td class="email-cell" title="${u.email}">${u.email}</td>
-                <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
-                <td>
-                  ${u.is_admin
-                    ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span>'
-                    : `<button class="toggle-paid-btn" disabled title="Vista previa local">${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}</button>`}
-                </td>
-              </tr>`).join('')}
-          </tbody>
-        </table>`;
+        <div style="display:grid;gap:18px;">
+          <div>
+            <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Admins</p>
+            <table class="users-table">
+              <thead>
+                <tr><th>Correo</th><th>Rol</th><th></th></tr>
+              </thead>
+              <tbody>
+                ${previewAdmins.map(u => `
+                  <tr>
+                    <td class="email-cell" title="${u.email}">${u.email}</td>
+                    <td><span class="paid-badge yes">Admin</span></td>
+                    <td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span></td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Usuarios del servicio</p>
+            <table class="users-table">
+              <thead>
+                <tr><th>Correo</th><th>Acceso</th><th></th></tr>
+              </thead>
+              <tbody>
+                ${previewMembers.map(u => `
+                  <tr>
+                    <td class="email-cell" title="${u.email}">${u.email}</td>
+                    <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
+                    <td><button class="toggle-paid-btn" disabled title="Vista previa local">${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}</button></td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>`;
       return;
     }
 
@@ -2057,50 +2079,95 @@
         {
           id: currentUser?.id || 'fallback-admin',
           email: currentUser?.email || 'management@doblealab.cl',
-          is_paid: true,
+          is_paid: false,
           is_admin: true
         },
         ...PREVIEW_PAID_USERS.filter((user) => normalizeEmail(user.email) !== normalizeEmail(currentUser?.email))
       ];
 
+      const fallbackAdmins = fallbackUsers.filter((user) => user.is_admin || isManagementAdminEmail(user.email));
+      const fallbackMembers = fallbackUsers.filter((user) => !user.is_admin && !isManagementAdminEmail(user.email));
+
       wrap.innerHTML = `
-        <table class="users-table">
-          <thead>
-            <tr><th>Correo</th><th>Pagó</th><th></th></tr>
-          </thead>
-          <tbody>
-            ${fallbackUsers.map(u => `
-              <tr>
-                <td class="email-cell" title="${u.email}">${u.email}</td>
-                <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
-                <td>
-                  ${u.is_admin ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Management</span>' : '<button class="toggle-paid-btn" disabled title="Se activará cuando la base responda">Dar acceso</button>'}
-                </td>
-              </tr>`).join('')}
-          </tbody>
-        </table>`;
+        <div style="display:grid;gap:18px;">
+          <div>
+            <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Admins</p>
+            <table class="users-table">
+              <thead>
+                <tr><th>Correo</th><th>Rol</th><th></th></tr>
+              </thead>
+              <tbody>
+                ${fallbackAdmins.map(u => `
+                  <tr>
+                    <td class="email-cell" title="${u.email}">${u.email}</td>
+                    <td><span class="paid-badge yes">Admin</span></td>
+                    <td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Puede editar management</span></td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Usuarios del servicio</p>
+            <table class="users-table">
+              <thead>
+                <tr><th>Correo</th><th>Acceso</th><th></th></tr>
+              </thead>
+              <tbody>
+                ${fallbackMembers.map(u => `
+                  <tr>
+                    <td class="email-cell" title="${u.email}">${u.email}</td>
+                    <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
+                    <td><button class="toggle-paid-btn" disabled title="Se activará cuando la base responda">Dar acceso</button></td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>`;
       return;
     }
 
+    const adminUsers = users.filter((user) => user.is_admin || isManagementAdminEmail(user.email));
+    const memberUsers = users.filter((user) => !user.is_admin && !isManagementAdminEmail(user.email));
+
     wrap.innerHTML = `
-      <table class="users-table">
-        <thead>
-          <tr><th>Correo</th><th>Pagó</th><th></th></tr>
-        </thead>
-        <tbody>
-          ${users.map(u => `
-            <tr id="user-row-${u.id}">
-              <td class="email-cell" title="${u.email}">${u.email}</td>
-              <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
-              <td>
-                ${u.id !== currentUser.id ? `
-                  <button class="toggle-paid-btn" onclick="togglePaid('${u.id}', ${u.is_paid})">
-                    ${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}
-                  </button>` : '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Tú</span>'}
-              </td>
-            </tr>`).join('')}
-        </tbody>
-      </table>`;
+      <div style="display:grid;gap:18px;">
+        <div>
+          <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Admins</p>
+          <table class="users-table">
+            <thead>
+              <tr><th>Correo</th><th>Rol</th><th></th></tr>
+            </thead>
+            <tbody>
+              ${adminUsers.map(u => `
+                <tr id="admin-row-${u.id}">
+                  <td class="email-cell" title="${u.email}">${u.email}</td>
+                  <td><span class="paid-badge yes">Admin</span></td>
+                  <td>${u.id === currentUser.id ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Tú</span>' : '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Puede editar management</span>'}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Usuarios del servicio</p>
+          <table class="users-table">
+            <thead>
+              <tr><th>Correo</th><th>Acceso</th><th></th></tr>
+            </thead>
+            <tbody>
+              ${memberUsers.map(u => `
+                <tr id="user-row-${u.id}">
+                  <td class="email-cell" title="${u.email}">${u.email}</td>
+                  <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
+                  <td>
+                    <button class="toggle-paid-btn" onclick="togglePaid('${u.id}', ${u.is_paid})">
+                      ${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}
+                    </button>
+                  </td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
   }
 
   async function togglePaid(userId, currentPaid) {
