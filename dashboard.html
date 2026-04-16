@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Área de miembros — DobleA LAB</title>
+  <title>Management — Dashboard Doble A Lab</title>
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -61,6 +61,19 @@
       margin-bottom: 8px;
     }
     .page-header p { color: rgba(255,255,255,.55); font-size: .95rem; }
+    .page-header .admin-note {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(224,64,160,.14);
+      border: 1px solid rgba(224,64,160,.32);
+      color: #f9a8d4;
+      font-size: .8rem;
+      font-weight: 600;
+    }
 
     /* ── STATES ── */
     .state-card {
@@ -79,6 +92,454 @@
       font-size: .72rem; font-weight: 700; letter-spacing: .12em;
       text-transform: uppercase; color: var(--magenta);
       margin-bottom: 18px;
+    }
+
+    /* ── MANAGEMENT ── */
+    #strategy-section,
+    #management-section,
+    #team-pulse-section,
+    #drive-section { margin-bottom: 42px; }
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .strategy-card {
+      background: linear-gradient(145deg, rgba(224,64,160,.12), rgba(59,15,140,.24));
+      border: 1px solid rgba(224,64,160,.26);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 22px 55px rgba(5, 0, 20, .14);
+    }
+    .strategy-card h3 {
+      color: #fff;
+      font-size: 1.02rem;
+      margin-bottom: 10px;
+    }
+    .strategy-card p {
+      color: rgba(255,255,255,.68);
+      font-size: .88rem;
+      line-height: 1.6;
+    }
+    .management-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .management-card,
+    .pulse-card {
+      background: linear-gradient(160deg, rgba(59,15,140,.22), rgba(13,0,48,.82));
+      border: 1px solid rgba(139,92,246,.3);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 22px 55px rgba(5, 0, 20, .18);
+    }
+    .management-card.wide { grid-column: span 2; }
+    .card-kicker {
+      color: rgba(255,255,255,.45);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .management-card h3,
+    .pulse-card h3 {
+      color: #fff;
+      font-size: 1.02rem;
+      margin-bottom: 14px;
+    }
+    .management-card p,
+    .pulse-card p {
+      color: rgba(255,255,255,.62);
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+    .todo-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .todo-list li {
+      position: relative;
+      padding-left: 18px;
+      color: rgba(255,255,255,.84);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+    .todo-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .6em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #c084fc, var(--magenta));
+      box-shadow: 0 0 0 4px rgba(224,64,160,.12);
+    }
+    .task-owner {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 8px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #e9d5ff;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      font-size: .82rem;
+      font-weight: 600;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .quick-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(224,64,160,.45);
+      background: rgba(224,64,160,.14);
+    }
+    .inline-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.64);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .management-task-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .task-item {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      display: grid;
+      gap: 12px;
+    }
+    .task-item.is-done {
+      background: rgba(34,197,94,.1);
+      border-color: rgba(34,197,94,.35);
+    }
+    .task-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .task-copy {
+      min-width: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .task-title {
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .task-detail {
+      color: rgba(255,255,255,.58);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .task-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .task-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.72);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .task-chip.done {
+      background: rgba(34,197,94,.18);
+      border-color: rgba(34,197,94,.3);
+      color: #bbf7d0;
+    }
+    .task-chip.pending {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.72);
+    }
+    .task-link {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 6px;
+      color: #f0abfc;
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 600;
+    }
+    .task-link:hover { color: #fff; }
+    .task-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,.72);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .task-check {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(255,255,255,.45);
+      background: rgba(255,255,255,.03);
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      margin: 0;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .task-check:hover {
+      border-color: rgba(224,64,160,.6);
+      transform: translateY(-1px);
+    }
+    .task-check:checked {
+      background: rgba(34,197,94,.18);
+      border-color: rgba(34,197,94,.5);
+    }
+    .task-check::after {
+      content: '';
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      transform: rotate(-45deg) scale(0);
+      transform-origin: center;
+      transition: transform .14s ease;
+      margin-top: -1px;
+    }
+    .task-check:checked::after {
+      border-left-color: #bbf7d0;
+      border-bottom-color: #bbf7d0;
+      transform: rotate(-45deg) scale(1);
+    }
+    .task-check:disabled {
+      cursor: not-allowed;
+      opacity: .85;
+    }
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .followup-contacts {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 4px;
+    }
+    .followup-contact {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .followup-contact-name {
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .followup-contact-email {
+      color: rgba(255,255,255,.56);
+      font-size: .76rem;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+    .task-btn,
+    .secondary-btn {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .76rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity .2s, border-color .2s, background .2s;
+    }
+    .task-btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #fff;
+    }
+    .task-btn:hover { border-color: rgba(224,64,160,.4); background: rgba(224,64,160,.12); }
+    .task-btn.danger:hover { border-color: rgba(248,113,113,.45); background: rgba(248,113,113,.12); }
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.72);
+    }
+    .secondary-btn:hover { border-color: rgba(255,255,255,.32); color: #fff; }
+    .task-empty {
+      color: rgba(255,255,255,.38);
+      font-size: .86rem;
+      padding: 12px 0 2px;
+    }
+    .management-alert {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(139,92,246,.26);
+      background: rgba(59,15,140,.16);
+      color: rgba(255,255,255,.72);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .management-alert.error {
+      border-color: rgba(248,113,113,.3);
+      background: rgba(127,29,29,.18);
+      color: #fecaca;
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .editor-grid .wide { grid-column: span 2; }
+    .checkbox-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,.72);
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .checkbox-row input { accent-color: #c026d3; }
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .editor-actions .admin-btn,
+    .editor-actions .secondary-btn {
+      width: auto;
+      min-width: 150px;
+    }
+    .editor-status {
+      margin-bottom: 16px;
+      color: rgba(255,255,255,.55);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .stat-card {
+      border-radius: 16px;
+      padding: 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(139,92,246,.24);
+    }
+    .stat-label {
+      color: rgba(255,255,255,.45);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .stat-value {
+      color: #fff;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-caption {
+      margin-top: 10px;
+      color: rgba(255,255,255,.55);
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+    .paid-users-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .paid-user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .paid-user-copy { min-width: 0; }
+    .paid-user-name {
+      color: #fff;
+      font-size: .92rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .paid-user-email {
+      color: rgba(255,255,255,.48);
+      font-size: .8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .paid-user-meta {
+      color: #c4b5fd;
+      font-size: .75rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .empty-paid {
+      color: rgba(255,255,255,.36);
+      font-size: .88rem;
+      padding: 16px 0 4px;
     }
 
     /* ── MATERIALS GRID ── */
@@ -138,17 +599,18 @@
       border: 1px solid rgba(139,92,246,.3);
       border-radius: 14px; padding: 28px;
     }
+    .admin-card.wide { grid-column: span 2; }
     .admin-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; color: #c4b5fd; }
 
     /* Upload form */
     .upload-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     .upload-field label { font-size: .78rem; color: rgba(255,255,255,.6); font-weight: 500; }
-    .upload-field input, .upload-field textarea {
+    .upload-field input, .upload-field textarea, .upload-field select {
       background: rgba(255,255,255,.07); border: 1px solid rgba(139,92,246,.35);
       border-radius: 8px; padding: 9px 12px; color: #fff; font-size: .85rem;
       font-family: inherit; outline: none; transition: border-color .2s;
     }
-    .upload-field input:focus, .upload-field textarea:focus { border-color: var(--purple-light); }
+    .upload-field input:focus, .upload-field textarea:focus, .upload-field select:focus { border-color: var(--purple-light); }
     .upload-field textarea { resize: vertical; min-height: 70px; }
     .upload-field input[type="file"] { padding: 7px 10px; cursor: pointer; }
     .upload-field input[type="file"]::file-selector-button {
@@ -207,6 +669,15 @@
       nav { padding: 12px 20px; }
       main { padding: 100px 20px 60px; }
     }
+    @media (max-width: 860px) {
+      .management-grid,
+      .pulse-grid,
+      .stats-grid,
+      .editor-grid { grid-template-columns: 1fr; }
+      .management-card.wide { grid-column: span 1; }
+      .admin-card.wide { grid-column: span 1; }
+      .editor-grid .wide { grid-column: span 1; }
+    }
   </style>
 </head>
 <body>
@@ -227,6 +698,220 @@
   </div>
 </main>
 
+<script>
+  (function renderLocalManagementPreview() {
+    const isPreview = window.location.protocol === 'file:' || new URLSearchParams(window.location.search).get('preview') === '1';
+    if (!isPreview) return;
+
+    window.__dashboardPreviewRendered = true;
+    window.signOut = function () { window.location.href = 'index.html'; };
+    window.localPreviewToggleTask = function (checkbox) {
+      const item = checkbox.closest('.task-item');
+      if (!item) return;
+      item.classList.toggle('is-done', checkbox.checked);
+    };
+
+    const navEmail = document.getElementById('nav-user-email');
+    const main = document.getElementById('main-content');
+    if (navEmail) navEmail.textContent = 'management@doblealab.cl · vista previa local';
+    if (!main) return;
+
+    main.innerHTML = `
+      <div class="page-header">
+        <h1>Management — Dashboard Doble A Lab</h1>
+        <p>Hola, <strong style="color:#c4b5fd">Management Preview</strong> — aquí tienes el tablero interno con prioridades, seguimiento y accesos clave del taller.</p>
+        <div class="admin-note">Solo visible para cuentas con acceso de administración</div>
+      </div>
+
+      <section id="strategy-section">
+        <p class="section-label">Visión estratégica</p>
+        <div class="strategy-grid">
+          <article class="strategy-card">
+            <div class="card-kicker">Posicionamiento</div>
+            <h3>Módulos para estudiantes</h3>
+            <p>La línea de módulos está pensada sobre todo para estudiantes. Su función principal es darnos a conocer, construir reputación y ampliar comunidad, más que generar plata directa.</p>
+          </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Revenue</div>
+            <h3>Expandirse hacia empresas</h3>
+            <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="management-section">
+        <p class="section-label">Gestión interna</p>
+        <div class="management-grid">
+          <article class="management-card">
+            <div class="card-kicker">I. To do list</div>
+            <h3>Captación de clientes</h3>
+            <p>Frentes activos para empujar la captación durante esta etapa.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
+              <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
+              <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
+            </div>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Ordenar base de datos con inscritos + pagados</div></div><div class="task-meta"><span class="task-chip">Vale / Valentina</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Enviar emails personalizados</div></div><div class="task-meta"><span class="task-chip">Pablo / Lucia / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Empujar Instagram</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Activar LinkedIn</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Follow up con Pato Navia</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Pensar en PTRPS</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">II. Seguimiento</div>
+            <h3>Pagos y activación</h3>
+            <p>La lista de abajo se alimenta desde <code>profiles.is_paid</code> en la versión publicada. Esta es una vista previa local.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir planilla inscritos + pagados</a>
+              <a class="quick-link" href="#admin-section">Dar login / activar accesos</a>
+            </div>
+            <div class="inline-note">Clave: hacer seguimiento cercano a quienes ya pagaron y dar acceso apenas se confirme el pago.</div>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hacer seguimiento a quienes ya pagaron</div><div class="task-detail">Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.</div></div><div class="task-meta"><span class="task-chip">Clave</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a><div class="followup-contacts"><div class="followup-contact"><div class="followup-contact-name">Cristóbal Castro Baeza</div><div class="followup-contact-email">cristobal.castro2@mail.udp.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Francisca Acevedo</div><div class="followup-contact-email">francisca.acevedo@uc.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Melanie Ballesteros Palma</div><div class="followup-contact-email">melanieballesterospalma@gmail.com</div></div><div class="followup-contact"><div class="followup-contact-name">Macarena Zuazua</div><div class="followup-contact-email">macarena.zuazua@ekhos.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Patricio Alarcón</div><div class="followup-contact-email">patricio.alarcon@mail.udp.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Cristian Carreño</div><div class="followup-contact-email">cristian.carreno@nyu.edu</div></div></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">III. Módulos</div>
+            <h3>Edición de materiales</h3>
+            <p>Todos deben editar los archivos de módulos en Google Drive y luego subir las versiones finales o slides a esta página.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos en Drive</a>
+              <a class="quick-link" href="#materials-section">Revisar materiales publicados</a>
+              <a class="quick-link" href="#admin-section">Subir contenido nuevo</a>
+            </div>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Editar archivos de módulos en Google Drive</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta</a></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">IV. Expansión</div>
+            <h3>Mineras</h3>
+            <p>Hablar con Tania Hutt sobre expansión a mineras.</p>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hablar con Tania Hutt sobre expansión a mineras</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+            </div>
+          </article>
+
+          <article class="management-card wide">
+            <div class="card-kicker">V. Operación</div>
+            <h3>Logins y contenidos</h3>
+            <p>Resolver accesos y carga de contenido sin que quede nada suelto.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="#admin-section">Ir al panel admin</a>
+              <a class="quick-link" href="#materials-section">Revisar materiales</a>
+              <a class="quick-link" href="#drive-section">Ir a Google Drive</a>
+            </div>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Dar login a quienes pagaron</div><div class="task-detail">Usar el panel de usuarios para activar acceso apenas se confirme el pago.</div></div><div class="task-meta"><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="#admin-section">Ir al panel admin</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Empezar a subir contenido a la página</div><div class="task-detail">Slides, PDFs, videos y otros materiales del taller.</div></div><div class="task-meta"><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="#admin-section">Subir contenido</a></div>
+            </div>
+            <div class="management-alert">Vista previa local del management. La edición compartida se activa en el sitio publicado con Supabase.</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="team-pulse-section">
+        <p class="section-label">Pulso del taller</p>
+        <div class="pulse-grid">
+          <article class="pulse-card">
+            <h3>Pagados y accesos</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Pagados</div>
+                <div class="stat-value">6</div>
+                <div class="stat-caption">Vista previa local de la lista viva.</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Por activar</div>
+                <div class="stat-value">2</div>
+                <div class="stat-caption">Pendientes de confirmación o acceso.</div>
+              </div>
+            </div>
+            <div class="inline-note">Esta versión local es solo para revisar el dashboard. Los datos reales aparecen en la versión publicada con sesión.</div>
+          </article>
+
+          <article class="pulse-card">
+            <h3>Lista viva de quienes pagaron</h3>
+            <p>Seguimiento prioritario de los pagados ya confirmados.</p>
+            <div class="paid-users-list">
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Cristóbal Castro Baeza</div><div class="paid-user-email">cristobal.castro2@mail.udp.cl</div></div><div class="paid-user-meta">Intermedio</div></div>
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Francisca Acevedo</div><div class="paid-user-email">francisca.acevedo@uc.cl · 979878832</div></div><div class="paid-user-meta">Intermedio</div></div>
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Melanie Ballesteros Palma</div><div class="paid-user-email">melanieballesterospalma@gmail.com</div></div><div class="paid-user-meta">Básico</div></div>
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Macarena Zuazua</div><div class="paid-user-email">macarena.zuazua@ekhos.cl · 56973971789</div></div><div class="paid-user-meta">Intermedio</div></div>
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Patricio Alarcón</div><div class="paid-user-email">patricio.alarcon@mail.udp.cl · +56949427904</div></div><div class="paid-user-meta">Avanzado</div></div>
+              <div class="paid-user"><div class="paid-user-copy"><div class="paid-user-name">Cristian Carreño</div><div class="paid-user-email">cristian.carreno@nyu.edu</div></div><div class="paid-user-meta">Pagado</div></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="drive-section">
+        <p class="section-label">Google Drive</p>
+        <div class="pulse-grid">
+          <article class="pulse-card">
+            <h3>Conexión activa</h3>
+            <p>Google Drive ya quedó montado en este Mac, así que desde acá podemos revisar respuestas del formulario, bases y materiales del taller.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
+              <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
+              <a class="quick-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos</a>
+            </div>
+            <div class="inline-note">Unidad montada en este Mac: <code>/Users/pabloargotetironi/Library/CloudStorage/GoogleDrive-p.argotetironi@gmail.com/My Drive</code><br>Planilla local detectada: <code>/Users/pabloargotetironi/Library/CloudStorage/GoogleDrive-p.argotetironi@gmail.com/My Drive/Inscripción DobleA LAB  (Responses).gsheet</code></div>
+          </article>
+
+          <article class="pulse-card">
+            <h3>Fuentes clave</h3>
+            <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Respuestas del formulario</div><div class="task-detail">Acá entran los nuevos inscritos al taller y desde esta planilla los puedo rastrear.</div></div><div class="task-meta"><span class="task-chip">Google Sheets</span></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Base de inscritos + pagados</div><div class="task-detail">Sirve para ordenar seguimiento comercial, confirmar pagos y decidir accesos.</div></div><div class="task-meta"><span class="task-chip">Seguimiento</span></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Carpeta de módulos</div><div class="task-detail">Sigue siendo la fuente central para editar materiales antes de subirlos al sitio.</div></div><div class="task-meta"><span class="task-chip">Materiales</span></div></div><a class="task-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="materials-section">
+        <p class="section-label">Contenido y materiales</p>
+        <div id="materials-grid" class="materials-grid">
+          <p class="empty-materials">Vista previa local del management. Los materiales reales se verán aquí cuando entres con sesión al sitio publicado.</p>
+        </div>
+      </section>
+
+      <section id="admin-section">
+        <p class="section-label">Panel de administración</p>
+        <div class="admin-grid">
+          <div class="admin-card wide">
+            <h3>Agenda interna editable</h3>
+            <p class="editor-status">Vista previa local: este formulario muestra cómo se editará la agenda, pero no guarda cambios desde archivo local.</p>
+          </div>
+          <div class="admin-card">
+            <h3>Subir material</h3>
+            <div class="msg error" style="display:block;">Vista previa local: la subida de archivos solo funciona en el sitio publicado con sesión.</div>
+          </div>
+          <div class="admin-card">
+            <h3>Usuarios</h3>
+            <table class="users-table">
+              <thead>
+                <tr><th>Correo</th><th>Pagó</th><th></th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="email-cell">management@doblealab.cl</td><td><span class="paid-badge yes">Sí</span></td><td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span></td></tr>
+                <tr><td class="email-cell">pagado1@doblealab.cl</td><td><span class="paid-badge yes">Sí</span></td><td><button class="toggle-paid-btn" disabled>Quitar acceso</button></td></tr>
+                <tr><td class="email-cell">pendiente1@doblealab.cl</td><td><span class="paid-badge no">No</span></td><td><button class="toggle-paid-btn" disabled>Dar acceso</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>`;
+  })();
+</script>
+
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -235,14 +920,91 @@
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53anB0dnhzanNuZGhsZGl6bHZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwOTgyOTcsImV4cCI6MjA5MTY3NDI5N30.n7TQ-91xFqG3fmFhMon3Ae-RzWFsArVmPIuMVLqnfMQ';
   // ─────────────────────────────────────────────────────────────────────
 
-  const { createClient } = supabase;
-  const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+  const PREVIEW_MODE = window.location.protocol === 'file:' || new URLSearchParams(window.location.search).get('preview') === '1';
+  const sb = !PREVIEW_MODE && typeof supabase !== 'undefined'
+    ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
+    : null;
+  const PAYMENT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0';
+  const GOOGLE_DRIVE_RESPONSES_URL = 'https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit';
+  const GOOGLE_DRIVE_LOCAL_ROOT = '/Users/pabloargotetironi/Library/CloudStorage/GoogleDrive-p.argotetironi@gmail.com/My Drive';
+  const GOOGLE_DRIVE_LOCAL_RESPONSES_PATH = `${GOOGLE_DRIVE_LOCAL_ROOT}/Inscripción DobleA LAB  (Responses).gsheet`;
+  const MODULES_DRIVE_URL = 'https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP';
+  const MANAGEMENT_SECTIONS = [
+    {
+      key: 'captacion',
+      kicker: 'I. To do list',
+      title: 'Captación de clientes'
+    },
+    {
+      key: 'seguimiento',
+      kicker: 'II. Seguimiento',
+      title: 'Pagos y activación'
+    },
+    {
+      key: 'modulos',
+      kicker: 'III. Módulos',
+      title: 'Edición de materiales'
+    },
+    {
+      key: 'expansion',
+      kicker: 'IV. Expansión',
+      title: 'Mineras'
+    },
+    {
+      key: 'operacion',
+      kicker: 'V. Operación',
+      title: 'Logins y contenidos'
+    }
+  ];
+  const DEFAULT_MANAGEMENT_TASKS = [
+    { id: 'seed-1', section_key: 'captacion', title: 'Ordenar base de datos con inscritos + pagados', owner: 'Vale / Valentina', detail: null, link_url: PAYMENT_SHEET_URL, sort_order: 10, is_done: false },
+    { id: 'seed-2', section_key: 'captacion', title: 'Enviar emails personalizados', owner: 'Pablo / Lucia / Mauricio', detail: null, link_url: GOOGLE_DRIVE_RESPONSES_URL, sort_order: 20, is_done: false },
+    { id: 'seed-3', section_key: 'captacion', title: 'Empujar Instagram', owner: 'Equipo', detail: null, link_url: null, sort_order: 30, is_done: false },
+    { id: 'seed-4', section_key: 'captacion', title: 'Activar LinkedIn', owner: 'Todos', detail: null, link_url: null, sort_order: 40, is_done: false },
+    { id: 'seed-5', section_key: 'captacion', title: 'Follow up con Pato Navia', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 50, is_done: false },
+    { id: 'seed-6', section_key: 'captacion', title: 'Pensar en PTRPS', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 60, is_done: false },
+    { id: 'seed-7', section_key: 'seguimiento', title: 'Hacer seguimiento a quienes ya pagaron', owner: 'Clave', detail: 'Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.', link_url: PAYMENT_SHEET_URL, sort_order: 70, is_done: false },
+    { id: 'seed-8', section_key: 'modulos', title: 'Editar archivos de módulos en Google Drive', owner: 'Todos', detail: null, link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
+    { id: 'seed-9', section_key: 'expansion', title: 'Hablar con Tania Hutt sobre expansión a mineras', owner: 'Mauricio / Pablo', detail: null, link_url: null, sort_order: 90, is_done: false },
+    { id: 'seed-10', section_key: 'operacion', title: 'Dar login a quienes pagaron', owner: null, detail: 'Usar el panel de usuarios para activar acceso apenas se confirme el pago.', link_url: '#admin-section', sort_order: 100, is_done: false },
+    { id: 'seed-11', section_key: 'operacion', title: 'Empezar a subir contenido a la página', owner: null, detail: 'Slides, PDFs, videos y otros materiales del taller.', link_url: '#admin-section', sort_order: 110, is_done: false }
+  ];
+  const PREVIEW_PAID_USERS = [
+    { id: 'preview-paid-1', full_name: 'Cristóbal Castro Baeza', email: 'cristobal.castro2@mail.udp.cl', phone: null, level: 'Intermedio', created_at: '2026-04-10T12:00:00Z', is_paid: true, is_admin: false },
+    { id: 'preview-paid-2', full_name: 'Francisca Acevedo', email: 'francisca.acevedo@uc.cl', phone: '979878832', level: 'Intermedio', created_at: '2026-04-11T12:00:00Z', is_paid: true, is_admin: false },
+    { id: 'preview-paid-3', full_name: 'Melanie Ballesteros Palma', email: 'melanieballesterospalma@gmail.com', phone: null, level: 'Básico', created_at: '2026-04-12T12:00:00Z', is_paid: true, is_admin: false },
+    { id: 'preview-paid-4', full_name: 'Macarena Zuazua', email: 'macarena.zuazua@ekhos.cl', phone: '56973971789', level: 'Intermedio', created_at: '2026-04-13T12:00:00Z', is_paid: true, is_admin: false },
+    { id: 'preview-paid-5', full_name: 'Patricio Alarcón', email: 'patricio.alarcon@mail.udp.cl', phone: '+56949427904', level: 'Avanzado', created_at: '2026-04-14T12:00:00Z', is_paid: true, is_admin: false },
+    { id: 'preview-paid-6', full_name: 'Cristian Carreño', email: 'cristian.carreno@nyu.edu', phone: null, level: null, created_at: '2026-04-15T12:00:00Z', is_paid: true, is_admin: false }
+  ];
+  const PREVIEW_USERS = [
+    { id: 'preview-admin', full_name: 'Management Preview', email: 'management@doblealab.cl', created_at: '2026-04-15T12:00:00Z', is_paid: true, is_admin: true },
+    ...PREVIEW_PAID_USERS,
+    { id: 'preview-pending-1', full_name: 'Inscrito Pendiente 1', email: 'pendiente1@doblealab.cl', created_at: '2026-04-15T12:00:00Z', is_paid: false, is_admin: false },
+    { id: 'preview-pending-2', full_name: 'Inscrito Pendiente 2', email: 'pendiente2@doblealab.cl', created_at: '2026-04-16T12:00:00Z', is_paid: false, is_admin: false }
+  ];
 
   let currentUser   = null;
   let currentProfile = null;
+  let profilesChannel = null;
+  let paidUsersRefreshHandle = null;
+  let managementChannel = null;
+  let managementTasksCache = [];
+  let managementTasksAvailable = false;
+  let paidUsersCache = [];
 
   // ── Init ──────────────────────────────────────────────────────────────
   async function init() {
+    if (PREVIEW_MODE) {
+      startPreviewMode();
+      return;
+    }
+
+    if (!sb) {
+      showAccessDenied('No se pudo cargar la conexión del dashboard. Intenta de nuevo desde la versión publicada.');
+      return;
+    }
+
     const { data: { session } } = await sb.auth.getSession();
 
     if (!session) {
@@ -288,6 +1050,23 @@
     renderDashboard();
   }
 
+  function startPreviewMode() {
+    currentUser = {
+      id: 'preview-admin',
+      email: 'management@doblealab.cl',
+      user_metadata: { full_name: 'Management Preview' }
+    };
+    currentProfile = {
+      id: 'preview-admin',
+      full_name: 'Management Preview',
+      is_paid: true,
+      is_admin: true
+    };
+
+    document.getElementById('nav-user-email').textContent = `${currentUser.email} · vista previa local`;
+    renderDashboard();
+  }
+
   // ── Sign out ──────────────────────────────────────────────────────────
   async function signOut() {
     await sb.auth.signOut();
@@ -316,34 +1095,238 @@
 
   // ── Main dashboard render ─────────────────────────────────────────────
   async function renderDashboard() {
+    const isAdmin = currentProfile.is_admin;
     const main = document.getElementById('main-content');
     main.innerHTML = `
       <div class="page-header">
-        <h1>Área de miembros</h1>
-        <p>Hola, <strong style="color:#c4b5fd">${currentProfile.full_name || currentUser.email}</strong> — aquí encontrarás todos los materiales del taller.</p>
+        <h1>${isAdmin ? 'Management — Dashboard Doble A Lab' : 'Área de miembros'}</h1>
+        <p>Hola, <strong style="color:#c4b5fd">${currentProfile.full_name || currentUser.email}</strong> — ${isAdmin ? 'aquí tienes el tablero interno con prioridades, seguimiento y accesos clave del taller.' : 'aquí encontrarás todos los materiales del taller.'}</p>
+        ${isAdmin ? '<div class="admin-note">Solo visible para cuentas con acceso de administración</div>' : ''}
       </div>
 
+      ${isAdmin ? strategySectionHTML() : ''}
+      ${isAdmin ? managementDashboardHTML() : ''}
+
       <section id="materials-section">
-        <p class="section-label">Materiales</p>
+        <p class="section-label">${isAdmin ? 'Contenido y materiales' : 'Materiales'}</p>
         <div id="materials-grid" class="materials-grid">
           <div class="loading-screen" style="min-height:200px"><div class="spinner"></div></div>
         </div>
       </section>
 
-      ${currentProfile.is_admin ? adminPanelHTML() : ''}
+      ${isAdmin ? adminPanelHTML() : ''}
     `;
 
     loadMaterials();
-    if (currentProfile.is_admin) loadUsers();
+    if (isAdmin) {
+      loadManagementTasks();
+      loadUsers();
+      loadPaidUsers();
+      if (!PREVIEW_MODE) setupProfilesSync();
+    }
+  }
+
+  function managementDashboardHTML() {
+    return `
+      <section id="management-section">
+        <p class="section-label">Gestión interna</p>
+        <div class="management-grid">
+          <article class="management-card">
+            <div class="card-kicker">I. To do list</div>
+            <h3>Captación de clientes</h3>
+            <p>Frentes activos para empujar la captación durante esta etapa.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
+              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
+              <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
+            </div>
+            <div class="management-task-list" id="management-list-captacion">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">II. Seguimiento</div>
+            <h3>Pagos y activación</h3>
+            <p>La lista de abajo se alimenta desde <code>profiles.is_paid</code> y se refresca sola cuando cambia el estado de pago.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir planilla inscritos + pagados</a>
+              <a class="quick-link" href="#admin-section">Dar login / activar accesos</a>
+            </div>
+            <div class="inline-note">Clave: hacer seguimiento cercano a quienes ya pagaron y dar acceso apenas se confirme el pago.</div>
+            <div class="management-task-list" id="management-list-seguimiento">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">III. Módulos</div>
+            <h3>Edición de materiales</h3>
+            <p>Todos deben editar los archivos de módulos en Google Drive y luego subir las versiones finales o slides a esta página.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos en Drive</a>
+              <a class="quick-link" href="#materials-section">Revisar materiales publicados</a>
+              <a class="quick-link" href="#admin-section">Subir contenido nuevo</a>
+            </div>
+            <div class="management-task-list" id="management-list-modulos">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">IV. Expansión</div>
+            <h3>Mineras</h3>
+            <p>Hablar con Tania Hutt sobre expansión a mineras.</p>
+            <div class="management-task-list" id="management-list-expansion">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+
+          <article class="management-card wide">
+            <div class="card-kicker">V. Operación</div>
+            <h3>Logins y contenidos</h3>
+            <p>Resolver accesos y carga de contenido sin que quede nada suelto.</p>
+            <div class="quick-links">
+              <a class="quick-link" href="#admin-section">Ir al panel admin</a>
+              <a class="quick-link" href="#materials-section">Revisar materiales</a>
+              <a class="quick-link" href="#drive-section">Ir a Google Drive</a>
+            </div>
+            <div class="management-task-list" id="management-list-operacion">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+            <div class="management-alert" id="management-status-msg">Comparte el dashboard publicado y usa cuentas admin para editar esta agenda entre varias personas.</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="team-pulse-section">
+        <p class="section-label">Pulso del taller</p>
+        <div class="pulse-grid">
+          <article class="pulse-card">
+            <h3>Pagados y accesos</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Pagados</div>
+                <div class="stat-value" id="paid-count">--</div>
+                <div class="stat-caption">Personas con <code>is_paid = true</code> en la base.</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Por activar</div>
+                <div class="stat-value" id="pending-count">--</div>
+                <div class="stat-caption">Registrados pendientes de confirmación o acceso.</div>
+              </div>
+            </div>
+            <div class="inline-note">
+              Esta vista se usa como referencia rápida para seguimiento. Si marcas un pago en el panel de usuarios, el bloque se actualiza automáticamente.
+            </div>
+          </article>
+
+          <article class="pulse-card">
+            <h3>Lista viva de quienes pagaron</h3>
+            <p>Seguimiento prioritario de los pagados ya confirmados.</p>
+            <div class="paid-users-list" id="paid-users-list">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      ${googleDriveSectionHTML({ preview: PREVIEW_MODE })}`;
+  }
+
+  function strategySectionHTML() {
+    return `
+      <section id="strategy-section">
+        <p class="section-label">Visión estratégica</p>
+        <div class="strategy-grid">
+          <article class="strategy-card">
+            <div class="card-kicker">Posicionamiento</div>
+            <h3>Módulos para estudiantes</h3>
+            <p>La línea de módulos está pensada sobre todo para estudiantes. Su función principal es darnos a conocer, construir reputación y ampliar comunidad, más que generar plata directa.</p>
+          </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Revenue</div>
+            <h3>Expandirse hacia empresas</h3>
+            <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
+          </article>
+        </div>
+      </section>`;
+  }
+
+  function googleDriveSectionHTML({ preview = false } = {}) {
+    const localNote = preview
+      ? `<div class="inline-note">Unidad montada en este Mac: <code>${escapeHTML(GOOGLE_DRIVE_LOCAL_ROOT)}</code><br>Planilla local detectada: <code>${escapeHTML(GOOGLE_DRIVE_LOCAL_RESPONSES_PATH)}</code></div>`
+      : '<div class="inline-note">Google Drive ya quedó dentro del flujo de management para revisar respuestas del formulario, seguimiento comercial y materiales del taller.</div>';
+
+    return `
+      <section id="drive-section">
+        <p class="section-label">Google Drive</p>
+        <div class="pulse-grid">
+          <article class="pulse-card">
+            <h3>Conexión activa</h3>
+            <p>${preview ? 'Google Drive ya quedó montado en este equipo, así que desde esta vista local tenemos una referencia directa a respuestas, bases y materiales.' : 'Google Drive concentra respuestas del formulario, base de seguimiento y materiales de módulos para el equipo.'}</p>
+            <div class="quick-links">
+              <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
+              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
+              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos</a>
+            </div>
+            ${localNote}
+          </article>
+
+          <article class="pulse-card">
+            <h3>Fuentes clave</h3>
+            <div class="management-task-list">
+              <div class="task-item">
+                <div class="task-topline">
+                  <div class="task-copy">
+                    <div class="task-title">Respuestas del formulario</div>
+                    <div class="task-detail">Acá entran los nuevos inscritos al taller y desde esta planilla los podemos rastrear.</div>
+                  </div>
+                  <div class="task-meta"><span class="task-chip">Google Sheets</span></div>
+                </div>
+                <a class="task-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas</a>
+              </div>
+              <div class="task-item">
+                <div class="task-topline">
+                  <div class="task-copy">
+                    <div class="task-title">Base de inscritos + pagados</div>
+                    <div class="task-detail">Sirve para ordenar seguimiento comercial, confirmar pagos y decidir accesos.</div>
+                  </div>
+                  <div class="task-meta"><span class="task-chip">Seguimiento</span></div>
+                </div>
+                <a class="task-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir base</a>
+              </div>
+              <div class="task-item">
+                <div class="task-topline">
+                  <div class="task-copy">
+                    <div class="task-title">Carpeta de módulos</div>
+                    <div class="task-detail">Sigue siendo la fuente central para editar materiales antes de subirlos al sitio.</div>
+                  </div>
+                  <div class="task-meta"><span class="task-chip">Materiales</span></div>
+                </div>
+                <a class="task-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>`;
   }
 
   // ── Materials ─────────────────────────────────────────────────────────
   async function loadMaterials() {
+    if (PREVIEW_MODE) {
+      const grid = document.getElementById('materials-grid');
+      if (!grid) return;
+      grid.innerHTML = '<p class="empty-materials">Vista previa local del management. Los materiales reales se verán aquí cuando entres con sesión al sitio publicado.</p>';
+      return;
+    }
+
     const { data: materials, error } = await sb.from('materials')
       .select('*')
       .order('created_at', { ascending: false });
 
     const grid = document.getElementById('materials-grid');
+    if (!grid) return;
     if (error || !materials || materials.length === 0) {
       grid.innerHTML = '<p class="empty-materials">Aún no hay materiales subidos. Vuelve pronto.</p>';
       return;
@@ -386,6 +1369,48 @@
         <p class="section-label">Panel de administración</p>
         <div class="admin-grid">
 
+          <div class="admin-card wide" id="task-editor-card">
+            <h3>Agenda interna editable</h3>
+            <p class="editor-status" id="task-editor-status">Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.</p>
+            <div class="editor-grid">
+              <div class="upload-field">
+                <label>Sección</label>
+                <select id="task-section">
+                  ${MANAGEMENT_SECTIONS.map((section) => `<option value="${section.key}">${section.kicker} — ${section.title}</option>`).join('')}
+                </select>
+              </div>
+              <div class="upload-field">
+                <label>Responsable (opcional)</label>
+                <input type="text" id="task-owner" placeholder="ej. Pablo / Mauricio" />
+              </div>
+              <div class="upload-field wide">
+                <label>Tarea</label>
+                <input type="text" id="task-title" placeholder="ej. Hacer seguimiento a pagados" />
+              </div>
+              <div class="upload-field wide">
+                <label>Detalle (opcional)</label>
+                <textarea id="task-detail" placeholder="Contexto, siguiente paso, notas, etc."></textarea>
+              </div>
+              <div class="upload-field">
+                <label>Link (opcional)</label>
+                <input type="text" id="task-link" placeholder="https://..." />
+              </div>
+              <div class="upload-field">
+                <label>Orden</label>
+                <input type="number" id="task-order" value="10" min="0" step="10" />
+              </div>
+              <div class="upload-field wide">
+                <label class="checkbox-row"><input type="checkbox" id="task-done" /> Marcar como completada</label>
+              </div>
+            </div>
+            <input type="hidden" id="task-id" />
+            <div class="editor-actions">
+              <button class="admin-btn" id="save-task-btn" onclick="saveTask()">Guardar tarea</button>
+              <button class="secondary-btn" id="reset-task-btn" onclick="resetTaskForm()">Limpiar formulario</button>
+            </div>
+            <div class="msg" id="task-editor-msg"></div>
+          </div>
+
           <!-- Upload material -->
           <div class="admin-card">
             <h3>Subir material</h3>
@@ -426,6 +1451,11 @@
     const btn     = document.getElementById('upload-btn');
     const msgEl   = document.getElementById('upload-msg');
 
+    if (PREVIEW_MODE) {
+      showMsg(msgEl, 'error', 'Vista previa local: la subida de archivos solo funciona en el sitio publicado con sesión.');
+      return;
+    }
+
     if (!name || !file) { showMsg(msgEl, 'error', 'Ingresa nombre y archivo.'); return; }
 
     btn.disabled = true; btn.textContent = 'Subiendo…';
@@ -459,7 +1489,367 @@
   }
 
   // ── Admin: Users ──────────────────────────────────────────────────────
+  async function loadPaidUsers() {
+    const list = document.getElementById('paid-users-list');
+    const paidCountEl = document.getElementById('paid-count');
+    const pendingCountEl = document.getElementById('pending-count');
+    if (!list || !paidCountEl || !pendingCountEl) return;
+
+    if (PREVIEW_MODE) {
+      paidUsersCache = PREVIEW_PAID_USERS.slice();
+      paidCountEl.textContent = String(PREVIEW_PAID_USERS.length);
+      pendingCountEl.textContent = String(PREVIEW_USERS.filter((user) => !user.is_paid).length);
+      list.innerHTML = PREVIEW_PAID_USERS.map((user) => paidUserHTML(user)).join('');
+      return;
+    }
+
+    const { data: users, error } = await sb.from('profiles')
+      .select('id, email, full_name, is_paid, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error || !users) {
+      paidUsersCache = [];
+      list.innerHTML = '<p class="empty-paid">No se pudo cargar la lista de pagos.</p>';
+      paidCountEl.textContent = '0';
+      pendingCountEl.textContent = '0';
+      return;
+    }
+
+    const paidUsers = users.filter((user) => user.is_paid);
+    const pendingUsers = users.filter((user) => !user.is_paid);
+    paidUsersCache = paidUsers;
+    paidCountEl.textContent = String(paidUsers.length);
+    pendingCountEl.textContent = String(pendingUsers.length);
+
+    if (paidUsers.length === 0) {
+      list.innerHTML = '<p class="empty-paid">Aún no hay pagos confirmados en la base.</p>';
+      if (managementTasksCache.length) renderManagementTasks(managementTasksCache, { editable: managementTasksAvailable });
+      return;
+    }
+
+    list.innerHTML = paidUsers.map((user) => paidUserHTML(user)).join('');
+    if (managementTasksCache.length) renderManagementTasks(managementTasksCache, { editable: managementTasksAvailable });
+  }
+
+  async function loadManagementTasks() {
+    const statusEl = document.getElementById('management-status-msg');
+    const editorStatusEl = document.getElementById('task-editor-status');
+    const editorMsgEl = document.getElementById('task-editor-msg');
+
+    if (PREVIEW_MODE) {
+      managementTasksAvailable = false;
+      managementTasksCache = [];
+      renderManagementTasks(DEFAULT_MANAGEMENT_TASKS, { editable: false });
+      if (statusEl) {
+        statusEl.className = 'management-alert';
+        statusEl.textContent = 'Vista previa local del management. Aquí ya puedes revisar la estructura; la edición compartida se activa en el sitio publicado con Supabase.';
+      }
+      if (editorStatusEl) {
+        editorStatusEl.textContent = 'Vista previa local: este formulario muestra cómo se editará la agenda, pero no guarda cambios desde archivo local.';
+      }
+      if (editorMsgEl) {
+        editorMsgEl.style.display = 'none';
+      }
+      updateTaskEditorAvailability();
+      return;
+    }
+
+    const { data: tasks, error } = await sb.from('management_tasks')
+      .select('id, section_key, title, detail, owner, link_url, sort_order, is_done, created_at')
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      managementTasksAvailable = false;
+      managementTasksCache = [];
+      renderManagementTasks(DEFAULT_MANAGEMENT_TASKS, { editable: false });
+      if (statusEl) {
+        statusEl.className = 'management-alert error';
+        statusEl.textContent = 'La agenda quedó visible, pero la edición compartida se activa cuando exista la tabla public.management_tasks en Supabase. Revisa el archivo supabase/management_tasks.sql.';
+      }
+      if (editorStatusEl) {
+        editorStatusEl.textContent = 'La tabla de tareas aún no existe en Supabase. El tablero muestra una versión base y el formulario queda bloqueado hasta correr el SQL de configuración.';
+      }
+      if (editorMsgEl) showMsg(editorMsgEl, 'error', 'Falta crear la tabla public.management_tasks para habilitar edición compartida.');
+      updateTaskEditorAvailability();
+      return;
+    }
+
+    managementTasksAvailable = true;
+    managementTasksCache = tasks || [];
+    renderManagementTasks(managementTasksCache, { editable: true });
+    if (statusEl) {
+      statusEl.className = 'management-alert';
+      statusEl.textContent = 'Agenda centralizada en Supabase. Comparte el link del dashboard publicado y cualquier cuenta admin podrá editarla en tiempo real.';
+    }
+    if (editorStatusEl) {
+      editorStatusEl.textContent = 'Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.';
+    }
+    if (editorMsgEl && editorMsgEl.classList.contains('error')) hideMsg(editorMsgEl);
+    updateTaskEditorAvailability();
+    setupManagementTasksSync();
+  }
+
+  function renderManagementTasks(tasks, { editable }) {
+    MANAGEMENT_SECTIONS.forEach((section) => {
+      const container = document.getElementById(`management-list-${section.key}`);
+      if (!container) return;
+
+      const sectionTasks = tasks
+        .filter((task) => task.section_key === section.key)
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+
+      if (sectionTasks.length === 0) {
+        container.innerHTML = '<p class="task-empty">No hay tareas cargadas todavía para esta sección.</p>';
+        return;
+      }
+
+      container.innerHTML = sectionTasks.map((task) => managementTaskHTML(task, editable)).join('');
+    });
+  }
+
+  function managementTaskHTML(task, editable) {
+    const safeTitle = escapeHTML(task.title || 'Sin título');
+    const safeOwner = task.owner ? escapeHTML(task.owner) : '';
+    const safeDetail = task.detail ? escapeHTML(task.detail) : '';
+    const linkUrl = normalizeOptionalUrl(task.link_url);
+    const followupHTML = shouldShowFollowupContacts(task)
+      ? paidFollowupListHTML(getFollowupPaidUsers())
+      : '';
+    const linkHTML = linkUrl
+      ? `<a class="task-link" href="${escapeAttribute(linkUrl)}" target="${linkUrl.startsWith('#') ? '_self' : '_blank'}" rel="noopener noreferrer">Abrir enlace</a>`
+      : '';
+
+    return `
+      <div class="task-item ${task.is_done ? 'is-done' : ''}">
+        <div class="task-topline">
+          <div class="task-copy">
+            <div class="task-title">${safeTitle}</div>
+            ${safeDetail ? `<div class="task-detail">${safeDetail}</div>` : ''}
+          </div>
+          <div class="task-meta">
+            ${safeOwner ? `<span class="task-chip">${safeOwner}</span>` : ''}
+            <label class="task-status">
+              <input class="task-check" type="checkbox" ${task.is_done ? 'checked' : ''} ${editable ? `onchange="toggleTaskDone(${JSON.stringify(task.id)}, this.checked)"` : 'disabled'} />
+              Hecha
+            </label>
+          </div>
+        </div>
+        ${linkHTML}
+        ${followupHTML}
+        ${editable ? `
+          <div class="task-actions">
+            <button class="task-btn" onclick="toggleTaskDone(${JSON.stringify(task.id)}, ${!task.is_done})">${task.is_done ? 'Reabrir' : 'Marcar lista'}</button>
+            <button class="task-btn" onclick="startEditTask(${JSON.stringify(task.id)})">Editar</button>
+            <button class="task-btn danger" onclick="deleteTask(${JSON.stringify(task.id)})">Borrar</button>
+          </div>` : ''}
+      </div>`;
+  }
+
+  function shouldShowFollowupContacts(task) {
+    const title = (task.title || '').toLowerCase();
+    return task.section_key === 'seguimiento' && title.includes('seguimiento') && title.includes('pagaron');
+  }
+
+  function getFollowupPaidUsers() {
+    return PREVIEW_MODE ? PREVIEW_PAID_USERS : paidUsersCache;
+  }
+
+  function paidFollowupListHTML(users) {
+    if (!users || users.length === 0) return '';
+
+    return `
+      <div class="followup-contacts">
+        ${users.map((user) => {
+          const name = escapeHTML(user.full_name && user.full_name.trim() ? user.full_name.trim() : 'Sin nombre');
+          const email = escapeHTML(user.email || 'Sin email');
+          return `<div class="followup-contact"><div class="followup-contact-name">${name}</div><div class="followup-contact-email">${email}</div></div>`;
+        }).join('')}
+      </div>`;
+  }
+
+  function updateTaskEditorAvailability() {
+    const ids = ['task-section', 'task-owner', 'task-title', 'task-detail', 'task-link', 'task-order', 'task-done', 'save-task-btn', 'reset-task-btn'];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = !managementTasksAvailable;
+    });
+  }
+
+  function resetTaskForm() {
+    const status = document.getElementById('task-editor-status');
+
+    document.getElementById('task-id').value = '';
+    document.getElementById('task-section').value = MANAGEMENT_SECTIONS[0].key;
+    document.getElementById('task-owner').value = '';
+    document.getElementById('task-title').value = '';
+    document.getElementById('task-detail').value = '';
+    document.getElementById('task-link').value = '';
+    document.getElementById('task-order').value = '10';
+    document.getElementById('task-done').checked = false;
+    if (status) {
+      status.textContent = managementTasksAvailable
+        ? 'Haz clic en editar en cualquier tarea para traerla aquí, o crea una nueva desde cero.'
+        : 'La tabla de tareas aún no existe en Supabase. El tablero muestra una versión base y el formulario queda bloqueado hasta correr el SQL de configuración.';
+    }
+  }
+
+  function startEditTask(taskId) {
+    if (!managementTasksAvailable) return;
+    const task = managementTasksCache.find((item) => String(item.id) === String(taskId));
+    if (!task) return;
+
+    hideMsg(document.getElementById('task-editor-msg'));
+    document.getElementById('task-id').value = String(task.id);
+    document.getElementById('task-section').value = task.section_key;
+    document.getElementById('task-owner').value = task.owner || '';
+    document.getElementById('task-title').value = task.title || '';
+    document.getElementById('task-detail').value = task.detail || '';
+    document.getElementById('task-link').value = task.link_url || '';
+    document.getElementById('task-order').value = String(task.sort_order ?? 10);
+    document.getElementById('task-done').checked = Boolean(task.is_done);
+    document.getElementById('task-editor-status').textContent = 'Editando tarea existente. Guarda cambios para compartirlos con el resto del equipo.';
+    document.getElementById('task-editor-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  async function saveTask() {
+    const msgEl = document.getElementById('task-editor-msg');
+    if (!managementTasksAvailable) {
+      showMsg(msgEl, 'error', 'La edición compartida requiere crear la tabla public.management_tasks.');
+      return;
+    }
+
+    const taskId = document.getElementById('task-id').value;
+    const payload = {
+      section_key: document.getElementById('task-section').value,
+      owner: emptyToNull(document.getElementById('task-owner').value),
+      title: document.getElementById('task-title').value.trim(),
+      detail: emptyToNull(document.getElementById('task-detail').value),
+      link_url: emptyToNull(normalizeOptionalUrl(document.getElementById('task-link').value)),
+      sort_order: Number(document.getElementById('task-order').value || 0),
+      is_done: document.getElementById('task-done').checked
+    };
+
+    if (!payload.title) {
+      showMsg(msgEl, 'error', 'Ingresa un título para la tarea.');
+      return;
+    }
+
+    const saveBtn = document.getElementById('save-task-btn');
+    saveBtn.disabled = true;
+    saveBtn.textContent = taskId ? 'Guardando…' : 'Creando…';
+    hideMsg(msgEl);
+
+    let error = null;
+    if (taskId) {
+      ({ error } = await sb.from('management_tasks').update(payload).eq('id', taskId));
+    } else {
+      ({ error } = await sb.from('management_tasks').insert({
+        ...payload,
+        created_by: currentUser.id
+      }));
+    }
+
+    if (error) {
+      showMsg(msgEl, 'error', 'No se pudo guardar la tarea: ' + error.message);
+    } else {
+      showMsg(msgEl, 'success', taskId ? 'Tarea actualizada.' : 'Tarea creada.');
+      resetTaskForm();
+      loadManagementTasks();
+    }
+
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Guardar tarea';
+  }
+
+  async function toggleTaskDone(taskId, nextDone) {
+    if (!managementTasksAvailable) return;
+    const { error } = await sb.from('management_tasks')
+      .update({ is_done: nextDone })
+      .eq('id', taskId);
+
+    if (error) {
+      alert('Error al actualizar la tarea: ' + error.message);
+      return;
+    }
+
+    loadManagementTasks();
+  }
+
+  async function deleteTask(taskId) {
+    if (!managementTasksAvailable) return;
+    const confirmed = window.confirm('¿Borrar esta tarea del dashboard?');
+    if (!confirmed) return;
+
+    const { error } = await sb.from('management_tasks')
+      .delete()
+      .eq('id', taskId);
+
+    if (error) {
+      alert('Error al borrar la tarea: ' + error.message);
+      return;
+    }
+
+    if (String(document.getElementById('task-id').value) === String(taskId)) resetTaskForm();
+    loadManagementTasks();
+  }
+
+  function setupManagementTasksSync() {
+    if (managementChannel || !managementTasksAvailable) return;
+
+    managementChannel = sb.channel('dashboard-management-sync')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'management_tasks' },
+        () => {
+          loadManagementTasks();
+        }
+      )
+      .subscribe();
+  }
+
+  function paidUserHTML(user) {
+    const name = user.full_name && user.full_name.trim() ? user.full_name.trim() : 'Sin nombre';
+    const date = user.created_at
+      ? new Date(user.created_at).toLocaleDateString('es-CL', { day: 'numeric', month: 'short' })
+      : 'Sin fecha';
+    const contact = [user.email, user.phone].filter(Boolean).join(' · ');
+    const meta = user.level || `Desde ${date}`;
+
+    return `
+      <div class="paid-user">
+        <div class="paid-user-copy">
+          <div class="paid-user-name">${name}</div>
+          <div class="paid-user-email">${contact}</div>
+        </div>
+        <div class="paid-user-meta">${meta}</div>
+      </div>`;
+  }
+
   async function loadUsers() {
+    if (PREVIEW_MODE) {
+      const wrap = document.getElementById('users-table-wrap');
+      if (!wrap) return;
+
+      wrap.innerHTML = `
+        <table class="users-table">
+          <thead>
+            <tr><th>Correo</th><th>Pagó</th><th></th></tr>
+          </thead>
+          <tbody>
+            ${PREVIEW_USERS.map(u => `
+              <tr>
+                <td class="email-cell" title="${u.email}">${u.email}</td>
+                <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
+                <td>
+                  ${u.is_admin ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span>' : '<button class="toggle-paid-btn" disabled title="Vista previa local">${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}</button>'}
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`;
+      return;
+    }
+
     const { data: users, error } = await sb.from('profiles')
       .select('id, email, full_name, is_paid, is_admin, created_at')
       .order('created_at', { ascending: false });
@@ -492,22 +1882,76 @@
   }
 
   async function togglePaid(userId, currentPaid) {
+    if (PREVIEW_MODE) {
+      alert('Vista previa local: este cambio solo funciona en el sitio publicado con sesión.');
+      return;
+    }
+
     const { error } = await sb.from('profiles')
       .update({ is_paid: !currentPaid })
       .eq('id', userId);
 
     if (error) { alert('Error al actualizar: ' + error.message); return; }
     loadUsers();
+    loadPaidUsers();
+  }
+
+  function setupProfilesSync() {
+    if (profilesChannel) return;
+
+    profilesChannel = sb.channel('dashboard-profiles-sync')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'profiles' },
+        () => {
+          loadUsers();
+          loadPaidUsers();
+        }
+      )
+      .subscribe();
+
+    if (!paidUsersRefreshHandle) {
+      paidUsersRefreshHandle = window.setInterval(() => {
+        loadPaidUsers();
+      }, 60000);
+    }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────
+  function escapeHTML(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function escapeAttribute(value) {
+    return escapeHTML(value);
+  }
+
+  function emptyToNull(value) {
+    if (value == null) return null;
+    const trimmed = String(value).trim();
+    return trimmed ? trimmed : null;
+  }
+
+  function normalizeOptionalUrl(value) {
+    const cleaned = emptyToNull(value);
+    if (!cleaned) return null;
+    if (cleaned.startsWith('#')) return cleaned;
+    if (/^https?:\/\//i.test(cleaned)) return cleaned;
+    return `https://${cleaned}`;
+  }
+
   function showMsg(el, type, msg) {
     el.className = `msg ${type}`; el.textContent = msg; el.style.display = 'block';
   }
   function hideMsg(el) { el.style.display = 'none'; }
 
   // ── Start ─────────────────────────────────────────────────────────────
-  init();
+  if (!window.__dashboardPreviewRendered) init();
 </script>
 
 </body>
