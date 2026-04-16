@@ -2017,7 +2017,9 @@
                 <td class="email-cell" title="${u.email}">${u.email}</td>
                 <td><span class="paid-badge ${u.is_paid ? 'yes' : 'no'}">${u.is_paid ? 'Sí' : 'No'}</span></td>
                 <td>
-                  ${u.is_admin ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span>' : '<button class="toggle-paid-btn" disabled title="Vista previa local">${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}</button>'}
+                  ${u.is_admin
+                    ? '<span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span>'
+                    : `<button class="toggle-paid-btn" disabled title="Vista previa local">${u.is_paid ? 'Quitar acceso' : 'Dar acceso'}</button>`}
                 </td>
               </tr>`).join('')}
           </tbody>
