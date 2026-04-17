@@ -741,6 +741,7 @@
 
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
+        <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
         <div class="management-grid">
           <article class="management-card">
             <div class="card-kicker">I. To do list</div>
@@ -895,16 +896,33 @@
           </div>
           <div class="admin-card">
             <h3>Usuarios</h3>
-            <table class="users-table">
-              <thead>
-                <tr><th>Correo</th><th>Pagó</th><th></th></tr>
-              </thead>
-              <tbody>
-                <tr><td class="email-cell">management@doblealab.cl</td><td><span class="paid-badge yes">Sí</span></td><td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Preview admin</span></td></tr>
-                <tr><td class="email-cell">pagado1@doblealab.cl</td><td><span class="paid-badge yes">Sí</span></td><td><button class="toggle-paid-btn" disabled>Quitar acceso</button></td></tr>
-                <tr><td class="email-cell">pendiente1@doblealab.cl</td><td><span class="paid-badge no">No</span></td><td><button class="toggle-paid-btn" disabled>Dar acceso</button></td></tr>
-              </tbody>
-            </table>
+            <div style="display:grid;gap:18px;">
+              <div>
+                <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Admins</p>
+                <table class="users-table">
+                  <thead>
+                    <tr><th>Correo</th><th>Rol</th><th></th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="email-cell">p.argotetironi@gmail.com</td><td><span class="paid-badge yes">Admin</span></td><td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Puede editar management</span></td></tr>
+                    <tr><td class="email-cell">lucia.argote@dobleachile.cl</td><td><span class="paid-badge yes">Admin</span></td><td><span style="font-size:.7rem;color:rgba(255,255,255,.3)">Puede editar management</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <p style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 10px;">Usuarios del servicio</p>
+                <table class="users-table">
+                  <thead>
+                    <tr><th>Correo</th><th>Acceso</th><th></th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="email-cell">cristobal.castro2@mail.udp.cl</td><td><span class="paid-badge yes">Sí</span></td><td><button class="toggle-paid-btn" disabled>Quitar acceso</button></td></tr>
+                    <tr><td class="email-cell">francisca.acevedo@uc.cl</td><td><span class="paid-badge yes">Sí</span></td><td><button class="toggle-paid-btn" disabled>Quitar acceso</button></td></tr>
+                    <tr><td class="email-cell">pendiente1@doblealab.cl</td><td><span class="paid-badge no">No</span></td><td><button class="toggle-paid-btn" disabled>Dar acceso</button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>`;
@@ -1270,6 +1288,7 @@
     return `
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
+        <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
         <div class="management-grid">
           <article class="management-card">
             <div class="card-kicker">I. To do list</div>
