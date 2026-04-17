@@ -58,9 +58,6 @@
             '<ul style="list-style:none;padding:0;margin:0;">' + resto.map(nameRow).join('') + '</ul>' +
           '</div>' +
         '</div>' +
-        '<div style="margin-top:12px;font-size:.75rem;color:rgba(255,255,255,.45);">' +
-          '<a href="seguimiento.html" style="color:#8B5CF6;text-decoration:none;">Vista completa →</a>' +
-        '</div>' +
       '</div>';
     mount.dataset.rendered = '1';
   }
