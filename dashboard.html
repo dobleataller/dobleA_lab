@@ -679,6 +679,8 @@
       .editor-grid .wide { grid-column: span 1; }
     }
   </style>
+  <script src="seguimiento.data.js"></script>
+  <script src="seguimiento.render.js" defer></script>
 </head>
 <body>
 
@@ -686,6 +688,7 @@
   <div class="logo"><a href="index.html"><img src="img/logo.jpg" alt="DobleA LAB"></a></div>
   <div class="nav-right">
     <a href="index.html">← Inicio</a>
+    <a href="seguimiento.html">Seguimiento</a>
     <span id="nav-user-email"></span>
     <button id="nav-logout-btn" onclick="signOut()">Cerrar sesión</button>
   </div>
@@ -743,14 +746,14 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
         <div class="management-grid">
-          <article class="management-card">
+          <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
             <h3>Captación de clientes</h3>
-            <p>Frentes activos para empujar la captación durante esta etapa.</p>
+            <p>Frentes activos para empujar la captación durante esta etapa. Abajo: lista priorizada de a quiénes contactar.</p>
             <div class="quick-links">
               <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
               <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
-              <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
+              <a class="quick-link" href="seguimiento.html">Vista completa de seguimiento</a>
             </div>
             <div class="management-task-list">
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Ordenar base de datos con inscritos + pagados</div></div><div class="task-meta"><span class="task-chip">Valentina</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
@@ -759,6 +762,7 @@
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Activar LinkedIn</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Follow up con Pato Navia</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
+            <div id="seguimiento-pendientes"></div>
           </article>
 
           <article class="management-card">
@@ -945,7 +949,9 @@
   const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v1';
   const MANAGEMENT_ADMIN_EMAILS = new Set([
     'p.argotetironi@gmail.com',
-    'lucia.argote@dobleachile.cl'
+    'lucia.argote@dobleachile.cl',
+    'isidora.aninat@dobleachile.cl',
+    'mauricio.bucca@dobleachile.cl'
   ]);
   const PAYMENT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0';
   const GOOGLE_DRIVE_RESPONSES_URL = 'https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit';
@@ -1290,18 +1296,19 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
         <div class="management-grid">
-          <article class="management-card">
+          <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
             <h3>Captación de clientes</h3>
-            <p>Frentes activos para empujar la captación durante esta etapa.</p>
+            <p>Frentes activos para empujar la captación durante esta etapa. Abajo: lista priorizada de a quiénes contactar.</p>
             <div class="quick-links">
               <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
               <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
-              <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
+              <a class="quick-link" href="seguimiento.html">Vista completa de seguimiento</a>
             </div>
             <div class="management-task-list" id="management-list-captacion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
+            <div id="seguimiento-pendientes"></div>
           </article>
 
           <article class="management-card">

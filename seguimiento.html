@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguimiento — Inscritos Taller Doble A</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple-deep: #3B0F8C; --purple-mid: #6B21C8; --purple-light: #8B5CF6;
+      --magenta: #E040A0; --magenta-bright: #F520A0;
+    }
+    body {
+      font-family: 'Inter', sans-serif; background: #0d0030; color: #fff;
+      min-height: 100vh; padding: 40px 24px 80px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    header { margin-bottom: 32px; display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 12px; }
+    header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+      background: linear-gradient(90deg, #c084fc, var(--magenta));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    header .meta { color: rgba(255,255,255,.5); font-size: .82rem; }
+    header a { color: var(--purple-light); font-size: .85rem; text-decoration: none; border: 1px solid rgba(139,92,246,.3); padding: 6px 14px; border-radius: 999px; }
+    header a:hover { border-color: var(--magenta); color: var(--magenta); }
+
+    .privacy-note {
+      background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.25);
+      border-radius: 10px; padding: 10px 14px; font-size: .82rem;
+      color: rgba(255,255,255,.7); margin-bottom: 24px;
+    }
+    .privacy-note a { color: var(--purple-light); }
+
+    .totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+    .totals .card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(139,92,246,.25);
+      border-radius: 14px; padding: 18px; text-align: center;
+    }
+    .totals .label { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+    .totals .value { font-size: 2rem; font-weight: 800; }
+    .totals .card.pagado .value { color: #4ade80; }
+    .totals .card.esperanza .value { color: var(--magenta); }
+    .totals .card.perdido .value { color: rgba(255,255,255,.35); }
+    @media (max-width: 720px) { .totals { grid-template-columns: repeat(2, 1fr); } }
+
+    .section-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--magenta);
+      margin: 36px 0 14px;
+    }
+    .section-label .count { color: rgba(255,255,255,.4); font-weight: 500; margin-left: 6px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+
+    .person {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(139,92,246,.2);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: .92rem;
+      transition: all .15s;
+    }
+    .person:hover { border-color: rgba(224,64,160,.5); background: rgba(255,255,255,.06); }
+    .person.priority { border-color: rgba(224,64,160,.55); background: rgba(224,64,160,.07); }
+    .person.priority .name::before { content: "★ "; color: var(--magenta); font-weight: 700; }
+    .person .call { display: inline-block; color: #facc15; font-size: .7rem; font-weight: 600; margin-left: 6px; }
+    .person .name { font-weight: 500; }
+    .person .nivel { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(139,92,246,.2); font-size: .7rem; }
+
+    .perdidos-list { color: rgba(255,255,255,.45); font-size: .85rem; line-height: 1.8; }
+    .perdidos-list span { display: inline-block; margin-right: 14px; }
+
+    .empty { color: rgba(255,255,255,.4); padding: 24px; text-align: center; border: 1px dashed rgba(255,255,255,.15); border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Seguimiento de inscritos</h1>
+        <div class="meta" id="meta-gen">Cargando…</div>
+      </div>
+      <a href="dashboard.html?preview=1">← volver al dashboard</a>
+    </header>
+
+    <div class="privacy-note">
+      🔒 Esta vista muestra <strong>solo nombres</strong>. Datos de contacto (correo, teléfono, estatus detallado) viven en el <a href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit" target="_blank" rel="noopener">Sheet privado de Drive</a>.
+    </div>
+
+    <div class="totals" id="totals"></div>
+
+    <p class="section-label">Pagados <span class="count" id="c-pagados"></span></p>
+    <div class="grid" id="grid-pagados"></div>
+
+    <p class="section-label">Con esperanza — a contactar <span class="count" id="c-esperanza"></span></p>
+    <div class="grid" id="grid-esperanza"></div>
+
+    <p class="section-label">Perdidos — no insistir <span class="count" id="c-perdidos"></span></p>
+    <div class="perdidos-list" id="list-perdidos"></div>
+  </div>
+
+  <script src="seguimiento.data.js"></script>
+  <script>
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function personCard(p, opts = {}) {
+      const classes = ['person'];
+      if (opts.priority && p.p) classes.push('priority');
+      const call = (opts.call && p.c) ? '<span class="call">📞 llamar</span>' : '';
+      const nivel = p.nivel ? `<span class="nivel">${esc(p.nivel)}</span>` : '';
+      return `<div class="${classes.join(' ')}"><span class="name">${esc(p.nombre)}</span>${nivel}${call}</div>`;
+    }
+
+    function render() {
+      const d = window.SEGUIMIENTO;
+      if (!d) {
+        document.getElementById('meta-gen').textContent = 'No se pudo cargar seguimiento.data.js — corre sync_inscritos.py';
+        return;
+      }
+      const gen = new Date(d.generado);
+      document.getElementById('meta-gen').textContent = 'Actualizado: ' + gen.toLocaleString('es-CL');
+
+      document.getElementById('totals').innerHTML = `
+        <div class="card"><div class="label">Inscritos</div><div class="value">${d.totales.inscritos}</div></div>
+        <div class="card pagado"><div class="label">Pagados</div><div class="value">${d.totales.pagados}</div></div>
+        <div class="card esperanza"><div class="label">Con esperanza</div><div class="value">${d.totales.esperanza}</div></div>
+        <div class="card perdido"><div class="label">Perdidos</div><div class="value">${d.totales.perdidos}</div></div>
+      `;
+
+      document.getElementById('c-pagados').textContent = `(${d.pagados.length})`;
+      document.getElementById('c-esperanza').textContent = `(${d.esperanza.length})`;
+      document.getElementById('c-perdidos').textContent = `(${d.perdidos.length})`;
+
+      document.getElementById('grid-pagados').innerHTML = d.pagados.length
+        ? d.pagados.map((p) => personCard(p)).join('')
+        : '<div class="empty">Sin pagos registrados</div>';
+
+      document.getElementById('grid-esperanza').innerHTML = d.esperanza.length
+        ? d.esperanza.map((p) => personCard(p, { priority: true, call: true })).join('')
+        : '<div class="empty">Nadie pendiente</div>';
+
+      document.getElementById('list-perdidos').innerHTML = d.perdidos.length
+        ? d.perdidos.map((p) => `<span>${esc(p.nombre)}</span>`).join('')
+        : '<div class="empty">Nadie descartado</div>';
+    }
+    render();
+  </script>
+</body>
+</html>
