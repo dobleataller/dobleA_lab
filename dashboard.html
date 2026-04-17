@@ -678,9 +678,106 @@
       .admin-card.wide { grid-column: span 1; }
       .editor-grid .wide { grid-column: span 1; }
     }
+
+    /* ── MÓDULOS URGENCY ── */
+    .management-card.modulos-urgent {
+      border-color: rgba(239,68,68,.45);
+      background: linear-gradient(180deg, rgba(239,68,68,.08), rgba(255,255,255,.02));
+    }
+    .modulos-countdown {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 14px 16px; margin: 10px 0 14px;
+      background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.4);
+      border-radius: 10px;
+      font-size: .95rem;
+    }
+    .modulos-countdown .count-num {
+      font-size: 2rem; font-weight: 800; color: #ef4444; line-height: 1;
+    }
+    .modulos-countdown .count-label {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+    }
+    .modulos-countdown .count-text {
+      color: rgba(255,255,255,.85); font-size: .88rem;
+    }
+    .modulos-status-table {
+      width: 100%; margin-top: 14px; border-collapse: collapse;
+      font-size: .85rem;
+    }
+    .modulos-status-table th {
+      text-align: left; padding: 8px 6px; font-weight: 700;
+      font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .modulos-status-table td {
+      padding: 10px 6px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      vertical-align: top;
+    }
+    .modulos-status-table tr.mod-urgent td {
+      background: rgba(239,68,68,.06);
+    }
+    .mod-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: .72rem; font-weight: 600; white-space: nowrap;
+    }
+    .mod-badge.mod-progress { background: rgba(250,204,21,.15); color: #facc15; border: 1px solid rgba(250,204,21,.35); }
+    .mod-badge.mod-unknown  { background: rgba(148,163,184,.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,.35); }
+    .mod-badge.mod-missing  { background: rgba(239,68,68,.15); color: #fca5a5; border: 1px solid rgba(239,68,68,.4); }
+    .mod-badge.mod-ready    { background: rgba(74,222,128,.15); color: #4ade80; border: 1px solid rgba(74,222,128,.35); }
+    .mod-note {
+      font-size: .72rem; color: rgba(255,255,255,.55);
+      margin-top: 4px; line-height: 1.3;
+    }
+    @media (max-width: 720px) {
+      .modulos-status-table { font-size: .78rem; }
+      .modulos-status-table td, .modulos-status-table th { padding: 6px 4px; }
+    }
   </style>
   <script src="seguimiento.data.js"></script>
   <script src="seguimiento.render.js" defer></script>
+  <script>
+    // Countdown dinamico a la fecha de arranque del taller
+    (function () {
+      function renderCountdowns() {
+        var els = document.querySelectorAll('.modulos-countdown[data-start]');
+        if (!els.length) return;
+        els.forEach(function (el) {
+          if (el.dataset.rendered === '1') return;
+          var start = new Date(el.dataset.start + 'T18:00:00-03:00');
+          var now = new Date();
+          var diffMs = start - now;
+          var days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+          var color = days <= 14 ? '#ef4444' : (days <= 21 ? '#f59e0b' : '#facc15');
+          var label = days < 0 ? 'días desde arranque'
+                              : (days === 0 ? 'HOY' : (days === 1 ? 'día' : 'días'));
+          var displayDays = Math.abs(days);
+          var msg = days < 0
+            ? 'El taller ya arrancó hace ' + displayDays + ' ' + (displayDays === 1 ? 'día' : 'días')
+            : (days === 0
+                ? '¡Arranca hoy! Asegurar que materiales estén subidos.'
+                : 'hasta Módulo 1. Revisar materiales: 1 en desarrollo, 1 sin revisar, 2 sin crear.');
+          el.innerHTML =
+            '<div><div class="count-num" style="color:' + color + ';">' + displayDays + '</div>' +
+              '<div class="count-label">' + label + '</div></div>' +
+            '<div class="count-text">' + msg + '</div>';
+          el.dataset.rendered = '1';
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderCountdowns);
+      } else {
+        renderCountdowns();
+      }
+      // Cuando main-content se re-renderiza (dashboard dinamico)
+      if (window.MutationObserver) {
+        new MutationObserver(renderCountdowns).observe(document.body || document.documentElement, { childList: true, subtree: true });
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -778,15 +875,47 @@
             </div>
           </article>
 
-          <article class="management-card">
-            <div class="card-kicker">III. Módulos</div>
-            <h3>Edición de materiales</h3>
-            <p>Todos deben editar los archivos de módulos en Google Drive y luego subir las versiones finales o slides a esta página.</p>
+          <article class="management-card wide modulos-urgent">
+            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Módulos — URGENTE</div>
+            <h3>Materiales del taller</h3>
+            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada módulo.</p>
+            <div class="modulos-countdown" data-start="2026-05-06"></div>
             <div class="quick-links">
-              <a class="quick-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos en Drive</a>
+              <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
+              <a class="quick-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Carpeta de módulos</a>
               <a class="quick-link" href="#materials-section">Revisar materiales publicados</a>
-              <a class="quick-link" href="#admin-section">Subir contenido nuevo</a>
             </div>
+            <table class="modulos-status-table">
+              <thead>
+                <tr><th>#</th><th>Fecha</th><th>Título</th><th>Estado</th><th>Responsables</th></tr>
+              </thead>
+              <tbody>
+                <tr class="mod-row mod-urgent" data-date="2026-05-06">
+                  <td>1</td><td>6 may</td>
+                  <td>De la inquietud del cliente al diseño de estudio</td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo</span><div class="mod-note">Falta: ejercicios, casos, materiales descargables</div></td>
+                  <td>Isidora · Lucía · Pablo</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-13">
+                  <td>2</td><td>13 may</td>
+                  <td>Diseño de instrumentos y calidad en la medición</td>
+                  <td><span class="mod-badge mod-unknown">❓ Sin revisar</span><div class="mod-note">Solo pointer en Drive, estado desconocido</div></td>
+                  <td>Pablo · Daniela · Giancarlo</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-19">
+                  <td>3</td><td>19 may</td>
+                  <td>Producción y análisis de datos</td>
+                  <td><span class="mod-badge mod-missing">🔴 No existe</span><div class="mod-note">No hay archivo en la carpeta del taller</div></td>
+                  <td>Pablo · Mauricio · Tania</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-27">
+                  <td>4</td><td>27 may</td>
+                  <td>Interpretación de resultados y toma de decisiones</td>
+                  <td><span class="mod-badge mod-missing">🔴 No existe</span><div class="mod-note">No hay archivo en la carpeta del taller</div></td>
+                  <td>Mauricio · Lucía</td>
+                </tr>
+              </tbody>
+            </table>
             <div class="management-task-list">
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Editar archivos de módulos en Google Drive</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta</a></div>
             </div>
@@ -1324,15 +1453,47 @@
             </div>
           </article>
 
-          <article class="management-card">
-            <div class="card-kicker">III. Módulos</div>
-            <h3>Edición de materiales</h3>
-            <p>Todos deben editar los archivos de módulos en Google Drive y luego subir las versiones finales o slides a esta página.</p>
+          <article class="management-card wide modulos-urgent">
+            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Módulos — URGENTE</div>
+            <h3>Materiales del taller</h3>
+            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada módulo.</p>
+            <div class="modulos-countdown" data-start="2026-05-06"></div>
             <div class="quick-links">
-              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos en Drive</a>
+              <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
+              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Carpeta de módulos</a>
               <a class="quick-link" href="#materials-section">Revisar materiales publicados</a>
-              <a class="quick-link" href="#admin-section">Subir contenido nuevo</a>
             </div>
+            <table class="modulos-status-table">
+              <thead>
+                <tr><th>#</th><th>Fecha</th><th>Título</th><th>Estado</th><th>Responsables</th></tr>
+              </thead>
+              <tbody>
+                <tr class="mod-row mod-urgent" data-date="2026-05-06">
+                  <td>1</td><td>6 may</td>
+                  <td>De la inquietud del cliente al diseño de estudio</td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo</span><div class="mod-note">Falta: ejercicios, casos, materiales descargables</div></td>
+                  <td>Isidora · Lucía · Pablo</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-13">
+                  <td>2</td><td>13 may</td>
+                  <td>Diseño de instrumentos y calidad en la medición</td>
+                  <td><span class="mod-badge mod-unknown">❓ Sin revisar</span><div class="mod-note">Solo pointer en Drive, estado desconocido</div></td>
+                  <td>Pablo · Daniela · Giancarlo</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-19">
+                  <td>3</td><td>19 may</td>
+                  <td>Producción y análisis de datos</td>
+                  <td><span class="mod-badge mod-missing">🔴 No existe</span><div class="mod-note">No hay archivo en la carpeta del taller</div></td>
+                  <td>Pablo · Mauricio · Tania</td>
+                </tr>
+                <tr class="mod-row" data-date="2026-05-27">
+                  <td>4</td><td>27 may</td>
+                  <td>Interpretación de resultados y toma de decisiones</td>
+                  <td><span class="mod-badge mod-missing">🔴 No existe</span><div class="mod-note">No hay archivo en la carpeta del taller</div></td>
+                  <td>Mauricio · Lucía</td>
+                </tr>
+              </tbody>
+            </table>
             <div class="management-task-list" id="management-list-modulos">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
