@@ -789,7 +789,7 @@
             ? 'El taller ya arrancó hace ' + displayDays + ' ' + (displayDays === 1 ? 'día' : 'días')
             : (days === 0
                 ? '¡Arranca hoy! Asegurar que materiales estén subidos.'
-                : 'hasta Módulo 1. Revisar materiales: 1 en desarrollo, 1 sin revisar, 2 sin crear.');
+                : 'hasta Clase 1. Revisar materiales: 1 en desarrollo, 1 sin revisar, 2 sin crear.');
           el.innerHTML =
             '<div><div class="count-num" style="color:' + color + ';">' + displayDays + '</div>' +
               '<div class="count-label">' + label + '</div></div>' +
@@ -870,7 +870,7 @@
 
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
-        <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
+        <div class="management-alert">Última reunión: <strong>20 abril 2026 — Taller Empresas</strong>. Notas integradas abajo en cada card ↓</div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
@@ -901,14 +901,18 @@
             </div>
             <div class="inline-note">Clave: hacer seguimiento cercano a quienes ya pagaron y dar acceso apenas se confirme el pago.</div>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hacer seguimiento a quienes ya pagaron</div><div class="task-detail">Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.</div></div><div class="task-meta"><span class="task-chip">Clave</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a><div class="followup-contacts"><div class="followup-contact"><div class="followup-contact-name">Cristóbal Castro Baeza</div><div class="followup-contact-email">cristobal.castro2@mail.udp.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Francisca Acevedo</div><div class="followup-contact-email">francisca.acevedo@uc.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Melanie Ballesteros Palma</div><div class="followup-contact-email">melanieballesterospalma@gmail.com</div></div><div class="followup-contact"><div class="followup-contact-name">Macarena Zuazua</div><div class="followup-contact-email">macarena.zuazua@ekhos.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Patricio Alarcón</div><div class="followup-contact-email">patricio.alarcon@mail.udp.cl</div></div><div class="followup-contact"><div class="followup-contact-name">Cristian Carreño</div><div class="followup-contact-email">cristian.carreno@nyu.edu</div></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hacer seguimiento a quienes ya pagaron</div><div class="task-detail">Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.</div></div><div class="task-meta"><span class="task-chip">Clave</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a><div class="followup-contacts"><div class="followup-contact"><div class="followup-contact-name">Cristóbal Castro Baeza</div></div><div class="followup-contact"><div class="followup-contact-name">Francisca Acevedo</div></div><div class="followup-contact"><div class="followup-contact-name">Melanie Ballesteros Palma</div></div><div class="followup-contact"><div class="followup-contact-name">Macarena Zuazua</div></div><div class="followup-contact"><div class="followup-contact-name">Patricio Alarcón</div></div><div class="followup-contact"><div class="followup-contact-name">Cristian Carreño</div></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Abrir chat con dudas para inscritas pagadas</div><div class="task-detail">Canal directo para que las 6 pagadas pregunten antes del taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">"Algo que quieras saber" — recoger inputs de pagadas</div><div class="task-detail">Encuesta corta para incluir sus temas en el taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Encuesta a empresas</div><div class="task-detail">Instrumento para sondear necesidades del lado empresa. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Definir estructura de la página: clases y dónde van</div><div class="task-detail"><em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
           </article>
 
           <article class="management-card wide modulos-urgent">
-            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Módulos — URGENTE</div>
+            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Clases — URGENTE</div>
             <h3>Materiales del taller</h3>
-            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada módulo.</p>
+            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada clase (Módulo 1/2/3 dentro).</p>
             <div class="modulos-countdown" data-start="2026-05-06"></div>
             <div class="quick-links">
               <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
@@ -947,7 +951,12 @@
               </tbody>
             </table>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Editar archivos de módulos en Google Drive</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta</a></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Formatear slides de las clases</div><div class="task-detail">URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Dinámica Clase 1: 50 min × módulo, 2 breaks, casos reales</div><div class="task-detail"><strong>Framing:</strong> Clase 1 se ubica ANTES de ganar la propuesta → enseñar a GANARSE propuestas de investigación. 3 módulos de 50 min + breaks. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Lucía / Isi</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Profundizar caso MELI (bueno vs malo)</div><div class="task-detail">Comparar caso que funcionó vs uno que falló. Puntos: externalización excesiva · costos de reunión · mal uso de AI. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Clips de video MELI</div><div class="task-detail">Material de apoyo para los casos reales. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Zoom Doble A · Webinar · Herramientas · Clases grabadas</div><div class="task-detail">Infraestructura técnica para el taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Editar archivos de clases en Google Drive</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Abrir carpeta</a></div>
             </div>
           </article>
 
@@ -958,6 +967,9 @@
             <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list">
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hablar con Tania Hutt sobre expansión a mineras</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Brochure empresas</div><div class="task-detail">Oferta B2B formal, en paralelo al taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Conversaciones informales con empresas</div><div class="task-detail">Sondear interés antes del pitch formal. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Armar oferta empresas en paralelo al taller</div><div class="task-detail"><em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
           </article>
 
@@ -1130,13 +1142,13 @@
     },
     {
       key: 'modulos',
-      kicker: 'III. Módulos',
-      title: 'Edición de materiales'
+      kicker: 'III. Clases',
+      title: 'Materiales del taller'
     },
     {
       key: 'expansion',
       kicker: 'IV. Expansión',
-      title: 'Mineras'
+      title: 'Mineras + B2B outreach'
     },
     {
       key: 'operacion',
@@ -1151,10 +1163,32 @@
     { id: 'seed-4', section_key: 'captacion', title: 'Activar LinkedIn', owner: 'Todos', detail: null, link_url: null, sort_order: 40, is_done: false },
     { id: 'seed-5', section_key: 'captacion', title: 'Follow up con Pato Navia', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 50, is_done: false },
     { id: 'seed-7', section_key: 'seguimiento', title: 'Hacer seguimiento a quienes ya pagaron', owner: 'Clave', detail: 'Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.', link_url: PAYMENT_SHEET_URL, sort_order: 70, is_done: false },
-    { id: 'seed-8', section_key: 'modulos', title: 'Editar archivos de módulos en Google Drive', owner: 'Todos', detail: null, link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
+    // Notas reunión 20 abr — Info para inscritas pagadas
+    { id: 'seed-s1', section_key: 'seguimiento', title: 'Abrir chat con dudas para inscritas pagadas', owner: 'Equipo', detail: 'Canal directo para que las pagadas pregunten antes del taller.', link_url: null, sort_order: 71, is_done: false },
+    { id: 'seed-s2', section_key: 'seguimiento', title: '"Algo que quieras saber" — recoger inputs de pagadas', owner: 'Equipo', detail: 'Encuesta corta a las 6 pagadas para incluir sus temas en el taller.', link_url: null, sort_order: 72, is_done: false },
+    { id: 'seed-s3', section_key: 'seguimiento', title: 'Encuesta a empresas', owner: 'Equipo', detail: 'Instrumento para sondear necesidades del lado empresa.', link_url: null, sort_order: 73, is_done: false },
+    { id: 'seed-s4', section_key: 'seguimiento', title: 'Definir estructura de la página: clases y dónde van', owner: 'Pablo', detail: null, link_url: null, sort_order: 74, is_done: false },
+
+    // Notas reunión 20 abr — Clases (materiales + formato)
+    { id: 'seed-c1', section_key: 'modulos', title: 'Formatear slides de las clases', owner: 'Pablo', detail: 'URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato.', link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
+    { id: 'seed-c2', section_key: 'modulos', title: 'Dinámica Clase 1: 50 min por módulo, 2 breaks, casos reales', owner: 'Lucía / Isi', detail: 'Estructura: 3 módulos de 50 min + breaks. Trabajar con casos reales. Framing: Clase 1 se ubica en el momento previo a ganar la propuesta → enseñar a GANARSE propuestas de investigación.', link_url: null, sort_order: 81, is_done: false },
+    { id: 'seed-c3', section_key: 'modulos', title: 'Profundizar caso MELI (bueno vs malo)', owner: 'Equipo', detail: 'Comparar un caso que funcionó vs uno que falló. Puntos: externalización excesiva, costos de reunión, mal uso de AI.', link_url: null, sort_order: 82, is_done: false },
+    { id: 'seed-c4', section_key: 'modulos', title: 'Conseguir clips de video MELI', owner: 'Equipo', detail: 'Material de apoyo para los casos reales.', link_url: null, sort_order: 83, is_done: false },
+    { id: 'seed-c5', section_key: 'modulos', title: 'Configurar Zoom Doble A', owner: null, detail: null, link_url: null, sort_order: 84, is_done: false },
+    { id: 'seed-c6', section_key: 'modulos', title: 'Definir formato webinar', owner: null, detail: null, link_url: null, sort_order: 85, is_done: false },
+    { id: 'seed-c7', section_key: 'modulos', title: 'Preparar herramientas para clases', owner: null, detail: null, link_url: null, sort_order: 86, is_done: false },
+    { id: 'seed-c8', section_key: 'modulos', title: 'Grabar clases', owner: null, detail: null, link_url: null, sort_order: 87, is_done: false },
+    { id: 'seed-c9', section_key: 'modulos', title: 'Editar archivos de clases en Google Drive', owner: 'Todos', detail: null, link_url: MODULES_DRIVE_URL, sort_order: 88, is_done: false },
+
+    // Notas reunión 20 abr — Expansión a empresas
     { id: 'seed-9', section_key: 'expansion', title: 'Hablar con Tania Hutt sobre expansión a mineras', owner: 'Mauricio / Pablo', detail: null, link_url: null, sort_order: 90, is_done: false },
+    { id: 'seed-e1', section_key: 'expansion', title: 'Brochure empresas', owner: 'Mauricio', detail: 'Oferta B2B formal, en paralelo al taller.', link_url: null, sort_order: 91, is_done: false },
+    { id: 'seed-e2', section_key: 'expansion', title: 'Conversaciones informales con empresas', owner: 'Mauricio', detail: 'Sondear interés antes del pitch formal.', link_url: null, sort_order: 92, is_done: false },
+    { id: 'seed-e3', section_key: 'expansion', title: 'Armar oferta empresas en paralelo al taller', owner: 'Mauricio', detail: null, link_url: null, sort_order: 93, is_done: false },
+
     { id: 'seed-10', section_key: 'operacion', title: 'Dar login a quienes pagaron', owner: null, detail: 'Usar el panel de usuarios para activar acceso apenas se confirme el pago.', link_url: '#admin-section', sort_order: 100, is_done: false },
-    { id: 'seed-11', section_key: 'operacion', title: 'Empezar a subir contenido a la página', owner: null, detail: 'Slides, PDFs, videos y otros materiales del taller.', link_url: '#admin-section', sort_order: 110, is_done: false }
+    { id: 'seed-11', section_key: 'operacion', title: 'Empezar a subir contenido a la página', owner: null, detail: 'Slides, PDFs, videos y otros materiales del taller.', link_url: '#admin-section', sort_order: 110, is_done: false },
+    { id: 'seed-op1', section_key: 'operacion', title: 'Definir responsables + fechas de items reunión 20 abr', owner: 'Equipo', detail: 'Coordinar con Mauricio, Lucía e Isi los avances del brochure, estructura de la página y clases 1 y 2.', link_url: null, sort_order: 120, is_done: false }
   ];
   const PREVIEW_PAID_USERS = [
     { id: 'preview-paid-1', full_name: 'Cristóbal Castro Baeza', email: 'cristobal.castro2@mail.udp.cl', phone: null, level: null, created_at: '2026-04-10T12:00:00Z', is_paid: true, is_admin: false, status_label: 'Pagado' },
@@ -1453,7 +1487,7 @@
     return `
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
-        <div class="management-alert">Próxima reunión: lunes 20 de abril de 2026, 12:00 pm Los Angeles / 3:00 pm Chile.</div>
+        <div class="management-alert">Última reunión: <strong>20 abril 2026 — Taller Empresas</strong>. Notas integradas abajo en cada card ↓</div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
@@ -1485,9 +1519,9 @@
           </article>
 
           <article class="management-card wide modulos-urgent">
-            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Módulos — URGENTE</div>
+            <div class="card-kicker" style="color:#ef4444;">⚠️ III. Clases — URGENTE</div>
             <h3>Materiales del taller</h3>
-            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada módulo.</p>
+            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada clase (Módulo 1/2/3 dentro).</p>
             <div class="modulos-countdown" data-start="2026-05-06"></div>
             <div class="quick-links">
               <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
