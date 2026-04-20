@@ -1,8 +1,8 @@
 # Seguimiento Taller Doble A — solo nombres
-_Generado: 2026-04-20T09:22:04_
+_Generado: 2026-04-20T14:42:01_
 
-- Inscritos: **44** · Pagados: **6** · Con esperanza: **21** · Perdidos: **17**
-- B2B outreach: **325** contactos, **256** mensajes enviados (78%)
+- Inscritos: **44** · Pagados: **6** · Con esperanza: **15** · Perdidos: **23**
+- B2B outreach: **325** contactos, **267** mensajes enviados (82%)
 - Cross-check pagos sheet: 6 registros (match con pagados: True)
 
 ## Pagados
@@ -16,42 +16,42 @@ _Generado: 2026-04-20T09:22:04_
 ## Con esperanza
 ★ = Seguimiento Pablo · 📞 = llamar
 
-- ★ 📞 **Isidora Barros**
-- ★ 📞 **Monserrat masso**
 - ★ **Benjamín Tardy D.**
-- ★ **Camila Cuevas**
 - ★ **Fernanda Palma**
+- ★ **Monserrat masso**
 - ★ **Rafaella Rivera**
 - ★ **Ricardo León**
-- ★ **Violeta Tapia**
-- ★ **Yuliana Fuentes**
 - **Alejandro Reyes**
 - **Ana Carolina Riquelme**
 - **Carola Zurob**
-- **Cynthia Gangas**
 - **Felipe Rodriguez**
+- **Jesus diaz**
 - **Juan Reyes**
-- **Luz Escobar**
+- **Luciano Alvarez**
 - **Nicolás Gajardo Ortíz**
 - **Noeh Mella**
-- **Pedro Valenzuela**
-- **Vicente Villalobos**
 - **Viviana Sanchez**
 
 ## Perdidos
 - Susan Vidal
+- Cynthia Gangas
 - Dafne Cornejo
+- Yuliana Fuentes
 - Thomas Campos
 - Valeria Reyes
+- Pedro Valenzuela
 - Diego Torres
+- Luz Escobar
 - Martin Alister
 - Antonia Baeza
+- Vicente Villalobos
 - Sofia Paz Tapia
 - José Jiménez Guerrero
-- Luciano Alvarez
-- Jesus diaz
 - Felipe Silva
+- Camila Cuevas
+- Violeta Tapia
 - Emilia Wells
+- Isidora Barros
 - Gabriel Henríquez
 - Maximiliano Saavedra Guerrero
 - Cristóbal Unda Labbé

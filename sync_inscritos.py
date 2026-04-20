@@ -38,6 +38,7 @@ SHEETS = {
 }
 
 NEG_PHRASES = [
+    "no participa",  # valor canonico del sheet
     "no esta interesad", "no está interesad",
     "no podra participar", "no podrá participar",
     "no puede participar", "no participara", "no participará",
@@ -56,6 +57,7 @@ def norm(s):
 
 
 def classify(estatus: str) -> str:
+    """pagado / perdido / esperanza. 'Estatus' vacío o 'Incierto' → esperanza."""
     n = norm(estatus)
     if "pagada" in n or "pagado" in n:
         return "pagado"
@@ -85,10 +87,12 @@ def main():
 
     # ── 1) INSCRIPCIONES (fuente principal) ─────────────────────────────────
     inscripciones = gc.open_by_key(SHEETS["inscripciones"]).sheet1.get_all_records()
+    # Filtra filas placeholder/legenda (no son personas reales)
+    IGNORAR = {"rojo", "verde", "amarillo", "test", "prueba", "legenda"}
     pagados, esperanza, perdidos = [], [], []
     for r in inscripciones:
         nombre = (r.get("Nombre y Apellido") or "").strip()
-        if not nombre:
+        if not nombre or nombre.lower() in IGNORAR:
             continue
         est = (r.get("Estatus") or r.get("Estatus ") or "").strip()
         sp = (r.get("Seguimiento Pablo") or "").strip().lower() == "si"

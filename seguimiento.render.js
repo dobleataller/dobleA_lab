@@ -37,11 +37,11 @@
     mount.innerHTML =
       '<div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(139,92,246,.2);">' +
         '<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px;">' +
-          '<h4 style="margin:0;font-size:1rem;">A contactar — hay esperanza</h4>' +
+          '<h4 style="margin:0;font-size:1rem;">Inciertos — a contactar</h4>' +
           '<span style="font-size:.7rem;color:rgba(255,255,255,.4);">Actualizado ' + esc(gen) + ' · solo nombres (datos sensibles en el Sheet)</span>' +
         '</div>' +
         '<p style="margin-bottom:12px;color:rgba(255,255,255,.65);font-size:.82rem;">' +
-          '<strong>' + d.totales.esperanza + '</strong> con esperanza · ' +
+          '<strong>' + d.totales.esperanza + '</strong> inciertos · ' +
           '<strong style="color:#E040A0;">' + estrella.length + '</strong> ★ (Seguimiento Pablo) · ' +
           '<strong>' + d.totales.pagados + '</strong> pagados · ' +
           '<strong style="color:rgba(255,255,255,.5);">' + d.totales.perdidos + '</strong> perdidos' +
@@ -54,7 +54,7 @@
           '</div>' +
           '<div>' +
             '<div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px;">' +
-              'Resto con esperanza (' + resto.length + ')</div>' +
+              'Otros inciertos (' + resto.length + ')</div>' +
             '<ul style="list-style:none;padding:0;margin:0;">' + resto.map(nameRow).join('') + '</ul>' +
           '</div>' +
         '</div>' +
