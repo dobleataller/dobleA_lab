@@ -62,15 +62,52 @@
     mount.dataset.rendered = '1';
   }
 
+  function renderB2B() {
+    var mount = document.getElementById('b2b-stats');
+    if (!mount || mount.dataset.rendered === '1') return;
+    var d = window.SEGUIMIENTO;
+    if (!d || !d.b2b) return;
+    var b = d.b2b;
+    var pct = b.total_contactos > 0
+      ? Math.round(100 * b.mensajes_enviados / b.total_contactos)
+      : 0;
+    var splitHTML = '';
+    var entries = Object.keys(b.por_contactadora || {});
+    if (entries.length) {
+      splitHTML = '<div class="b2b-split">' +
+        entries.map(function (k) {
+          return esc(k) + ': <strong>' + b.por_contactadora[k] + '</strong>';
+        }).join(' · ') +
+        '</div>';
+    }
+    mount.innerHTML =
+      '<div class="b2b-row">' +
+        '<div><div class="b2b-num">' + b.total_contactos + '</div><div class="b2b-label">Contactos B2B</div></div>' +
+        '<div><div class="b2b-num">' + b.mensajes_enviados + '</div><div class="b2b-label">Mensajes enviados</div></div>' +
+        '<div style="flex:1;min-width:180px;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.5);margin-bottom:4px;">' +
+            '<span>Progreso outreach</span><span>' + pct + '%</span>' +
+          '</div>' +
+          '<div class="b2b-progress"><div class="b2b-progress-fill" style="width:' + pct + '%;"></div></div>' +
+        '</div>' +
+      '</div>' +
+      splitHTML;
+    mount.dataset.rendered = '1';
+  }
+
+  function runAll() { render(); renderB2B(); }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', render);
+    document.addEventListener('DOMContentLoaded', runAll);
   } else {
-    render();
+    runAll();
   }
   // Observer para cuando main-content se re-renderice (dashboard dinamico)
   var observer = new MutationObserver(function () {
-    var el = document.getElementById('seguimiento-pendientes');
-    if (el && el.dataset.rendered !== '1') render();
+    var el1 = document.getElementById('seguimiento-pendientes');
+    var el2 = document.getElementById('b2b-stats');
+    if (el1 && el1.dataset.rendered !== '1') render();
+    if (el2 && el2.dataset.rendered !== '1') renderB2B();
   });
   if (document.body) {
     observer.observe(document.body, { childList: true, subtree: true });

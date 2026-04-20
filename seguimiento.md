@@ -1,8 +1,9 @@
 # Seguimiento Taller Doble A — solo nombres
-_Generado: 2026-04-17T12:37:14_
-_Para datos de contacto: ver el Sheet en Drive (privado)._
+_Generado: 2026-04-20T09:22:04_
 
 - Inscritos: **44** · Pagados: **6** · Con esperanza: **21** · Perdidos: **17**
+- B2B outreach: **325** contactos, **256** mensajes enviados (78%)
+- Cross-check pagos sheet: 6 registros (match con pagados: True)
 
 ## Pagados
 - Cristóbal Castro Baeza _Intermedio_
@@ -12,7 +13,7 @@ _Para datos de contacto: ver el Sheet en Drive (privado)._
 - Patricio Alarcón _Avanzado_
 - Cristian Carreño
 
-## Con esperanza (prioridad)
+## Con esperanza
 ★ = Seguimiento Pablo · 📞 = llamar
 
 - ★ 📞 **Isidora Barros**

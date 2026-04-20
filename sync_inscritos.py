@@ -1,35 +1,41 @@
 #!/usr/bin/env python3
 """
-Sincroniza el Sheet de inscritos del Taller Doble A y genera
-`seguimiento.data.js` con la clasificacion (pagados / con esperanza / perdidos).
+Sincroniza los 3 sheets del Taller Doble A y regenera seguimiento.data.js
+(solo nombres + flags, sin PII) para alimentar el management dashboard.
+
+Setup (una sola vez):
+    pip3 install gspread google-auth
+    # Descargar .sa-key.json desde Google Cloud Console (service account)
+    # Compartir los 3 sheets con el email del bot como Viewer
 
 Uso:
-    # 1) Setup (una sola vez):
-    #    pip install gspread google-auth
-    #    gcloud auth application-default login   # usa tu cuenta personal; el sheet se queda privado
-    #
-    # 2) Cada vez que quieras refrescar:
     python3 sync_inscritos.py
 
-El script usa Application Default Credentials (tu login de Google), asi que
-NO hace falta compartir el sheet con nadie ni crear service accounts. Queda
-100% privado.
+Escribe:
+    seguimiento.data.js  — consumido por dashboard.html / seguimiento.render.js
+    seguimiento.md       — reporte humano
 """
 from __future__ import annotations
 
 import json
-import os
-import re
 import sys
 import unicodedata
-from pathlib import Path
+import warnings
 from datetime import datetime
+from pathlib import Path
 
-SHEET_ID = "1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0"
-GID = 0
+warnings.filterwarnings("ignore")
+
 HERE = Path(__file__).resolve().parent
+KEY_PATH = HERE / ".sa-key.json"
 OUT_JS = HERE / "seguimiento.data.js"
 OUT_MD = HERE / "seguimiento.md"
+
+SHEETS = {
+    "inscripciones": "1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0",
+    "bbdd_taller":   "1LpZ3oB7IjOErr5qWiwuGRR1o2_K2fgClQvtx5hxvmw4",
+    "pagados":       "1lqfmz3NcleC_k9orEds7l4v6tIrgLXYe9OqpXbjY7_M",
+}
 
 NEG_PHRASES = [
     "no esta interesad", "no está interesad",
@@ -44,133 +50,129 @@ ALIVE_PHRASES = [
 ]
 
 
-def norm(s: str) -> str:
+def norm(s):
     s = (s or "").strip()
-    s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
-    return s.lower()
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
 
 
-def classify(row: dict) -> str:
-    est = norm(row.get("Estatus", ""))
-    if "pagada" in est or "pagado" in est:
+def classify(estatus: str) -> str:
+    n = norm(estatus)
+    if "pagada" in n or "pagado" in n:
         return "pagado"
-    is_neg = any(p in est for p in NEG_PHRASES)
-    is_alive = any(p in est for p in ALIVE_PHRASES)
-    if is_neg and not is_alive:
+    if any(p in n for p in NEG_PHRASES) and not any(p in n for p in ALIVE_PHRASES):
         return "perdido"
     return "esperanza"
 
 
-def fetch_rows():
-    """Lee el sheet con gspread usando Application Default Credentials."""
+def get_client():
     try:
         import gspread
-        from google.auth import default
+        from google.oauth2.service_account import Credentials
     except ImportError:
-        sys.exit(
-            "Falta instalar dependencias:\n"
-            "    pip install gspread google-auth\n"
-        )
+        sys.exit("Falta: pip3 install gspread google-auth")
+
+    if not KEY_PATH.exists():
+        sys.exit(f"No se encuentra {KEY_PATH.name}. Bajala desde Google Cloud Console.")
 
     scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-    creds, _ = default(scopes=scopes)
-    gc = gspread.authorize(creds)
-    sh = gc.open_by_key(SHEET_ID)
-    ws = sh.get_worksheet_by_id(GID) if hasattr(sh, "get_worksheet_by_id") else sh.sheet1
-    records = ws.get_all_records()
-    # Normaliza keys quitando espacios finales
-    clean = []
-    for r in records:
-        clean.append({k.strip(): (v if isinstance(v, str) else str(v)).strip()
-                      for k, v in r.items()})
-    return clean
-
-
-def build_entry(row: dict) -> dict:
-    return {
-        "nombre": row.get("Nombre y Apellido", ""),
-        "correo": row.get("Correo Electronico") or row.get("Correo Electrónico", ""),
-        "telefono": row.get("Telefono Contacto") or row.get("Teléfono Contacto", ""),
-        "nivel": row.get("Nivel analisis de datos") or row.get("Nivel análisis de datos", ""),
-        "estatus": row.get("Estatus", ""),
-        "seguimiento_pablo": (row.get("Seguimiento Pablo") or "").strip().lower() == "si",
-    }
+    creds = Credentials.from_service_account_file(str(KEY_PATH), scopes=scopes)
+    import gspread as _gs
+    return _gs.authorize(creds)
 
 
 def main():
-    rows = fetch_rows()
+    gc = get_client()
+
+    # ── 1) INSCRIPCIONES (fuente principal) ─────────────────────────────────
+    inscripciones = gc.open_by_key(SHEETS["inscripciones"]).sheet1.get_all_records()
     pagados, esperanza, perdidos = [], [], []
-
-    for raw in rows:
-        if not raw.get("Nombre y Apellido"):
+    for r in inscripciones:
+        nombre = (r.get("Nombre y Apellido") or "").strip()
+        if not nombre:
             continue
-        entry = build_entry(raw)
-        grupo = classify(raw)
-        if grupo == "pagado":
-            pagados.append(entry)
-        elif grupo == "perdido":
-            perdidos.append(entry)
-        else:
-            esperanza.append(entry)
+        est = (r.get("Estatus") or r.get("Estatus ") or "").strip()
+        sp = (r.get("Seguimiento Pablo") or "").strip().lower() == "si"
+        llamar = "llamar" in norm(est)
+        nivel = (r.get("Nivel análisis de datos") or r.get("Nivel analisis de datos") or "").strip()
+        entry = {"nombre": nombre}
+        if nivel:  entry["nivel"] = nivel
+        if sp:     entry["p"] = True
+        if llamar: entry["c"] = True
+        grupo = classify(est)
+        (pagados if grupo == "pagado" else perdidos if grupo == "perdido" else esperanza).append(entry)
 
-    # Prioriza "Seguimiento Pablo = Si" y luego "llamar"
-    def prio(e):
-        est = norm(e["estatus"])
-        return (0 if "llamar" in est else 1,
-                0 if e["seguimiento_pablo"] else 1,
-                e["nombre"].lower())
-    esperanza.sort(key=prio)
+    esperanza.sort(key=lambda e: (not e.get("c"), not e.get("p"), e["nombre"].lower()))
+
+    # ── 2) BBDD TALLER (B2B outreach) ───────────────────────────────────────
+    bbdd_rows = gc.open_by_key(SHEETS["bbdd_taller"]).sheet1.get_all_records()
+    bbdd_total = len(bbdd_rows)
+    bbdd_enviados = sum(1 for r in bbdd_rows if (r.get("Mensaje enviado") or r.get("Mensaje enviado ") or "").strip())
+    contactadoras = {}
+    for r in bbdd_rows:
+        c = (r.get("Contactadora") or "").strip()
+        if c:
+            contactadoras[c] = contactadoras.get(c, 0) + 1
+
+    # ── 3) PAGOS (cross-check) ──────────────────────────────────────────────
+    pagos_rows = gc.open_by_key(SHEETS["pagados"]).sheet1.get_all_records()
+    pagos_count = sum(1 for r in pagos_rows if (r.get("Nombre") or "").strip())
 
     data = {
         "generado": datetime.now().isoformat(timespec="seconds"),
         "totales": {
-            "inscritos": len(rows),
-            "pagados": len(pagados),
+            "inscritos": len(pagados) + len(esperanza) + len(perdidos),
+            "pagados":   len(pagados),
             "esperanza": len(esperanza),
-            "perdidos": len(perdidos),
+            "perdidos":  len(perdidos),
         },
-        "pagados": pagados,
+        "b2b": {
+            "total_contactos": bbdd_total,
+            "mensajes_enviados": bbdd_enviados,
+            "por_contactadora": contactadoras,
+        },
+        "pagos_sheet_count": pagos_count,  # para sanity check
+        "pagados":   pagados,
         "esperanza": esperanza,
-        "perdidos": perdidos,
+        "perdidos":  perdidos,
     }
 
-    # seguimiento.data.js — consumible por el dashboard (window.SEGUIMIENTO)
     OUT_JS.write_text(
-        "// Generado por sync_inscritos.py — NO editar a mano\n"
+        "// Solo nombres + flags priority (★ = Seguimiento Pablo, 📞 = llamar).\n"
+        "// Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet privado.\n"
+        "// Generado por sync_inscritos.py — NO editar a mano.\n"
         "window.SEGUIMIENTO = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n",
         encoding="utf-8",
     )
 
-    # seguimiento.md — reporte humano
     lines = [
-        f"# Seguimiento Taller Doble A",
-        f"_Generado: {data['generado']}_",
-        "",
-        f"- Inscritos: **{data['totales']['inscritos']}**",
-        f"- Pagados: **{data['totales']['pagados']}**",
-        f"- Con esperanza: **{data['totales']['esperanza']}**",
-        f"- Perdidos: **{data['totales']['perdidos']}**",
+        "# Seguimiento Taller Doble A — solo nombres",
+        f"_Generado: {data['generado']}_", "",
+        f"- Inscritos: **{data['totales']['inscritos']}** · Pagados: **{data['totales']['pagados']}**"
+        f" · Con esperanza: **{data['totales']['esperanza']}** · Perdidos: **{data['totales']['perdidos']}**",
+        f"- B2B outreach: **{bbdd_total}** contactos, **{bbdd_enviados}** mensajes enviados "
+        f"({100*bbdd_enviados//max(bbdd_total,1)}%)",
+        f"- Cross-check pagos sheet: {pagos_count} registros (match con pagados: {pagos_count == len(pagados)})",
         "",
         "## Pagados",
     ]
     for p in pagados:
-        lines.append(f"- {p['nombre']} — {p['nivel'] or 'sin nivel'} — {p['correo']}")
-    lines += ["", "## Con esperanza (a contactar)"]
+        nivel = f" _{p['nivel']}_" if p.get("nivel") else ""
+        lines.append(f"- {p['nombre']}{nivel}")
+    lines += ["", "## Con esperanza", "★ = Seguimiento Pablo · 📞 = llamar", ""]
     for e in esperanza:
-        mark = "★" if e["seguimiento_pablo"] else " "
-        tel = e["telefono"] if e["telefono"] and e["telefono"] != "-" else "s/tel"
-        lines.append(f"- {mark} **{e['nombre']}** · {e['correo']} · {tel}")
-        lines.append(f"    - {e['estatus']}")
-    lines += ["", "## Perdidos (no insistir)"]
+        marks = ("★ " if e.get("p") else "") + ("📞 " if e.get("c") else "")
+        lines.append(f"- {marks}**{e['nombre']}**")
+    lines += ["", "## Perdidos"]
     for x in perdidos:
         lines.append(f"- {x['nombre']}")
-
     OUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     print(f"✓ {OUT_JS.name}  ({data['totales']['pagados']} pagados, "
-          f"{data['totales']['esperanza']} con esperanza, "
-          f"{data['totales']['perdidos']} perdidos)")
+          f"{data['totales']['esperanza']} con esperanza, {data['totales']['perdidos']} perdidos)")
     print(f"✓ {OUT_MD.name}")
+    print(f"  B2B: {bbdd_total} contactos, {bbdd_enviados} enviados")
+    if pagos_count != len(pagados):
+        print(f"  ⚠ pagos_sheet={pagos_count} vs pagados en inscripciones={len(pagados)}")
 
 
 if __name__ == "__main__":

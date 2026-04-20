@@ -736,6 +736,36 @@
       .modulos-status-table { font-size: .78rem; }
       .modulos-status-table td, .modulos-status-table th { padding: 6px 4px; }
     }
+
+    /* ── B2B STATS ── */
+    .b2b-stats { margin: 10px 0 14px; }
+    .b2b-stats .b2b-row {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 10px 12px;
+      background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.3);
+      border-radius: 10px; margin-bottom: 8px;
+    }
+    .b2b-stats .b2b-num {
+      font-size: 1.4rem; font-weight: 800; color: var(--purple-light);
+      line-height: 1;
+    }
+    .b2b-stats .b2b-label {
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+    }
+    .b2b-stats .b2b-progress {
+      flex: 1; min-width: 140px;
+      height: 6px; background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden;
+    }
+    .b2b-stats .b2b-progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--purple-light), var(--magenta));
+      border-radius: 999px; transition: width .4s ease;
+    }
+    .b2b-stats .b2b-split {
+      font-size: .78rem; color: rgba(255,255,255,.7);
+      display: flex; gap: 14px; flex-wrap: wrap;
+    }
+    .b2b-stats .b2b-split strong { color: var(--magenta); font-weight: 700; }
   </style>
   <script src="seguimiento.data.js"></script>
   <script src="seguimiento.render.js" defer></script>
@@ -923,8 +953,9 @@
 
           <article class="management-card">
             <div class="card-kicker">IV. Expansión</div>
-            <h3>Mineras</h3>
-            <p>Hablar con Tania Hutt sobre expansión a mineras.</p>
+            <h3>Mineras + B2B outreach</h3>
+            <p>Hablar con Tania Hutt sobre expansión a mineras y tracking del outreach B2B.</p>
+            <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list">
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hablar con Tania Hutt sobre expansión a mineras</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
@@ -1501,8 +1532,9 @@
 
           <article class="management-card">
             <div class="card-kicker">IV. Expansión</div>
-            <h3>Mineras</h3>
-            <p>Hablar con Tania Hutt sobre expansión a mineras.</p>
+            <h3>Mineras + B2B outreach</h3>
+            <p>Hablar con Tania Hutt sobre expansión a mineras y tracking del outreach B2B.</p>
+            <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list" id="management-list-expansion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>

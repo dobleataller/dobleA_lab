@@ -1,0 +1,20 @@
+# Service account credentials — NUNCA commitear
+.sa-key.json
+*-sa-key.json
+*credentials*.json
+
+# LaTeX build artifacts
+modulos/*.aux
+modulos/*.log
+modulos/*.nav
+modulos/*.out
+modulos/*.snm
+modulos/*.toc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc

@@ -1,14 +1,23 @@
 // Solo nombres + flags priority (★ = Seguimiento Pablo, 📞 = llamar).
-// Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet de Drive.
-// Generado por sync_inscritos.py
+// Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet privado.
+// Generado por sync_inscritos.py — NO editar a mano.
 window.SEGUIMIENTO = {
-  "generado": "2026-04-17T12:37:14",
+  "generado": "2026-04-20T09:22:04",
   "totales": {
     "inscritos": 44,
     "pagados": 6,
     "esperanza": 21,
     "perdidos": 17
   },
+  "b2b": {
+    "total_contactos": 325,
+    "mensajes_enviados": 256,
+    "por_contactadora": {
+      "Vale": 195,
+      "María Paz": 129
+    }
+  },
+  "pagos_sheet_count": 6,
   "pagados": [
     {
       "nombre": "Cristóbal Castro Baeza",
