@@ -1275,30 +1275,18 @@
     /* ══════════════════════════════════════════════════════════
        STUDENT HUB — se muestra tras login de alumnas/os pagadas/os
        ══════════════════════════════════════════════════════════ */
-    #student-hub { display: none; }
+    /* El hub aparece ADICIONALMENTE, arriba del landing. No esconde el resto. */
+    #student-hub { display: none; background: #0d0030; color: #fff; }
     body.hub-mode #student-hub { display: block; }
-    body.hub-mode > section:not(#student-hub),
-    body.hub-mode > footer,
-    body.hub-mode .cta-floating { display: none !important; }
-    body.hub-mode { background: #0d0030; color: #fff; }
-    body.hub-mode nav { background: rgba(20,0,60,.95); border-bottom: 1px solid rgba(139,92,246,.2); }
-    /* Nav items: mostrar el set público fuera del hub, el set logueado dentro del hub */
-    body.hub-mode .nav-public { display: none !important; }
+    /* Link "Chat" en el nav, solo para logueadas/os */
     .nav-hub { display: none; }
     body.hub-mode .nav-hub { display: list-item; }
-    body.hub-mode .nav-hub-admin { display: none; }
-    body.hub-mode.is-admin .nav-hub-admin { display: list-item; }
     .nav-hub a {
       color: rgba(255,255,255,.75); text-decoration: none;
       padding: 6px 12px; border-radius: 8px; transition: all .15s;
       cursor: pointer; font-weight: 500;
     }
     .nav-hub a:hover, .nav-hub a.is-active { background: rgba(224,64,160,.18); color: #fff; }
-    .nav-hub-admin a {
-      background: rgba(224,64,160,.14); border: 1px solid rgba(224,64,160,.35);
-      color: #f9a8d4 !important;
-    }
-    .nav-hub-admin a:hover { background: rgba(224,64,160,.28); color: #fff !important; }
 
     #student-hub {
       padding: 120px 24px 80px;
@@ -1477,8 +1465,8 @@
     <li class="nav-public"><a href="#info">Información general</a></li>
     <li class="nav-public"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
     <li class="nav-public"><a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer">Paga acá</a></li>
-    <!-- Nav items del hub (logueadas/os) -->
-    <li class="nav-hub"><a data-hub-tab="material">Recursos</a></li>
+    <!-- Nav items del hub (solo logueadas/os) -->
+    <li class="nav-hub"><a data-hub-tab="material">Mi taller</a></li>
     <li class="nav-hub"><a data-hub-tab="chat">Chat</a></li>
     <li id="nav-auth-area">
       <button id="nav-auth-btn" onclick="openAuthModal()">Acceder</button>
@@ -2800,7 +2788,7 @@
     a.addEventListener('click', e => {
       e.preventDefault();
       activateHubTab(a.dataset.hubTab);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('student-hub')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
@@ -2915,18 +2903,39 @@
     const contenido = input.value.trim();
     if (!contenido || !currentUser) return;
     btn.disabled = true;
+
     const meta = currentUser.user_metadata || {};
-    const { error } = await sb.from('mensajes').insert({
+    const displayName = meta.full_name || (currentUser.email || '').split('@')[0];
+
+    // render optimista — aparece al instante
+    const tempId = 'tmp-' + Date.now();
+    appendMessage({
+      id: tempId,
       user_id: currentUser.id,
       user_email: normalizeEmail(currentUser.email),
-      user_name: meta.full_name || (currentUser.email || '').split('@')[0],
-      contenido
+      user_name: displayName,
+      contenido,
+      created_at: new Date().toISOString()
     });
+
+    const { data, error } = await sb.from('mensajes').insert({
+      user_id: currentUser.id,
+      user_email: normalizeEmail(currentUser.email),
+      user_name: displayName,
+      contenido
+    }).select().single();
+
+    // quitar el placeholder optimista
+    document.querySelector('[data-id="'+tempId+'"]')?.remove();
     btn.disabled = false;
+
     if (error) {
       alert('No se pudo enviar el mensaje: ' + error.message);
       return;
     }
+    // meter el mensaje real (si el realtime se demora)
+    if (data) appendMessage(data);
+
     input.value = '';
     input.style.height = 'auto';
     input.focus();
