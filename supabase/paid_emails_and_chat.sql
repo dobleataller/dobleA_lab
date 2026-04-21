@@ -43,7 +43,8 @@ create policy "admin write paid_emails"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   )
   with check (
@@ -51,7 +52,8 @@ create policy "admin write paid_emails"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
 
@@ -90,7 +92,8 @@ create policy "read mensajes paid or admin"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
 
@@ -123,7 +126,8 @@ create policy "delete mensajes admin"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
 
@@ -179,7 +183,8 @@ create policy "read materiales paid or admin"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
 
@@ -191,7 +196,8 @@ create policy "write materiales admin"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   )
   with check (
@@ -199,7 +205,8 @@ create policy "write materiales admin"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
 
@@ -255,7 +262,8 @@ create policy "write materiales bucket"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   )
   with check (
@@ -264,6 +272,7 @@ create policy "write materiales bucket"
       'p.argotetironi@gmail.com',
       'lucia.argote@dobleachile.cl',
       'isidora.aninat@dobleachile.cl',
-      'mauricio.bucca@dobleachile.cl'
+      'mauricio.bucca@dobleachile.cl',
+      'mpaz.carreno@dobleachile.cl'
     )
   );
