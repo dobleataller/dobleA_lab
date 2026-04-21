@@ -1282,6 +1282,23 @@
     body.hub-mode .cta-floating { display: none !important; }
     body.hub-mode { background: #0d0030; color: #fff; }
     body.hub-mode nav { background: rgba(20,0,60,.95); border-bottom: 1px solid rgba(139,92,246,.2); }
+    /* Nav items: mostrar el set público fuera del hub, el set logueado dentro del hub */
+    body.hub-mode .nav-public { display: none !important; }
+    .nav-hub { display: none; }
+    body.hub-mode .nav-hub { display: list-item; }
+    body.hub-mode .nav-hub-admin { display: none; }
+    body.hub-mode.is-admin .nav-hub-admin { display: list-item; }
+    .nav-hub a {
+      color: rgba(255,255,255,.75); text-decoration: none;
+      padding: 6px 12px; border-radius: 8px; transition: all .15s;
+      cursor: pointer; font-weight: 500;
+    }
+    .nav-hub a:hover, .nav-hub a.is-active { background: rgba(224,64,160,.18); color: #fff; }
+    .nav-hub-admin a {
+      background: rgba(224,64,160,.14); border: 1px solid rgba(224,64,160,.35);
+      color: #f9a8d4 !important;
+    }
+    .nav-hub-admin a:hover { background: rgba(224,64,160,.28); color: #fff !important; }
 
     #student-hub {
       padding: 120px 24px 80px;
@@ -1451,15 +1468,19 @@
 <nav>
   <div class="logo"><a href="#"><img src="img/logo.jpg" alt="DobleA LAB"></a></div>
   <ul>
-    <li><a href="#oferta">Oferta</a></li>
-    <li><a href="#audiencia">¿A quién?</a></li>
-    <li><a href="#modulos-base">Clases</a></li>
-    <li><a href="#recursos">Recursos</a></li>
-    <li><a href="#equipo">Equipo</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#info">Información general</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
-    <li><a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer">Paga acá</a></li>
+    <li class="nav-public"><a href="#oferta">Oferta</a></li>
+    <li class="nav-public"><a href="#audiencia">¿A quién?</a></li>
+    <li class="nav-public"><a href="#modulos-base">Clases</a></li>
+    <li class="nav-public"><a href="#recursos">Recursos</a></li>
+    <li class="nav-public"><a href="#equipo">Equipo</a></li>
+    <li class="nav-public"><a href="#faq">FAQ</a></li>
+    <li class="nav-public"><a href="#info">Información general</a></li>
+    <li class="nav-public"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" style="background:var(--magenta);color:#fff;padding:6px 16px;border-radius:20px;font-weight:700;">Inscríbete</a></li>
+    <li class="nav-public"><a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer">Paga acá</a></li>
+    <!-- Nav items del hub (logueadas/os) -->
+    <li class="nav-hub"><a data-hub-tab="material">Recursos</a></li>
+    <li class="nav-hub"><a data-hub-tab="chat">Chat</a></li>
+    <li class="nav-hub nav-hub-admin"><a href="dashboard.html">Gestión</a></li>
     <li id="nav-auth-area">
       <button id="nav-auth-btn" onclick="openAuthModal()">Acceder</button>
       <div id="nav-user-info" style="display:none;">
@@ -2578,6 +2599,7 @@
 
   function enterHubMode() {
     document.body.classList.add('hub-mode');
+    document.body.classList.toggle('is-admin', currentAccess === 'admin');
     const hub = document.getElementById('student-hub');
     hub.setAttribute('aria-hidden', 'false');
     const nameEl = document.getElementById('hub-user-name');
@@ -2586,16 +2608,25 @@
     nameEl.textContent = display;
     document.getElementById('hub-admin-badge').style.display =
       currentAccess === 'admin' ? 'inline-flex' : 'none';
+    syncNavToActiveTab();
     if (!chatLoaded) { initChat(); chatLoaded = true; }
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function exitHubMode() {
     document.body.classList.remove('hub-mode');
+    document.body.classList.remove('is-admin');
     const hub = document.getElementById('student-hub');
     if (hub) hub.setAttribute('aria-hidden', 'true');
     if (chatChannel) { sb.removeChannel(chatChannel); chatChannel = null; }
     chatLoaded = false;
+  }
+
+  function syncNavToActiveTab() {
+    const activeTab = document.querySelector('.hub-tab.active')?.dataset.tab;
+    document.querySelectorAll('.nav-hub a[data-hub-tab]').forEach(a => {
+      a.classList.toggle('is-active', a.dataset.hubTab === activeTab);
+    });
   }
 
   // ── Nav UI ────────────────────────────────────────────────────────────
@@ -2682,13 +2713,9 @@
       if (error) { showError(friendlyError(error.message)); }
       else {
         persistDashboardSessionBridge(data?.session);
-        const access = await resolveAccess(data?.user);
         closeAuthModal();
-        if (access === 'admin') {
-          window.location.href = 'dashboard.html';
-        }
-        // si es 'paid' o 'none', onAuthStateChange ya llamó a applyAccess()
-        // y mostrará el hub o el mensaje de "sin acceso"
+        // onAuthStateChange ya dispara applyAccess() → admin y pagado ven el hub.
+        // Los admins tienen el link "Gestión" en el nav para ir a dashboard.html.
       }
     } else {
       const opts = { email, password, options: { data: { full_name: name } } };
@@ -2754,19 +2781,27 @@
   // ══════════════════════════════════════════════════════════════════════
   // TABS del hub (Material / Chat)
   // ══════════════════════════════════════════════════════════════════════
+  function activateHubTab(target) {
+    document.querySelectorAll('.hub-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === target));
+    document.querySelectorAll('.hub-tab-content').forEach(c => c.classList.toggle('active', c.id === 'hub-tab-' + target));
+    syncNavToActiveTab();
+    if (target === 'chat') {
+      const unread = document.getElementById('chat-unread-count');
+      if (unread) { unread.style.display = 'none'; unread.textContent = '0'; }
+      unreadCount = 0;
+      setTimeout(scrollChatToBottom, 50);
+      document.getElementById('chat-input')?.focus();
+    }
+  }
+
   document.querySelectorAll('.hub-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      document.querySelectorAll('.hub-tab').forEach(b => b.classList.toggle('active', b === btn));
-      document.querySelectorAll('.hub-tab-content').forEach(c => {
-        c.classList.toggle('active', c.id === 'hub-tab-' + target);
-      });
-      if (target === 'chat') {
-        const unread = document.getElementById('chat-unread-count');
-        if (unread) { unread.style.display = 'none'; unread.textContent = '0'; }
-        setTimeout(scrollChatToBottom, 50);
-        document.getElementById('chat-input')?.focus();
-      }
+    btn.addEventListener('click', () => activateHubTab(btn.dataset.tab));
+  });
+  document.querySelectorAll('.nav-hub a[data-hub-tab]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      activateHubTab(a.dataset.hubTab);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 

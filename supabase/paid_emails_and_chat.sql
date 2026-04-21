@@ -140,3 +140,130 @@ begin
     execute 'alter publication supabase_realtime add table public.mensajes';
   end if;
 end$$;
+
+
+-- ───── 4. Materiales del taller ─────────────────────────────
+create table if not exists public.materiales (
+  id                bigserial primary key,
+  clase_num         int  not null check (clase_num  between 1 and 4),
+  modulo_num        int  not null check (modulo_num between 1 and 3),
+  titulo            text not null,
+  descripcion       text,
+  tipo              text not null default 'archivo' check (tipo in ('archivo','link','video')),
+  storage_path      text,       -- ruta dentro del bucket 'materiales' (cuando tipo='archivo')
+  external_url      text,       -- URL externa (cuando tipo='link' o 'video')
+  file_size         bigint,
+  mime_type         text,
+  uploaded_by       uuid references auth.users(id) on delete set null,
+  uploaded_by_name  text,
+  created_at        timestamptz not null default now()
+);
+
+create index if not exists materiales_clase_modulo_idx
+  on public.materiales(clase_num, modulo_num, created_at desc);
+
+alter table public.materiales enable row level security;
+
+drop policy if exists "read materiales paid or admin"  on public.materiales;
+drop policy if exists "write materiales admin"         on public.materiales;
+
+create policy "read materiales paid or admin"
+  on public.materiales for select
+  to authenticated
+  using (
+    exists (
+      select 1 from public.paid_emails pe
+      where pe.email = lower(coalesce(auth.jwt() ->> 'email',''))
+    )
+    or lower(coalesce(auth.jwt() ->> 'email','')) in (
+      'p.argotetironi@gmail.com',
+      'lucia.argote@dobleachile.cl',
+      'isidora.aninat@dobleachile.cl',
+      'mauricio.bucca@dobleachile.cl'
+    )
+  );
+
+create policy "write materiales admin"
+  on public.materiales for all
+  to authenticated
+  using (
+    lower(coalesce(auth.jwt() ->> 'email','')) in (
+      'p.argotetironi@gmail.com',
+      'lucia.argote@dobleachile.cl',
+      'isidora.aninat@dobleachile.cl',
+      'mauricio.bucca@dobleachile.cl'
+    )
+  )
+  with check (
+    lower(coalesce(auth.jwt() ->> 'email','')) in (
+      'p.argotetironi@gmail.com',
+      'lucia.argote@dobleachile.cl',
+      'isidora.aninat@dobleachile.cl',
+      'mauricio.bucca@dobleachile.cl'
+    )
+  );
+
+-- realtime
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'materiales'
+  ) then
+    execute 'alter publication supabase_realtime add table public.materiales';
+  end if;
+end$$;
+
+
+-- ───── 5. Storage bucket 'materiales' (privado) ─────────────
+insert into storage.buckets (id, name, public)
+values ('materiales', 'materiales', false)
+on conflict (id) do nothing;
+
+drop policy if exists "read materiales bucket"  on storage.objects;
+drop policy if exists "write materiales bucket" on storage.objects;
+
+-- leer archivos: pagados + admins
+create policy "read materiales bucket"
+  on storage.objects for select
+  to authenticated
+  using (
+    bucket_id = 'materiales'
+    and (
+      exists (
+        select 1 from public.paid_emails pe
+        where pe.email = lower(coalesce(auth.jwt() ->> 'email',''))
+      )
+      or lower(coalesce(auth.jwt() ->> 'email','')) in (
+        'p.argotetironi@gmail.com',
+        'lucia.argote@dobleachile.cl',
+        'isidora.aninat@dobleachile.cl',
+        'mauricio.bucca@dobleachile.cl'
+      )
+    )
+  );
+
+-- subir/editar/eliminar: solo admins
+create policy "write materiales bucket"
+  on storage.objects for all
+  to authenticated
+  using (
+    bucket_id = 'materiales'
+    and lower(coalesce(auth.jwt() ->> 'email','')) in (
+      'p.argotetironi@gmail.com',
+      'lucia.argote@dobleachile.cl',
+      'isidora.aninat@dobleachile.cl',
+      'mauricio.bucca@dobleachile.cl'
+    )
+  )
+  with check (
+    bucket_id = 'materiales'
+    and lower(coalesce(auth.jwt() ->> 'email','')) in (
+      'p.argotetironi@gmail.com',
+      'lucia.argote@dobleachile.cl',
+      'isidora.aninat@dobleachile.cl',
+      'mauricio.bucca@dobleachile.cl'
+    )
+  );
