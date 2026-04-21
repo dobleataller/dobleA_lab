@@ -569,11 +569,13 @@
       flex-wrap: wrap;
     }
     .session-num {
-      background: var(--purple-light); color: #fff;
+      background: rgba(139,92,246,.22);
+      color: #fff;
       font-size: .7rem; font-weight: 800;
-      width: 20px; height: 20px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      padding: 3px 10px; border-radius: 999px;
+      letter-spacing: .04em;
       flex-shrink: 0;
+      white-space: nowrap;
     }
     .session-time {
       font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.45);
@@ -1269,6 +1271,178 @@
       font-size: .78rem; cursor: pointer; font-family: inherit; text-decoration: underline;
     }
     #nav-logout-btn:hover { color: var(--magenta); }
+
+    /* ══════════════════════════════════════════════════════════
+       STUDENT HUB — se muestra tras login de alumnas/os pagadas/os
+       ══════════════════════════════════════════════════════════ */
+    #student-hub { display: none; }
+    body.hub-mode #student-hub { display: block; }
+    body.hub-mode > section:not(#student-hub),
+    body.hub-mode > footer,
+    body.hub-mode .cta-floating { display: none !important; }
+    body.hub-mode { background: #0d0030; color: #fff; }
+    body.hub-mode nav { background: rgba(20,0,60,.95); border-bottom: 1px solid rgba(139,92,246,.2); }
+
+    #student-hub {
+      padding: 120px 24px 80px;
+      max-width: 1080px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+    .hub-header { margin-bottom: 40px; }
+    .hub-kicker {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--magenta);
+      margin-bottom: 14px;
+    }
+    .hub-header h1 {
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem); font-weight: 800;
+      background: linear-gradient(90deg, #c084fc, var(--magenta));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 10px; line-height: 1.15;
+    }
+    .hub-header p.hub-sub {
+      color: rgba(255,255,255,.6); font-size: .95rem; max-width: 640px;
+      line-height: 1.55;
+    }
+    .hub-admin-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px; padding: 6px 12px; border-radius: 999px;
+      background: rgba(224,64,160,.15); border: 1px solid rgba(224,64,160,.35);
+      color: #f9a8d4; font-size: .72rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* Tabs */
+    .hub-tabs {
+      display: flex; gap: 4px; margin: 32px 0 24px;
+      border-bottom: 1px solid rgba(139,92,246,.25);
+    }
+    .hub-tab {
+      background: none; border: none; color: rgba(255,255,255,.5);
+      padding: 12px 20px; font-size: .9rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; border-bottom: 2px solid transparent;
+      margin-bottom: -1px; transition: all .15s;
+    }
+    .hub-tab:hover { color: rgba(255,255,255,.85); }
+    .hub-tab.active { color: #fff; border-bottom-color: var(--magenta); }
+    .hub-tab .hub-tab-count {
+      display: inline-block; margin-left: 8px; padding: 2px 8px;
+      background: rgba(224,64,160,.2); border-radius: 999px;
+      font-size: .68rem; color: #f9a8d4;
+    }
+    .hub-tab-content { display: none; }
+    .hub-tab-content.active { display: block; }
+
+    /* Notice */
+    .hub-notice {
+      background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.25);
+      border-radius: 12px; padding: 16px 20px; margin-bottom: 28px;
+      color: rgba(255,255,255,.75); font-size: .88rem; line-height: 1.55;
+    }
+    .hub-notice strong { color: #fff; }
+
+    /* Material — clases */
+    .hub-clase {
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(139,92,246,.2);
+      border-radius: 16px; padding: 24px 26px; margin-bottom: 20px;
+    }
+    .hub-clase-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+    .hub-clase-num {
+      font-size: .7rem; font-weight: 800; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--magenta);
+    }
+    .hub-clase-fecha {
+      font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500;
+    }
+    .hub-clase h3 {
+      font-size: 1.2rem; font-weight: 700; color: #fff; margin: 4px 0 18px;
+      line-height: 1.3;
+    }
+    .hub-modulos { display: grid; gap: 10px; }
+    .hub-modulo {
+      background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hub-modulo-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .hub-modulo-num {
+      font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+      color: rgba(255,255,255,.85); text-transform: uppercase;
+    }
+    .hub-modulo-time {
+      font-size: .72rem; color: rgba(255,255,255,.35); font-weight: 500;
+    }
+    .hub-modulo-placeholder {
+      font-size: .78rem; color: rgba(255,255,255,.4); font-style: italic;
+    }
+
+    /* Chat */
+    .hub-chat { display: flex; flex-direction: column; height: calc(100vh - 340px); min-height: 420px; }
+    #chat-messages {
+      flex: 1 1 auto; overflow-y: auto; padding: 4px 2px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    #chat-messages::-webkit-scrollbar { width: 6px; }
+    #chat-messages::-webkit-scrollbar-thumb { background: rgba(139,92,246,.3); border-radius: 3px; }
+    .chat-msg {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(139,92,246,.18);
+      border-radius: 12px; padding: 12px 16px; max-width: 80%;
+    }
+    .chat-msg.is-mine {
+      background: rgba(224,64,160,.1); border-color: rgba(224,64,160,.35);
+      align-self: flex-end;
+    }
+    .chat-msg-head {
+      display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;
+    }
+    .chat-msg-name { font-size: .82rem; font-weight: 700; color: #f9a8d4; }
+    .chat-msg.is-mine .chat-msg-name { color: #fff; }
+    .chat-msg-admin-tag {
+      font-size: .6rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--magenta);
+      background: rgba(224,64,160,.15); padding: 1px 6px; border-radius: 999px;
+    }
+    .chat-msg-time { font-size: .68rem; color: rgba(255,255,255,.35); }
+    .chat-msg-body {
+      font-size: .9rem; color: rgba(255,255,255,.85); line-height: 1.5;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .chat-msg-delete {
+      background: none; border: none; color: rgba(255,255,255,.3);
+      font-size: .72rem; cursor: pointer; margin-left: 6px;
+      font-family: inherit;
+    }
+    .chat-msg-delete:hover { color: var(--magenta); }
+    .chat-empty { color: rgba(255,255,255,.35); font-size: .85rem; text-align: center; padding: 40px 0; }
+    #chat-form {
+      display: flex; gap: 10px; padding-top: 14px;
+      border-top: 1px solid rgba(139,92,246,.2);
+    }
+    #chat-input {
+      flex: 1 1 auto; background: rgba(0,0,0,.35);
+      border: 1px solid rgba(139,92,246,.3); border-radius: 10px;
+      padding: 12px 14px; color: #fff; font-family: inherit;
+      font-size: .9rem; resize: none; min-height: 46px; max-height: 140px;
+      line-height: 1.4;
+    }
+    #chat-input:focus { outline: none; border-color: var(--magenta); }
+    #chat-send-btn {
+      background: var(--magenta); color: #fff; border: none;
+      border-radius: 10px; padding: 0 22px; font-weight: 700;
+      font-size: .88rem; cursor: pointer; font-family: inherit;
+      transition: opacity .15s;
+    }
+    #chat-send-btn:hover { opacity: .9; }
+    #chat-send-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    @media (max-width: 640px) {
+      #student-hub { padding: 100px 16px 60px; }
+      .hub-chat { height: auto; min-height: 360px; }
+      .chat-msg { max-width: 94%; }
+    }
   </style>
 </head>
 <body>
@@ -1295,6 +1469,136 @@
     </li>
   </ul>
 </nav>
+
+<!-- STUDENT HUB (solo visible tras login de alumnas/os pagadas/os o admins) -->
+<section id="student-hub" aria-hidden="true">
+  <div class="hub-header">
+    <div class="hub-kicker">Taller Doble A Lab</div>
+    <h1>Hola, <span id="hub-user-name">bienvenida/o</span></h1>
+    <p class="hub-sub">Este es tu espacio del taller. Aquí iremos subiendo el material de cada clase y módulo, y puedes usar el chat para enviar preguntas o sugerir temas antes de que empecemos.</p>
+    <div id="hub-admin-badge" class="hub-admin-badge" style="display:none;">◆ Modo admin</div>
+  </div>
+
+  <div class="hub-tabs" role="tablist">
+    <button class="hub-tab active" data-tab="material" role="tab">Material del taller</button>
+    <button class="hub-tab" data-tab="chat" role="tab">Chat <span class="hub-tab-count" id="chat-unread-count" style="display:none;">0</span></button>
+  </div>
+
+  <!-- TAB: MATERIAL -->
+  <div id="hub-tab-material" class="hub-tab-content active" role="tabpanel">
+    <div class="hub-notice">
+      <strong>Próximamente:</strong> slides, videos, bases de datos y lecturas de cada módulo aparecerán aquí a medida que avance el taller. Las 4 clases empiezan el <strong>miércoles 6 de mayo</strong>.
+    </div>
+
+    <!-- Clase 1 -->
+    <div class="hub-clase" data-clase="1">
+      <div class="hub-clase-head">
+        <span class="hub-clase-num">Clase 1</span>
+        <span class="hub-clase-fecha">Miércoles 6 de mayo · 6–9 PM</span>
+      </div>
+      <h3>De la inquietud del cliente al diseño de estudio</h3>
+      <div class="hub-modulos">
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 1</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 2</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 3</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clase 2 -->
+    <div class="hub-clase" data-clase="2">
+      <div class="hub-clase-head">
+        <span class="hub-clase-num">Clase 2</span>
+        <span class="hub-clase-fecha">Miércoles 13 de mayo · 6–9 PM</span>
+      </div>
+      <h3>Diseño de instrumentos y calidad en la medición</h3>
+      <div class="hub-modulos">
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 1</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 2</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 3</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clase 3 -->
+    <div class="hub-clase" data-clase="3">
+      <div class="hub-clase-head">
+        <span class="hub-clase-num">Clase 3</span>
+        <span class="hub-clase-fecha">Martes 19 de mayo · 6–9 PM</span>
+      </div>
+      <h3>Producción y análisis de datos</h3>
+      <div class="hub-modulos">
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 1</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 2</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 3</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clase 4 -->
+    <div class="hub-clase" data-clase="4">
+      <div class="hub-clase-head">
+        <span class="hub-clase-num">Clase 4</span>
+        <span class="hub-clase-fecha">Miércoles 27 de mayo · 6–9 PM</span>
+      </div>
+      <h3>Interpretación de resultados y toma de decisiones</h3>
+      <div class="hub-modulos">
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 1</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 2</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+        <div class="hub-modulo">
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 3</span><span class="hub-modulo-time">50 min</span></div>
+          <span class="hub-modulo-placeholder">Material próximamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: CHAT -->
+  <div id="hub-tab-chat" class="hub-tab-content" role="tabpanel">
+    <div class="hub-notice">
+      <strong>Chat del grupo.</strong> Envía preguntas, sugerencias o temas que te gustaría cubrir. Todo el grupo y el equipo docente ven los mensajes.
+    </div>
+    <div class="hub-chat">
+      <div id="chat-messages" aria-live="polite">
+        <div class="chat-empty">Cargando mensajes…</div>
+      </div>
+      <form id="chat-form">
+        <textarea id="chat-input" placeholder="Escribe tu mensaje… (Enter para enviar, Shift+Enter para salto de línea)" maxlength="2000" rows="1"></textarea>
+        <button type="submit" id="chat-send-btn">Enviar</button>
+      </form>
+    </div>
+  </div>
+</section>
 
 <!-- HERO -->
 <section id="hero">
@@ -2214,18 +2518,85 @@
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
   const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
 
+  const ADMIN_EMAILS = new Set([
+    'p.argotetironi@gmail.com',
+    'lucia.argote@dobleachile.cl',
+    'isidora.aninat@dobleachile.cl',
+    'mauricio.bucca@dobleachile.cl'
+  ]);
+
   let authMode = 'login'; // 'login' | 'signup' | 'reset'
+  let currentUser = null;
+  let currentAccess = null; // 'admin' | 'paid' | 'none'
+  let chatChannel = null;
+  let chatLoaded = false;
+
+  function normalizeEmail(v) { return String(v || '').trim().toLowerCase(); }
+  function isAdminEmail(email) { return ADMIN_EMAILS.has(normalizeEmail(email)); }
+
+  async function resolveAccess(user) {
+    if (!user) return 'none';
+    if (isAdminEmail(user.email)) return 'admin';
+    const { data, error } = await sb
+      .from('paid_emails')
+      .select('email')
+      .eq('email', normalizeEmail(user.email))
+      .maybeSingle();
+    if (error) { console.warn('paid_emails lookup failed', error); return 'none'; }
+    return data ? 'paid' : 'none';
+  }
 
   // ── Auth state listener ───────────────────────────────────────────────
-  sb.auth.onAuthStateChange((_event, session) => {
-    updateNavAuth(session?.user ?? null);
+  sb.auth.onAuthStateChange(async (_event, session) => {
+    currentUser = session?.user ?? null;
+    updateNavAuth(currentUser);
+    currentAccess = await resolveAccess(currentUser);
+    applyAccess();
   });
 
   async function initAuth() {
     const { data: { session } } = await sb.auth.getSession();
-    updateNavAuth(session?.user ?? null);
+    currentUser = session?.user ?? null;
+    updateNavAuth(currentUser);
+    currentAccess = await resolveAccess(currentUser);
+    applyAccess();
   }
   initAuth();
+
+  // ── Decide qué mostrar según acceso ───────────────────────────────────
+  function applyAccess() {
+    if (!currentUser) { exitHubMode(); return; }
+    if (currentAccess === 'admin' || currentAccess === 'paid') {
+      enterHubMode();
+    } else {
+      exitHubMode();
+      // sesión activa pero sin acceso → avisar en modal
+      showError('Tu cuenta aún no tiene acceso al taller. Escríbenos si ya pagaste y no ves el contenido.');
+      openAuthModal();
+    }
+  }
+
+  function enterHubMode() {
+    document.body.classList.add('hub-mode');
+    const hub = document.getElementById('student-hub');
+    hub.setAttribute('aria-hidden', 'false');
+    const nameEl = document.getElementById('hub-user-name');
+    const meta = currentUser?.user_metadata || {};
+    const display = meta.full_name || (currentUser.email || '').split('@')[0];
+    nameEl.textContent = display;
+    document.getElementById('hub-admin-badge').style.display =
+      currentAccess === 'admin' ? 'inline-flex' : 'none';
+    if (!chatLoaded) { initChat(); chatLoaded = true; }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function exitHubMode() {
+    document.body.classList.remove('hub-mode');
+    const hub = document.getElementById('student-hub');
+    if (hub) hub.setAttribute('aria-hidden', 'true');
+    if (chatChannel) { sb.removeChannel(chatChannel); chatChannel = null; }
+    chatLoaded = false;
+  }
 
   // ── Nav UI ────────────────────────────────────────────────────────────
   function updateNavAuth(user) {
@@ -2311,9 +2682,13 @@
       if (error) { showError(friendlyError(error.message)); }
       else {
         persistDashboardSessionBridge(data?.session);
+        const access = await resolveAccess(data?.user);
         closeAuthModal();
-        // Redirect to dashboard
-        window.location.href = 'dashboard.html';
+        if (access === 'admin') {
+          window.location.href = 'dashboard.html';
+        }
+        // si es 'paid' o 'none', onAuthStateChange ya llamó a applyAccess()
+        // y mostrará el hub o el mensaje de "sin acceso"
       }
     } else {
       const opts = { email, password, options: { data: { full_name: name } } };
@@ -2375,6 +2750,185 @@
 
   // Close modal with Escape key
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAuthModal(); });
+
+  // ══════════════════════════════════════════════════════════════════════
+  // TABS del hub (Material / Chat)
+  // ══════════════════════════════════════════════════════════════════════
+  document.querySelectorAll('.hub-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.hub-tab').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.hub-tab-content').forEach(c => {
+        c.classList.toggle('active', c.id === 'hub-tab-' + target);
+      });
+      if (target === 'chat') {
+        const unread = document.getElementById('chat-unread-count');
+        if (unread) { unread.style.display = 'none'; unread.textContent = '0'; }
+        setTimeout(scrollChatToBottom, 50);
+        document.getElementById('chat-input')?.focus();
+      }
+    });
+  });
+
+  // ══════════════════════════════════════════════════════════════════════
+  // CHAT realtime (lee mensajes, suscribe, postea)
+  // ══════════════════════════════════════════════════════════════════════
+  let unreadCount = 0;
+
+  function chatTabActive() {
+    return document.getElementById('hub-tab-chat')?.classList.contains('active');
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function formatTime(iso) {
+    const d = new Date(iso);
+    const now = new Date();
+    const sameDay = d.toDateString() === now.toDateString();
+    const hh = d.getHours().toString().padStart(2, '0');
+    const mm = d.getMinutes().toString().padStart(2, '0');
+    if (sameDay) return hh + ':' + mm;
+    return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'short' }) + ' ' + hh + ':' + mm;
+  }
+
+  function renderMessage(m) {
+    const mine = currentUser && m.user_id === currentUser.id;
+    const isAdminMsg = isAdminEmail(m.user_email);
+    const canDelete = currentAccess === 'admin';
+    const name = m.user_name || (m.user_email || '').split('@')[0] || 'Anónimo';
+    const div = document.createElement('div');
+    div.className = 'chat-msg' + (mine ? ' is-mine' : '');
+    div.dataset.id = m.id;
+    div.innerHTML = `
+      <div class="chat-msg-head">
+        <span class="chat-msg-name">${escapeHtml(name)}</span>
+        ${isAdminMsg ? '<span class="chat-msg-admin-tag">Equipo</span>' : ''}
+        <span class="chat-msg-time">${formatTime(m.created_at)}</span>
+        ${canDelete ? '<button class="chat-msg-delete" data-delete="'+m.id+'" title="Eliminar mensaje">✕</button>' : ''}
+      </div>
+      <div class="chat-msg-body">${escapeHtml(m.contenido)}</div>
+    `;
+    return div;
+  }
+
+  function scrollChatToBottom() {
+    const box = document.getElementById('chat-messages');
+    if (box) box.scrollTop = box.scrollHeight;
+  }
+
+  function appendMessage(m, scroll = true) {
+    const box = document.getElementById('chat-messages');
+    if (!box) return;
+    // quitar estado vacío si existiera
+    const empty = box.querySelector('.chat-empty');
+    if (empty) empty.remove();
+    // evitar duplicados (el optimistic + el realtime)
+    if (box.querySelector('[data-id="'+m.id+'"]')) return;
+    box.appendChild(renderMessage(m));
+    if (scroll) scrollChatToBottom();
+    if (!chatTabActive() && (!currentUser || m.user_id !== currentUser.id)) {
+      unreadCount++;
+      const badge = document.getElementById('chat-unread-count');
+      if (badge) { badge.textContent = unreadCount; badge.style.display = 'inline-block'; }
+    }
+  }
+
+  async function loadMessages() {
+    const box = document.getElementById('chat-messages');
+    if (!box) return;
+    const { data, error } = await sb
+      .from('mensajes')
+      .select('id, user_id, user_email, user_name, contenido, created_at')
+      .order('created_at', { ascending: true })
+      .limit(500);
+    if (error) {
+      box.innerHTML = '<div class="chat-empty">No se pudo cargar el chat. '+escapeHtml(error.message)+'</div>';
+      return;
+    }
+    if (!data || data.length === 0) {
+      box.innerHTML = '<div class="chat-empty">Aún no hay mensajes. Sé el/la primera/o en escribir.</div>';
+      return;
+    }
+    box.innerHTML = '';
+    data.forEach(m => appendMessage(m, false));
+    scrollChatToBottom();
+  }
+
+  function subscribeChat() {
+    if (chatChannel) { sb.removeChannel(chatChannel); chatChannel = null; }
+    chatChannel = sb
+      .channel('mensajes-realtime')
+      .on('postgres_changes',
+          { event: 'INSERT', schema: 'public', table: 'mensajes' },
+          payload => appendMessage(payload.new))
+      .on('postgres_changes',
+          { event: 'DELETE', schema: 'public', table: 'mensajes' },
+          payload => {
+            const el = document.querySelector('[data-id="'+payload.old.id+'"]');
+            if (el) el.remove();
+          })
+      .subscribe();
+  }
+
+  async function handleChatSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('chat-input');
+    const btn = document.getElementById('chat-send-btn');
+    const contenido = input.value.trim();
+    if (!contenido || !currentUser) return;
+    btn.disabled = true;
+    const meta = currentUser.user_metadata || {};
+    const { error } = await sb.from('mensajes').insert({
+      user_id: currentUser.id,
+      user_email: normalizeEmail(currentUser.email),
+      user_name: meta.full_name || (currentUser.email || '').split('@')[0],
+      contenido
+    });
+    btn.disabled = false;
+    if (error) {
+      alert('No se pudo enviar el mensaje: ' + error.message);
+      return;
+    }
+    input.value = '';
+    input.style.height = 'auto';
+    input.focus();
+  }
+
+  async function handleChatDelete(id) {
+    if (!confirm('¿Eliminar este mensaje?')) return;
+    const { error } = await sb.from('mensajes').delete().eq('id', id);
+    if (error) alert('No se pudo eliminar: ' + error.message);
+  }
+
+  function initChat() {
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('chat-input');
+    const box = document.getElementById('chat-messages');
+    if (!form || !input || !box) return;
+
+    form.addEventListener('submit', handleChatSubmit);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 140) + 'px';
+    });
+    box.addEventListener('click', e => {
+      const delBtn = e.target.closest('[data-delete]');
+      if (delBtn) handleChatDelete(Number(delBtn.dataset.delete));
+    });
+
+    loadMessages();
+    subscribeChat();
+  }
 </script>
 
 </body>
