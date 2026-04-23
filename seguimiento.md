@@ -1,7 +1,7 @@
 # Seguimiento Taller Doble A — solo nombres
-_Generado: 2026-04-20T14:42:01_
+_Generado: 2026-04-22T21:44:50_
 
-- Inscritos: **44** · Pagados: **6** · Con esperanza: **15** · Perdidos: **23**
+- Inscritos: **45** · Pagados: **6** · Con esperanza: **11** · Perdidos: **28**
 - B2B outreach: **325** contactos, **267** mensajes enviados (82%)
 - Cross-check pagos sheet: 6 registros (match con pagados: True)
 
@@ -16,21 +16,17 @@ _Generado: 2026-04-20T14:42:01_
 ## Con esperanza
 ★ = Seguimiento Pablo · 📞 = llamar
 
+- ★ **Alejandro Reyes**
+- ★ **Ana Carolina Riquelme**
 - ★ **Benjamín Tardy D.**
+- ★ **Felipe Rodriguez**
 - ★ **Fernanda Palma**
+- ★ **Franco Simonetti**
 - ★ **Monserrat masso**
-- ★ **Rafaella Rivera**
-- ★ **Ricardo León**
-- **Alejandro Reyes**
-- **Ana Carolina Riquelme**
+- ★ **Viviana Sanchez**
 - **Carola Zurob**
-- **Felipe Rodriguez**
-- **Jesus diaz**
 - **Juan Reyes**
-- **Luciano Alvarez**
-- **Nicolás Gajardo Ortíz**
 - **Noeh Mella**
-- **Viviana Sanchez**
 
 ## Perdidos
 - Susan Vidal
@@ -40,16 +36,21 @@ _Generado: 2026-04-20T14:42:01_
 - Thomas Campos
 - Valeria Reyes
 - Pedro Valenzuela
+- Ricardo León
 - Diego Torres
 - Luz Escobar
 - Martin Alister
 - Antonia Baeza
 - Vicente Villalobos
 - Sofia Paz Tapia
+- Nicolás Gajardo Ortíz
 - José Jiménez Guerrero
+- Luciano Alvarez
+- Jesus diaz
 - Felipe Silva
 - Camila Cuevas
 - Violeta Tapia
+- Rafaella Rivera
 - Emilia Wells
 - Isidora Barros
 - Gabriel Henríquez

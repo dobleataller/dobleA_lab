@@ -2,12 +2,12 @@
 // Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet privado.
 // Generado por sync_inscritos.py — NO editar a mano.
 window.SEGUIMIENTO = {
-  "generado": "2026-04-20T14:42:01",
+  "generado": "2026-04-22T21:44:50",
   "totales": {
-    "inscritos": 44,
+    "inscritos": 45,
     "pagados": 6,
-    "esperanza": 15,
-    "perdidos": 23
+    "esperanza": 11,
+    "perdidos": 28
   },
   "b2b": {
     "total_contactos": 325,
@@ -48,7 +48,19 @@ window.SEGUIMIENTO = {
   ],
   "esperanza": [
     {
+      "nombre": "Alejandro Reyes",
+      "p": true
+    },
+    {
+      "nombre": "Ana Carolina Riquelme",
+      "p": true
+    },
+    {
       "nombre": "Benjamín Tardy D.",
+      "p": true
+    },
+    {
+      "nombre": "Felipe Rodriguez",
       "p": true
     },
     {
@@ -56,46 +68,25 @@ window.SEGUIMIENTO = {
       "p": true
     },
     {
+      "nombre": "Franco Simonetti",
+      "p": true
+    },
+    {
       "nombre": "Monserrat masso",
       "p": true
     },
     {
-      "nombre": "Rafaella Rivera",
+      "nombre": "Viviana Sanchez",
       "p": true
-    },
-    {
-      "nombre": "Ricardo León",
-      "p": true
-    },
-    {
-      "nombre": "Alejandro Reyes"
-    },
-    {
-      "nombre": "Ana Carolina Riquelme"
     },
     {
       "nombre": "Carola Zurob"
     },
     {
-      "nombre": "Felipe Rodriguez"
-    },
-    {
-      "nombre": "Jesus diaz"
-    },
-    {
       "nombre": "Juan Reyes"
     },
     {
-      "nombre": "Luciano Alvarez"
-    },
-    {
-      "nombre": "Nicolás Gajardo Ortíz"
-    },
-    {
       "nombre": "Noeh Mella"
-    },
-    {
-      "nombre": "Viviana Sanchez"
     }
   ],
   "perdidos": [
@@ -122,6 +113,10 @@ window.SEGUIMIENTO = {
       "nombre": "Pedro Valenzuela"
     },
     {
+      "nombre": "Ricardo León",
+      "p": true
+    },
+    {
       "nombre": "Diego Torres"
     },
     {
@@ -140,7 +135,16 @@ window.SEGUIMIENTO = {
       "nombre": "Sofia Paz Tapia"
     },
     {
+      "nombre": "Nicolás Gajardo Ortíz"
+    },
+    {
       "nombre": "José Jiménez Guerrero"
+    },
+    {
+      "nombre": "Luciano Alvarez"
+    },
+    {
+      "nombre": "Jesus diaz"
     },
     {
       "nombre": "Felipe Silva"
@@ -151,6 +155,10 @@ window.SEGUIMIENTO = {
     },
     {
       "nombre": "Violeta Tapia",
+      "p": true
+    },
+    {
+      "nombre": "Rafaella Rivera",
       "p": true
     },
     {
