@@ -30,6 +30,15 @@
           link_url: link.href
         });
       }
+
+      if (link.href && (link.href.indexOf('slides_main.pdf') !== -1 || link.href.indexOf('USC_PRESENTATION.pdf') !== -1)) {
+        gtag('event', 'file_download', {
+          event_category: 'engagement',
+          event_label: link.textContent.trim() || 'Workshop PDF',
+          file_name: link.href.split('/').pop(),
+          link_url: link.href
+        });
+      }
     });
   </script>
   <meta charset="UTF-8" />
@@ -650,6 +659,51 @@
       font-weight: 800;
       padding: 14px 22px;
       border-radius: 999px;
+    }
+    .workshop-files {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .workshop-file {
+      display: block;
+      text-decoration: none;
+      background: #f7f3ee;
+      border: 1px solid #ddd4cb;
+      border-radius: 16px;
+      padding: 16px 18px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .workshop-file:hover,
+    .workshop-file:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(17, 17, 17, .08);
+      border-color: rgba(107, 33, 200, .35);
+      outline: none;
+    }
+    .workshop-file-label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--magenta-bright);
+      margin-bottom: 6px;
+    }
+    .workshop-file-title {
+      display: block;
+      color: var(--text-dark);
+      font-size: .98rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .workshop-file-meta {
+      display: block;
+      color: var(--text-mid);
+      font-size: .88rem;
+      line-height: 1.5;
     }
 
     /* ── VISUALIZACIÓN ─────────────────────────────────── */
@@ -2003,6 +2057,18 @@
         <h3>Cuéntanos qué te gustaría profundizar</h3>
         <p>Dejamos una mini encuesta abierta para priorizar mejor futuros talleres ad hoc y ver qué contenidos despiertan más interés.</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3T9Ts_D9hvGWqYdAC1XTCxNup2p2Krg5gbqWsFS7lABUl2g/viewform" target="_blank" rel="noopener noreferrer">Responder mini encuesta</a>
+        <div class="workshop-files">
+          <a class="workshop-file" href="slides_main.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="workshop-file-label">Presentación</span>
+            <span class="workshop-file-title">Slides Main</span>
+            <span class="workshop-file-meta">Abrir PDF del workshop en una nueva pestaña.</span>
+          </a>
+          <a class="workshop-file" href="USC_PRESENTATION.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="workshop-file-label">Presentación</span>
+            <span class="workshop-file-title">USC Presentation</span>
+            <span class="workshop-file-meta">Material complementario disponible en PDF.</span>
+          </a>
+        </div>
       </div>
     </div>
 
