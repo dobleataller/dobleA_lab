@@ -433,6 +433,30 @@
       background: rgba(127,29,29,.18);
       color: #fecaca;
     }
+    .management-alert.agenda {
+      border-color: rgba(239,68,68,.45);
+      background: linear-gradient(180deg, rgba(239,68,68,.16), rgba(224,64,160,.10));
+      color: #fff;
+      font-size: .9rem;
+      padding: 14px 18px;
+    }
+    .management-alert.agenda strong { color: #fca5a5; }
+    .management-alert.agenda .agenda-row {
+      display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+      padding: 6px 0;
+    }
+    .management-alert.agenda .agenda-row + .agenda-row {
+      border-top: 1px dashed rgba(255,255,255,.12);
+    }
+    .management-alert.agenda .agenda-when {
+      font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+      color: #fca5a5; font-weight: 700; min-width: 88px;
+    }
+    .management-alert.agenda .agenda-what { color: rgba(255,255,255,.92); }
+    .management-alert.agenda .agenda-meta {
+      font-size: .72rem; color: rgba(255,255,255,.55);
+      margin-left: auto;
+    }
     .editor-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -870,7 +894,23 @@
 
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
-        <div class="management-alert">Última reunión: <strong>20 abril 2026 — Taller Empresas</strong>. Notas integradas abajo en cada card ↓</div>
+        <div class="management-alert agenda">
+          <div class="agenda-row">
+            <span class="agenda-when">Mañana · Lun 27 abr</span>
+            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a mineras + B2B outreach.</span>
+            <span class="agenda-meta">Ir a IV. Expansión ↓</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Foco máximo</span>
+            <span class="agenda-what"><strong>Terminar Módulo 1</strong> — slides estructura lista, faltan caso MELI integrado, clips video y materiales descargables.</span>
+            <span class="agenda-meta">Ir a III. Clases ↓</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Mié 6 may</span>
+            <span class="agenda-what">Arranca Clase 1 · 6–9 PM (Isidora · Lucía · Pablo).</span>
+            <span class="agenda-meta">Última reunión: 20 abr</span>
+          </div>
+        </div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
@@ -927,7 +967,7 @@
                 <tr class="mod-row mod-urgent" data-date="2026-05-06">
                   <td>1</td><td>6 may</td>
                   <td>De la inquietud del cliente al diseño de estudio</td>
-                  <td><span class="mod-badge mod-progress">🟡 En desarrollo</span><div class="mod-note">Falta: ejercicios, casos, materiales descargables</div></td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Listo:</strong> 3 sesiones × 50 min, anti-ejemplos, conceptos medibles, ejercicio práctico (ONG).<br><strong>Falta:</strong> integrar caso MELI (bueno vs malo), clips de video, materiales descargables (handout PDF), ensayo del flujo.</div></td>
                   <td>Isidora · Lucía · Pablo</td>
                 </tr>
                 <tr class="mod-row" data-date="2026-05-13">
@@ -951,6 +991,7 @@
               </tbody>
             </table>
             <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🎯 FOCO: Terminar Módulo 1 (slides + caso + materiales)</div><div class="task-detail">Estructura lista (3 sesiones × 50 min, anti-ejemplos, ejercicio ONG). <strong>Falta:</strong> integrar caso MELI bueno/malo, clips de video, handout PDF descargable y ensayo del flujo. Clase 1 arranca mié 6 may — quedan 10 días.</div></div><div class="task-meta"><span class="task-chip">Isi · Lucía · Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Formatear slides de las clases</div><div class="task-detail">URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Dinámica Clase 1: 50 min × módulo, 2 breaks, casos reales</div><div class="task-detail"><strong>Framing:</strong> Clase 1 se ubica ANTES de ganar la propuesta → enseñar a GANARSE propuestas de investigación. 3 módulos de 50 min + breaks. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Lucía / Isi</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Profundizar caso MELI (bueno vs malo)</div><div class="task-detail">Comparar caso que funcionó vs uno que falló. Puntos: externalización excesiva · costos de reunión · mal uso de AI. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -967,7 +1008,7 @@
             <p>Hablar con Tania Hutt sobre expansión a mineras y tracking del outreach B2B.</p>
             <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Hablar con Tania Hutt sobre expansión a mineras</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🔥 Reunión con Tania Hutt — mañana lun 27 abr</div><div class="task-detail">Expansión a mineras: validar foco vertical, alinear oferta B2B y plan de outreach. Llegar con: estado del taller (6 pagados), brochure empresas en draft, lista de mineras objetivo.</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Brochure empresas</div><div class="task-detail">Oferta B2B formal, en paralelo al taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Conversaciones informales con empresas</div><div class="task-detail">Sondear interés antes del pitch formal. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Armar oferta empresas en paralelo al taller</div><div class="task-detail"><em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -1172,6 +1213,7 @@
     { id: 'seed-s4', section_key: 'seguimiento', title: 'Definir estructura de la página: clases y dónde van', owner: 'Pablo', detail: null, link_url: null, sort_order: 74, is_done: false },
 
     // Notas reunión 20 abr — Clases (materiales + formato)
+    { id: 'seed-c0', section_key: 'modulos', title: '🎯 FOCO: Terminar Módulo 1 (slides + caso + materiales)', owner: 'Isidora · Lucía · Pablo', detail: 'Estructura lista (3 sesiones × 50 min, anti-ejemplos, ejercicio ONG). Falta: integrar caso MELI bueno/malo, clips de video, handout PDF descargable y ensayo del flujo. Clase 1 arranca mié 6 may — quedan 10 días.', link_url: MODULES_DRIVE_URL, sort_order: 5, is_done: false },
     { id: 'seed-c1', section_key: 'modulos', title: 'Formatear slides de las clases', owner: 'Pablo', detail: 'URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato.', link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
     { id: 'seed-c2', section_key: 'modulos', title: 'Dinámica Clase 1: 50 min por módulo, 2 breaks, casos reales', owner: 'Lucía / Isi', detail: 'Estructura: 3 módulos de 50 min + breaks. Trabajar con casos reales. Framing: Clase 1 se ubica en el momento previo a ganar la propuesta → enseñar a GANARSE propuestas de investigación.', link_url: null, sort_order: 81, is_done: false },
     { id: 'seed-c3', section_key: 'modulos', title: 'Profundizar caso MELI (bueno vs malo)', owner: 'Equipo', detail: 'Comparar un caso que funcionó vs uno que falló. Puntos: externalización excesiva, costos de reunión, mal uso de AI.', link_url: null, sort_order: 82, is_done: false },
@@ -1184,7 +1226,7 @@
     { id: 'seed-c10', section_key: 'modulos', title: 'Base de datos de ejemplo para Clase 2 (Max-Diff + Conjoint)', owner: 'Pablo', detail: 'Preparar 2 bases anonimizadas desde Data Clase 2/. Sin referencia al cliente MELI, cambiar frases/atributos para copyright. Mantener estructura wide para enseñar reshape long.', link_url: null, sort_order: 89, is_done: false },
 
     // Notas reunión 20 abr — Expansión a empresas
-    { id: 'seed-9', section_key: 'expansion', title: 'Hablar con Tania Hutt sobre expansión a mineras', owner: 'Mauricio / Pablo', detail: null, link_url: null, sort_order: 90, is_done: false },
+    { id: 'seed-9', section_key: 'expansion', title: '🔥 Reunión con Tania Hutt — mañana lun 27 abr', owner: 'Mauricio / Pablo', detail: 'Expansión a mineras: validar foco vertical, alinear oferta B2B y plan de outreach. Llegar con: estado del taller (6 pagados), brochure empresas en draft, lista de mineras objetivo.', link_url: null, sort_order: 1, is_done: false },
     { id: 'seed-e1', section_key: 'expansion', title: 'Brochure empresas', owner: 'Mauricio', detail: 'Oferta B2B formal, en paralelo al taller.', link_url: null, sort_order: 91, is_done: false },
     { id: 'seed-e2', section_key: 'expansion', title: 'Conversaciones informales con empresas', owner: 'Mauricio', detail: 'Sondear interés antes del pitch formal.', link_url: null, sort_order: 92, is_done: false },
     { id: 'seed-e3', section_key: 'expansion', title: 'Armar oferta empresas en paralelo al taller', owner: 'Mauricio', detail: null, link_url: null, sort_order: 93, is_done: false },
@@ -1490,7 +1532,23 @@
     return `
       <section id="management-section">
         <p class="section-label">Gestión interna</p>
-        <div class="management-alert">Última reunión: <strong>20 abril 2026 — Taller Empresas</strong>. Notas integradas abajo en cada card ↓</div>
+        <div class="management-alert agenda">
+          <div class="agenda-row">
+            <span class="agenda-when">Mañana · Lun 27 abr</span>
+            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a mineras + B2B outreach.</span>
+            <span class="agenda-meta">Ir a IV. Expansión ↓</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Foco máximo</span>
+            <span class="agenda-what"><strong>Terminar Módulo 1</strong> — slides estructura lista, faltan caso MELI integrado, clips video y materiales descargables.</span>
+            <span class="agenda-meta">Ir a III. Clases ↓</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Mié 6 may</span>
+            <span class="agenda-what">Arranca Clase 1 · 6–9 PM (Isidora · Lucía · Pablo).</span>
+            <span class="agenda-meta">Última reunión: 20 abr</span>
+          </div>
+        </div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
@@ -1539,7 +1597,7 @@
                 <tr class="mod-row mod-urgent" data-date="2026-05-06">
                   <td>1</td><td>6 may</td>
                   <td>De la inquietud del cliente al diseño de estudio</td>
-                  <td><span class="mod-badge mod-progress">🟡 En desarrollo</span><div class="mod-note">Falta: ejercicios, casos, materiales descargables</div></td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Listo:</strong> 3 sesiones × 50 min, anti-ejemplos, conceptos medibles, ejercicio práctico (ONG).<br><strong>Falta:</strong> integrar caso MELI (bueno vs malo), clips de video, materiales descargables (handout PDF), ensayo del flujo.</div></td>
                   <td>Isidora · Lucía · Pablo</td>
                 </tr>
                 <tr class="mod-row" data-date="2026-05-13">
