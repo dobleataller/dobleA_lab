@@ -1,0 +1,25 @@
+User-agent: *
+Disallow: /dashboard.html
+Disallow: /gestion-
+Disallow: /supabase/
+Disallow: /encuesta-empresas.html
+Noindex: /dashboard.html
+Noindex: /gestion-
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /

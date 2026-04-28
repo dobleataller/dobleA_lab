@@ -2692,7 +2692,7 @@
 
     if (authMode === 'reset') {
       const { error } = await sb.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + window.location.pathname.replace('index.html','') + 'dashboard.html'
+        redirectTo: window.location.origin + window.location.pathname.replace('index.html','') + 'gestion-26b51bc585ec.html'
       });
       if (error) { showError(friendlyError(error.message)); }
       else        { showSuccess('Revisa tu correo para restablecer tu contraseña.'); }
@@ -2706,7 +2706,7 @@
         persistDashboardSessionBridge(data?.session);
         closeAuthModal();
         // onAuthStateChange ya dispara applyAccess() → admin y pagado ven el hub.
-        // Los admins tienen el link "Gestión" en el nav para ir a dashboard.html.
+        // Los admins navegan manualmente a gestion-26b51bc585ec.html (URL no listada).
       }
     } else {
       const opts = { email, password, options: { data: { full_name: name } } };
