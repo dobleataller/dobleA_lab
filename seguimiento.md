@@ -1,17 +1,19 @@
 # Seguimiento Taller Doble A — solo nombres
-_Generado: 2026-04-22T21:44:50_
+_Generado: 2026-04-28T16:13:00_
 
-- Inscritos: **45** · Pagados: **6** · Con esperanza: **11** · Perdidos: **28**
-- B2B outreach: **325** contactos, **267** mensajes enviados (82%)
-- Cross-check pagos sheet: 6 registros (match con pagados: True)
+- Inscritos: **47** · Pagados: **8** · Con esperanza: **11** · Perdidos: **28**
+- B2B outreach: **336** contactos, **272** mensajes enviados (80%)
+- Cross-check pagos sheet: 6 registros (match con pagados: False)
 
 ## Pagados
 - Cristóbal Castro Baeza _Intermedio_
 - Francisca Acevedo _Intermedio_
 - Melanie Ballesteros Palma _básico_
+- Carola Zurob
 - Macarena Zuazua _Intermedio_
 - Patricio Alarcón _Avanzado_
 - Cristian Carreño
+- Francisca Perez
 
 ## Con esperanza
 ★ = Seguimiento Pablo · 📞 = llamar
@@ -24,8 +26,8 @@ _Generado: 2026-04-22T21:44:50_
 - ★ **Franco Simonetti**
 - ★ **Monserrat masso**
 - ★ **Viviana Sanchez**
-- **Carola Zurob**
 - **Juan Reyes**
+- **Maria Arcila**
 - **Noeh Mella**
 
 ## Perdidos

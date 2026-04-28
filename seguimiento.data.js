@@ -2,19 +2,19 @@
 // Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet privado.
 // Generado por sync_inscritos.py — NO editar a mano.
 window.SEGUIMIENTO = {
-  "generado": "2026-04-22T21:44:50",
+  "generado": "2026-04-28T16:13:00",
   "totales": {
-    "inscritos": 45,
-    "pagados": 6,
+    "inscritos": 47,
+    "pagados": 8,
     "esperanza": 11,
     "perdidos": 28
   },
   "b2b": {
-    "total_contactos": 325,
-    "mensajes_enviados": 267,
+    "total_contactos": 336,
+    "mensajes_enviados": 272,
     "por_contactadora": {
       "Vale": 195,
-      "María Paz": 129
+      "María Paz": 140
     }
   },
   "pagos_sheet_count": 6,
@@ -32,6 +32,9 @@ window.SEGUIMIENTO = {
       "nivel": "básico"
     },
     {
+      "nombre": "Carola Zurob"
+    },
+    {
       "nombre": "Macarena Zuazua",
       "nivel": "Intermedio",
       "p": true
@@ -44,6 +47,9 @@ window.SEGUIMIENTO = {
     {
       "nombre": "Cristian Carreño",
       "p": true
+    },
+    {
+      "nombre": "Francisca Perez"
     }
   ],
   "esperanza": [
@@ -80,10 +86,10 @@ window.SEGUIMIENTO = {
       "p": true
     },
     {
-      "nombre": "Carola Zurob"
+      "nombre": "Juan Reyes"
     },
     {
-      "nombre": "Juan Reyes"
+      "nombre": "Maria Arcila"
     },
     {
       "nombre": "Noeh Mella"
