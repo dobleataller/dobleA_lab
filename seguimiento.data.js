@@ -2,7 +2,7 @@
 // Datos sensibles (email/telefono/estatus detallado) quedan en el Sheet privado.
 // Generado por sync_inscritos.py — NO editar a mano.
 window.SEGUIMIENTO = {
-  "generado": "2026-04-28T16:13:00",
+  "generado": "2026-04-29T11:39:07",
   "totales": {
     "inscritos": 47,
     "pagados": 8,
@@ -17,7 +17,7 @@ window.SEGUIMIENTO = {
       "María Paz": 140
     }
   },
-  "pagos_sheet_count": 6,
+  "pagos_sheet_count": 8,
   "pagados": [
     {
       "nombre": "Cristóbal Castro Baeza",

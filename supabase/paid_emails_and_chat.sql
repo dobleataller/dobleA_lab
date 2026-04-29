@@ -17,9 +17,11 @@ insert into public.paid_emails (email, nombre, nivel) values
   ('cristobal.castro2@mail.udp.cl',       'Cristóbal Castro Baeza',     'Intermedio'),
   ('francisca.acevedo@uc.cl',             'Francisca Acevedo',          'Intermedio'),
   ('melanieballesterospalma@gmail.com',   'Melanie Ballesteros Palma',  'Básico'),
+  ('czurob@uc.cl',                        'Carola Zurob',               null),
   ('macarena.zuazua@ekhos.cl',            'Macarena Zuazua',            'Intermedio'),
   ('patricio.alarcon@mail.udp.cl',        'Patricio Alarcón',           'Avanzado'),
-  ('cristian.carreno@nyu.edu',            'Cristian Carreño',           null)
+  ('cristian.carreno@nyu.edu',            'Cristian Carreño',           null),
+  ('francisca.catalina@gmail.com',        'Francisca Perez',            null)
 on conflict (email) do update
   set nombre = excluded.nombre,
       nivel  = excluded.nivel;

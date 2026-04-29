@@ -1,9 +1,9 @@
 # Seguimiento Taller Doble A — solo nombres
-_Generado: 2026-04-28T16:13:00_
+_Generado: 2026-04-29T11:39:07_
 
 - Inscritos: **47** · Pagados: **8** · Con esperanza: **11** · Perdidos: **28**
 - B2B outreach: **336** contactos, **272** mensajes enviados (80%)
-- Cross-check pagos sheet: 6 registros (match con pagados: False)
+- Cross-check pagos sheet: 8 registros (match con pagados: True)
 
 ## Pagados
 - Cristóbal Castro Baeza _Intermedio_
