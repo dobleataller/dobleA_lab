@@ -350,13 +350,37 @@
       background: rgba(255,255,255,.1);
       color: #fff;
       font-weight: 700;
-      font-size: .98rem;
+      font-size: .92rem;
       text-decoration: none;
-      padding: 15px 28px;
+      padding: 12px 22px;
       border-radius: 50px;
       letter-spacing: .02em;
       border: 2px solid rgba(255,255,255,.22);
       backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .hero-pay-cluster {
+      margin-top: 22px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.14);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .hero-pay-label {
+      font-size: .82rem;
+      color: rgba(255,255,255,.7);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .hero-pay-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
 
     /* ── RESUMEN RÁPIDO ─────────────────────────────────── */
@@ -1062,12 +1086,39 @@
       background: transparent;
       color: #fff;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: .95rem;
       text-decoration: none;
-      padding: 18px 28px;
+      padding: 14px 22px;
       border-radius: 50px;
       letter-spacing: .02em;
       border: 1.5px solid rgba(255,255,255,.26);
+      white-space: nowrap;
+    }
+    .cta-pay-cluster {
+      margin-top: 20px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-pay-label {
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .cta-pay-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
     }
     .cta-note {
       margin-top: 20px; font-size: .82rem; color: rgba(255,255,255,.4);
@@ -1182,8 +1233,12 @@
       .hero-media-card--spotify iframe,
       .hero-media-card--pdf iframe { min-height: 300px; }
       .hero-btn-primary, .hero-btn-secondary, .hero-btn-payment { text-align: center; }
+      .hero-pay-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+      .hero-btn-payment { white-space: normal; }
       .cta-actions { flex-direction: column; align-items: stretch; }
       .cta-btn, .cta-btn-secondary { text-align: center; }
+      .cta-pay-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+      .cta-btn-secondary { white-space: normal; }
       .modulo-card { padding: 22px 20px 24px; }
       .modulo-num { width: 36px; height: 36px; font-size: .78rem; }
       .visual-chart-card, .visual-insight-card, .national-card { padding: 22px; }
@@ -1629,10 +1684,15 @@
               <div class="hero-divider2"></div>
               <div class="hero-actions">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
-                <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">¿Ya te inscribiste? Paga acá <span style="opacity:.65;font-weight:500;">(Chile)</span></a>
-                <a href="https://www.paypal.com/ncp/payment/W4VMY9PN83XDE" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">PayPal Base <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
-                <a href="https://www.paypal.com/ncp/payment/MU6W9UZ39MCWJ" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">PayPal Estudiantes <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
                 <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
+              </div>
+              <div class="hero-pay-cluster">
+                <div class="hero-pay-label">¿Ya te inscribiste? Paga acá:</div>
+                <div class="hero-pay-buttons">
+                  <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">MercadoPago <span style="opacity:.65;font-weight:500;">(Chile)</span></a>
+                  <a href="https://www.paypal.com/ncp/payment/W4VMY9PN83XDE" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">PayPal Base <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
+                  <a href="https://www.paypal.com/ncp/payment/MU6W9UZ39MCWJ" target="_blank" rel="noopener noreferrer" class="hero-btn-payment">PayPal Estudiantes <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
+                </div>
               </div>
             </div>
           </article>
@@ -2312,9 +2372,14 @@
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
     <div class="cta-actions">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
-      <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">¿Ya te inscribiste? Paga acá <span style="opacity:.65;font-weight:500;">(Chile)</span></a>
-      <a href="https://www.paypal.com/ncp/payment/W4VMY9PN83XDE" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">PayPal Base <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
-      <a href="https://www.paypal.com/ncp/payment/MU6W9UZ39MCWJ" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">PayPal Estudiantes <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
+    </div>
+    <div class="cta-pay-cluster">
+      <div class="cta-pay-label">¿Ya te inscribiste? Paga acá:</div>
+      <div class="cta-pay-buttons">
+        <a href="https://link.mercadopago.cl/doblealab" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">MercadoPago <span style="opacity:.65;font-weight:500;">(Chile)</span></a>
+        <a href="https://www.paypal.com/ncp/payment/W4VMY9PN83XDE" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">PayPal Base <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
+        <a href="https://www.paypal.com/ncp/payment/MU6W9UZ39MCWJ" target="_blank" rel="noopener noreferrer" class="cta-btn-secondary">PayPal Estudiantes <span style="opacity:.65;font-weight:500;">(extranjero)</span></a>
+      </div>
     </div>
     <p class="cta-note">Contacto: mpaz.carreno@dobleachile.cl &nbsp;·&nbsp; +56 9 747 646 63</p>
   </div>
