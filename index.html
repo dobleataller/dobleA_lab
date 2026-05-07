@@ -1439,6 +1439,19 @@
     .hub-modulo-placeholder {
       font-size: .78rem; color: rgba(255,255,255,.4); font-style: italic;
     }
+    /* Clickable resource link inside hub-modulo */
+    a.hub-resource {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--magenta); text-decoration: none; font-weight: 600;
+      font-size: .85rem; letter-spacing: .01em;
+      transition: opacity .15s;
+    }
+    a.hub-resource:hover { opacity: .8; text-decoration: underline; }
+    a.hub-resource .hub-resource-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(224,64,160,.15); font-size: .85rem;
+    }
 
     /* Chat */
     .hub-chat { display: flex; flex-direction: column; height: calc(100vh - 340px); min-height: 420px; }
@@ -1565,16 +1578,18 @@
       <h3>De la inquietud del cliente al diseño de estudio</h3>
       <div class="hub-modulos">
         <div class="hub-modulo">
-          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 1</span><span class="hub-modulo-time">50 min</span></div>
-          <span class="hub-modulo-placeholder">Material próximamente</span>
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Slides</span></div>
+          <a class="hub-resource" href="materiales/Clase1_slides.pdf" target="_blank" rel="noopener">
+            <span class="hub-resource-icon">↓</span>
+            Descargar PDF
+          </a>
         </div>
         <div class="hub-modulo">
-          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 2</span><span class="hub-modulo-time">50 min</span></div>
-          <span class="hub-modulo-placeholder">Material próximamente</span>
-        </div>
-        <div class="hub-modulo">
-          <div class="hub-modulo-meta"><span class="hub-modulo-num">Módulo 3</span><span class="hub-modulo-time">50 min</span></div>
-          <span class="hub-modulo-placeholder">Material próximamente</span>
+          <div class="hub-modulo-meta"><span class="hub-modulo-num">Video</span></div>
+          <a class="hub-resource" href="https://drive.google.com/drive/u/0/folders/1kIcYHaDr78vtOk-ZxdGDZzv90aWIMoIo" target="_blank" rel="noopener">
+            <span class="hub-resource-icon">▶</span>
+            Ver grabación
+          </a>
         </div>
       </div>
     </div>
