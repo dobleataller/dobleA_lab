@@ -754,6 +754,7 @@
     .mod-badge.mod-progress { background: rgba(250,204,21,.15); color: #facc15; border: 1px solid rgba(250,204,21,.35); }
     .mod-badge.mod-unknown  { background: rgba(148,163,184,.15); color: #cbd5e1; border: 1px solid rgba(148,163,184,.35); }
     .mod-badge.mod-missing  { background: rgba(239,68,68,.15); color: #fca5a5; border: 1px solid rgba(239,68,68,.4); }
+    .mod-badge.mod-done     { background: rgba(34,197,94,.15); color: #86efac; border: 1px solid rgba(34,197,94,.4); }
     .mod-badge.mod-ready    { background: rgba(74,222,128,.15); color: #4ade80; border: 1px solid rgba(74,222,128,.35); }
     .mod-note {
       font-size: .72rem; color: rgba(255,255,255,.55);
@@ -816,7 +817,7 @@
             ? 'El taller ya arrancó hace ' + displayDays + ' ' + (displayDays === 1 ? 'día' : 'días')
             : (days === 0
                 ? '¡Arranca hoy! Asegurar que materiales estén subidos.'
-                : 'hasta Clase 1. Revisar materiales: 1 en desarrollo, 1 sin revisar, 2 sin crear.');
+                : 'hasta la próxima clase. Foco: Módulo 2 (Max-Diff + Conjoint).');
           el.innerHTML =
             '<div><div class="count-num" style="color:' + color + ';">' + displayDays + '</div>' +
               '<div class="count-label">' + label + '</div></div>' +
@@ -892,6 +893,11 @@
             <h3>Expandirse hacia empresas</h3>
             <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
           </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Producto</div>
+            <h3>Empaquetar el taller</h3>
+            <p>Convertir el contenido (módulos, casos, marco metodológico) en un producto empaquetable: paper, libro, publicación o curso. Vehículo de marca y producto en sí — conecta clases + empresas + comunidad en una visión a 12–24 meses.</p>
+          </article>
         </div>
       </section>
 
@@ -899,19 +905,19 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Mañana · Lun 27 abr</span>
-            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a mineras + B2B outreach.</span>
+            <span class="agenda-when">Lun 11 may · 14h CL / 11h LA</span>
+            <span class="agenda-what">Reunión con <strong>María Arcila</strong> — visión estratégica: empaquetar el taller (paper / libro / curso).</span>
             <span class="agenda-meta">Ir a IV. Expansión ↓</span>
           </div>
           <div class="agenda-row">
             <span class="agenda-when">Foco máximo</span>
-            <span class="agenda-what"><strong>Terminar Módulo 1</strong> — slides estructura lista, faltan caso MELI integrado, clips video y materiales descargables.</span>
+            <span class="agenda-what"><strong>Preparar Clase 2 (Mié 13 may)</strong> — Módulo 2: Max-Diff + Conjoint. Slides, caso, dinámica y bases de datos de ejemplo.</span>
             <span class="agenda-meta">Ir a III. Clases ↓</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Mié 6 may</span>
-            <span class="agenda-what">Arranca Clase 1 · 6–9 PM (Isidora · Lucía · Pablo).</span>
-            <span class="agenda-meta">Última reunión: 20 abr</span>
+            <span class="agenda-when">Finales de mayo</span>
+            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — continuar mineras + B2B outreach.</span>
+            <span class="agenda-meta">Última reunión: 27 abr</span>
           </div>
         </div>
         <div class="management-grid">
@@ -955,8 +961,8 @@
           <article class="management-card wide modulos-urgent">
             <div class="card-kicker" style="color:#ef4444;">⚠️ III. Clases — URGENTE</div>
             <h3>Materiales del taller</h3>
-            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada clase (Módulo 1/2/3 dentro).</p>
-            <div class="modulos-countdown" data-start="2026-05-06"></div>
+            <p>El taller ya arrancó. Próxima clase: <strong>mié 13 may — Módulo 2 (Max-Diff + Conjoint)</strong>. Revisar estado de cada módulo abajo.</p>
+            <div class="modulos-countdown" data-start="2026-05-13"></div>
             <div class="quick-links">
               <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
               <a class="quick-link" href="https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP" target="_blank" rel="noopener noreferrer">Carpeta de módulos</a>
@@ -967,17 +973,17 @@
                 <tr><th>#</th><th>Fecha</th><th>Título</th><th>Estado</th><th>Responsables</th></tr>
               </thead>
               <tbody>
-                <tr class="mod-row mod-urgent" data-date="2026-05-06">
+                <tr class="mod-row" data-date="2026-05-06">
                   <td>1</td><td>6 may</td>
                   <td>De la inquietud del cliente al diseño de estudio</td>
-                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Listo:</strong> 3 sesiones × 50 min, anti-ejemplos, conceptos medibles, ejercicio práctico (ONG).<br><strong>Falta:</strong> integrar caso MELI (bueno vs malo), clips de video, materiales descargables (handout PDF), ensayo del flujo.</div></td>
+                  <td><span class="mod-badge mod-done">✅ Dictada</span><div class="mod-note">Clase 1 dictada el 6 may. Slides, caso MELI y materiales integrados.</div></td>
                   <td>Isidora · Lucía · Pablo</td>
                 </tr>
-                <tr class="mod-row" data-date="2026-05-13">
+                <tr class="mod-row mod-urgent" data-date="2026-05-13">
                   <td>2</td><td>13 may</td>
-                  <td>Diseño de instrumentos y calidad en la medición</td>
-                  <td><span class="mod-badge mod-unknown">❓ Sin revisar</span><div class="mod-note">Solo pointer en Drive, estado desconocido</div></td>
-                  <td>Pablo · Daniela · Giancarlo</td>
+                  <td>Diseño de instrumentos y calidad en la medición (Max-Diff + Conjoint)</td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Próxima clase</strong> — armar slides, caso, dinámica y handouts. Bases de ejemplo (Max-Diff + Conjoint) en preparación desde <code>Data Clase 2/</code>.</div></td>
+                  <td>Pablo · Lucía · Isidora</td>
                 </tr>
                 <tr class="mod-row" data-date="2026-05-19">
                   <td>3</td><td>19 may</td>
@@ -994,9 +1000,9 @@
               </tbody>
             </table>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🎯 FOCO: Terminar Módulo 1 (slides + caso + materiales)</div><div class="task-detail">Estructura lista (3 sesiones × 50 min, anti-ejemplos, ejercicio ONG). <strong>Falta:</strong> integrar caso MELI bueno/malo, clips de video, handout PDF descargable y ensayo del flujo. Clase 1 arranca mié 6 may — quedan 10 días.</div></div><div class="task-meta"><span class="task-chip">Isi · Lucía · Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Formatear slides de las clases</div><div class="task-detail">URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Dinámica Clase 1: 50 min × módulo, 2 breaks, casos reales</div><div class="task-detail"><strong>Framing:</strong> Clase 1 se ubica ANTES de ganar la propuesta → enseñar a GANARSE propuestas de investigación. 3 módulos de 50 min + breaks. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Lucía / Isi</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🎯 FOCO: Preparar Clase 2 / Módulo 2 (Max-Diff + Conjoint)</div><div class="task-detail">Próxima clase mié 13 may. Armar slides, caso, dinámica y handouts. Base de datos de ejemplo va en la tarea aparte (Data Clase 2/, Max-Diff + Conjoint).</div></div><div class="task-meta"><span class="task-chip">Pablo · Lucía · Isidora</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Base de datos de ejemplo para Clase 2</div><div class="task-detail">Preparar 2 bases anonimizadas (Max-Diff + Conjoint) partiendo del material en <code>Data Clase 2/</code>. Sin referencia al cliente, cambiar frases/atributos para evitar copyright. Mantener estructura wide para enseñar reshape long.</div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item is-done"><div class="task-topline"><div class="task-copy"><div class="task-title">Módulo 1 dictado (Clase 1 — 6 may)</div><div class="task-detail">Slides, caso MELI bueno/malo, clips de video y materiales integrados. Clase dictada el 6 may.</div></div><div class="task-meta"><span class="task-chip">Isi · Lucía · Pablo</span><label class="task-status"><input class="task-check" type="checkbox" checked onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Profundizar caso MELI (bueno vs malo)</div><div class="task-detail">Comparar caso que funcionó vs uno que falló. Puntos: externalización excesiva · costos de reunión · mal uso de AI. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Clips de video MELI</div><div class="task-detail">Material de apoyo para los casos reales. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Zoom Doble A · Webinar · Herramientas · Clases grabadas</div><div class="task-detail">Infraestructura técnica para el taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -1011,7 +1017,9 @@
             <p>Hablar con Tania Hutt sobre expansión a mineras y tracking del outreach B2B.</p>
             <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list">
-              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🔥 Reunión con Tania Hutt — mañana lun 27 abr</div><div class="task-detail">Expansión a mineras: validar foco vertical, alinear oferta B2B y plan de outreach. Llegar con: estado del taller (8 pagados, ~10 inciertos), brochure empresas en draft, lista de mineras objetivo.</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">📅 Reunión con María Arcila — lun 11 may · 14h CL / 11h LA</div><div class="task-detail">Conversación estratégica. Llegar con la visión del producto empaquetado (paper / libro / curso) y posibles caminos de colaboración.</div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">📅 Reunión con Tania Hutt — finales de mayo</div><div class="task-detail">Continuar conversación de mineras + B2B outreach. Recap del estado del taller post-Clase 1, brochure empresas y lista de mineras objetivo.</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">🎯 Visión estratégica: empaquetar el taller en un producto</div><div class="task-detail">Convertir el contenido (módulos, casos, marco metodológico) en un producto empaquetable: paper, libro, publicación o curso. Vehículo de marca y conector entre captación + clases + empresas.</div></div><div class="task-meta"><span class="task-chip">Pablo / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Brochure empresas</div><div class="task-detail">Oferta B2B formal, en paralelo al taller. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Conversaciones informales con empresas</div><div class="task-detail">Sondear interés antes del pitch formal. <em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Armar oferta empresas en paralelo al taller</div><div class="task-detail"><em>(Reunión 20 abr)</em></div></div><div class="task-meta"><span class="task-chip">Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -1210,6 +1218,7 @@
     { id: 'seed-3', section_key: 'captacion', title: 'Empujar Instagram', owner: 'Equipo', detail: null, link_url: null, sort_order: 30, is_done: false },
     { id: 'seed-4', section_key: 'captacion', title: 'Activar LinkedIn', owner: 'Todos', detail: null, link_url: null, sort_order: 40, is_done: false },
     { id: 'seed-5', section_key: 'captacion', title: 'Follow up con Pato Navia', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 50, is_done: false },
+    { id: 'seed-6', section_key: 'captacion', title: 'Mantener captación activa para próxima cohorte', owner: 'Equipo', detail: 'Aunque ya arrancamos la cohorte actual, seguir empujando inscripciones para la siguiente edición — emails, redes, referidos.', link_url: null, sort_order: 60, is_done: false },
     { id: 'seed-7', section_key: 'seguimiento', title: 'Hacer seguimiento a quienes ya pagaron', owner: 'Clave', detail: 'Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.', link_url: PAYMENT_SHEET_URL, sort_order: 70, is_done: false },
     // Notas reunión 20 abr — Info para inscritas pagadas
     { id: 'seed-s1', section_key: 'seguimiento', title: 'Abrir chat con dudas para inscritas pagadas', owner: 'Equipo', detail: 'Canal directo para que las pagadas pregunten antes del taller.', link_url: null, sort_order: 71, is_done: false },
@@ -1218,12 +1227,13 @@
     { id: 'seed-s4', section_key: 'seguimiento', title: 'Definir estructura de la página: clases y dónde van', owner: 'Pablo', detail: null, link_url: null, sort_order: 74, is_done: false },
 
     // Notas reunión 20 abr — Clases (materiales + formato)
-    { id: 'seed-c0', section_key: 'modulos', title: '🎯 FOCO: Terminar Módulo 1 (slides + caso + materiales)', owner: 'Isidora · Lucía · Pablo', detail: 'Estructura lista (3 sesiones × 50 min, anti-ejemplos, ejercicio ONG). Falta: integrar caso MELI bueno/malo, clips de video, handout PDF descargable y ensayo del flujo. Clase 1 arranca mié 6 may — quedan 10 días.', link_url: MODULES_DRIVE_URL, sort_order: 5, is_done: false },
-    { id: 'seed-c-roadmap', section_key: 'modulos', title: 'Clase 1, Módulo 1: hacer roadmap de todo el taller', owner: 'Pablo', detail: null, link_url: null, sort_order: 6, is_done: false },
-    { id: 'seed-c1', section_key: 'modulos', title: 'Formatear slides de las clases', owner: 'Pablo', detail: 'URGENTE — Clase 1 arranca 6 may. Pablo se hace cargo del formato.', link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
-    { id: 'seed-c2', section_key: 'modulos', title: 'Dinámica Clase 1: 50 min por módulo, 2 breaks, casos reales', owner: 'Lucía / Isi', detail: 'Estructura: 3 módulos de 50 min + breaks. Trabajar con casos reales. Framing: Clase 1 se ubica en el momento previo a ganar la propuesta → enseñar a GANARSE propuestas de investigación.', link_url: null, sort_order: 81, is_done: false },
-    { id: 'seed-c3', section_key: 'modulos', title: 'Profundizar caso MELI (bueno vs malo)', owner: 'Equipo', detail: 'Comparar un caso que funcionó vs uno que falló. Puntos: externalización excesiva, costos de reunión, mal uso de AI.', link_url: null, sort_order: 82, is_done: false },
-    { id: 'seed-c4', section_key: 'modulos', title: 'Conseguir clips de video MELI', owner: 'Equipo', detail: 'Material de apoyo para los casos reales.', link_url: null, sort_order: 83, is_done: false },
+    { id: 'seed-c0', section_key: 'modulos', title: 'Terminar Módulo 1 (slides + caso + materiales)', owner: 'Isidora · Lucía · Pablo', detail: 'Clase 1 lista — slides, caso MELI, clips de video y materiales integrados.', link_url: MODULES_DRIVE_URL, sort_order: 5, is_done: true },
+    { id: 'seed-c-roadmap', section_key: 'modulos', title: 'Clase 1, Módulo 1: hacer roadmap de todo el taller', owner: 'Pablo', detail: null, link_url: null, sort_order: 6, is_done: true },
+    { id: 'seed-c-foco2', section_key: 'modulos', title: '🎯 FOCO: Preparar Clase 2 / Módulo 2 (Max-Diff + Conjoint) — mié 13 may', owner: 'Pablo · Lucía · Isidora', detail: 'Próxima clase la próxima semana. Armar slides, caso, dinámica y handouts. Base de datos de ejemplo va en la tarea aparte (Data Clase 2/, Max-Diff + Conjoint).', link_url: MODULES_DRIVE_URL, sort_order: 7, is_done: false },
+    { id: 'seed-c1', section_key: 'modulos', title: 'Formatear slides de las clases siguientes', owner: 'Pablo', detail: 'Clase 1 lista. Pendiente formato de Clase 2 (en curso) y resto del taller.', link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
+    { id: 'seed-c2', section_key: 'modulos', title: 'Dinámica Clase 1: 50 min por módulo, 2 breaks, casos reales', owner: 'Lucía / Isi', detail: 'Estructura: 3 módulos de 50 min + breaks. Trabajar con casos reales. Framing: Clase 1 se ubica en el momento previo a ganar la propuesta → enseñar a GANARSE propuestas de investigación.', link_url: null, sort_order: 81, is_done: true },
+    { id: 'seed-c3', section_key: 'modulos', title: 'Profundizar caso MELI (bueno vs malo)', owner: 'Equipo', detail: 'Comparar un caso que funcionó vs uno que falló. Puntos: externalización excesiva, costos de reunión, mal uso de AI.', link_url: null, sort_order: 82, is_done: true },
+    { id: 'seed-c4', section_key: 'modulos', title: 'Conseguir clips de video MELI', owner: 'Equipo', detail: 'Material de apoyo para los casos reales.', link_url: null, sort_order: 83, is_done: true },
     { id: 'seed-c5', section_key: 'modulos', title: 'Configurar Zoom Doble A', owner: null, detail: null, link_url: null, sort_order: 84, is_done: false },
     { id: 'seed-c6', section_key: 'modulos', title: 'Definir formato webinar', owner: null, detail: null, link_url: null, sort_order: 85, is_done: false },
     { id: 'seed-c7', section_key: 'modulos', title: 'Preparar herramientas para clases', owner: null, detail: null, link_url: null, sort_order: 86, is_done: false },
@@ -1236,12 +1246,14 @@
     { id: 'seed-e1', section_key: 'expansion', title: 'Brochure empresas', owner: 'Mauricio', detail: 'Oferta B2B formal, en paralelo al taller.', link_url: null, sort_order: 91, is_done: false },
     { id: 'seed-e2', section_key: 'expansion', title: 'Conversaciones informales con empresas', owner: 'Mauricio', detail: 'Sondear interés antes del pitch formal.', link_url: null, sort_order: 92, is_done: false },
     { id: 'seed-e3', section_key: 'expansion', title: 'Armar oferta empresas en paralelo al taller', owner: 'Mauricio', detail: null, link_url: null, sort_order: 93, is_done: false },
+    { id: 'seed-e4', section_key: 'expansion', title: '🎯 Visión estratégica: empaquetar el taller en un producto', owner: 'Pablo / Mauricio', detail: 'Convertir el contenido del taller (módulos, casos, ejercicios, marco metodológico) en un producto empaquetable: paper, libro, publicación, curso. Sirve como vehículo de marca, producto en sí, y conecta captación + clases + empresas en una visión a 12-24 meses.', link_url: null, sort_order: 95, is_done: false },
+    { id: 'seed-e6', section_key: 'expansion', title: '📅 Reunión con María Arcila — lun 11 may · 14h CL / 11h LA', owner: 'Pablo', detail: 'Conversación estratégica. Llegar con la visión del producto empaquetado (paper / libro / curso) y posibles caminos de colaboración.', link_url: null, sort_order: 90, is_done: false },
+    { id: 'seed-e7', section_key: 'expansion', title: '📅 Reunión con Tania Hutt — finales de mayo', owner: 'Pablo / Mauricio', detail: 'Continuar conversación de mineras + B2B outreach. Recap del estado del taller post-Clase 1, brochure empresas y lista de mineras objetivo.', link_url: null, sort_order: 94, is_done: false },
 
     { id: 'seed-10', section_key: 'operacion', title: 'Dar login a quienes pagaron', owner: null, detail: '✓ 8/8 con login: Cristobal Castro, Francisca Acevedo, Melanie Ballesteros, Carola Zurob, Macarena Zuazua, Patricio Alarcón, Cristian Carreño, Francisca Perez. Seguimiento: confirmar que todos completaron el signup.', link_url: '#admin-section', sort_order: 100, is_done: true },
     { id: 'seed-11', section_key: 'operacion', title: 'Empezar a subir contenido a la página', owner: null, detail: 'Slides, PDFs, videos y otros materiales del taller.', link_url: '#admin-section', sort_order: 110, is_done: false },
-    { id: 'seed-op1', section_key: 'operacion', title: 'Definir responsables + fechas de items reunión 20 abr', owner: 'Equipo', detail: 'Coordinar con Mauricio, Lucía e Isi los avances del brochure, estructura de la página y clases 1 y 2.', link_url: null, sort_order: 120, is_done: false },
     { id: 'seed-op-gastos', section_key: 'operacion', title: 'Mandar gastos a María Paz (copia a Lucía)', owner: 'Pablo', detail: null, link_url: null, sort_order: 130, is_done: false },
-    { id: 'seed-op-sala', section_key: 'operacion', title: 'Pedir sala de reuniones a Eugenio para la última reunión', owner: 'Pablo', detail: null, link_url: null, sort_order: 140, is_done: false }
+    { id: 'seed-op-bienvenida', section_key: 'operacion', title: 'Email de bienvenida al equipo', owner: 'Pablo', detail: null, link_url: null, sort_order: 145, is_done: false }
   ];
   const PREVIEW_PAID_USERS = [
     { id: 'preview-paid-1', full_name: 'Cristóbal Castro Baeza', email: 'cristobal.castro2@mail.udp.cl', phone: null, level: 'Intermedio', created_at: '2026-04-10T12:00:00Z', is_paid: true, is_admin: false, status_label: 'Pagado' },
@@ -1544,19 +1556,19 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Mañana · Lun 27 abr</span>
-            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a mineras + B2B outreach.</span>
+            <span class="agenda-when">Lun 11 may · 14h CL / 11h LA</span>
+            <span class="agenda-what">Reunión con <strong>María Arcila</strong> — visión estratégica: empaquetar el taller (paper / libro / curso).</span>
             <span class="agenda-meta">Ir a IV. Expansión ↓</span>
           </div>
           <div class="agenda-row">
             <span class="agenda-when">Foco máximo</span>
-            <span class="agenda-what"><strong>Terminar Módulo 1</strong> — slides estructura lista, faltan caso MELI integrado, clips video y materiales descargables.</span>
+            <span class="agenda-what"><strong>Preparar Clase 2 (Mié 13 may)</strong> — Módulo 2: Max-Diff + Conjoint. Slides, caso, dinámica y bases de datos de ejemplo.</span>
             <span class="agenda-meta">Ir a III. Clases ↓</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Mié 6 may</span>
-            <span class="agenda-what">Arranca Clase 1 · 6–9 PM (Isidora · Lucía · Pablo).</span>
-            <span class="agenda-meta">Última reunión: 20 abr</span>
+            <span class="agenda-when">Finales de mayo</span>
+            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — continuar mineras + B2B outreach.</span>
+            <span class="agenda-meta">Última reunión: 27 abr</span>
           </div>
         </div>
         <div class="management-grid">
@@ -1592,8 +1604,8 @@
           <article class="management-card wide modulos-urgent">
             <div class="card-kicker" style="color:#ef4444;">⚠️ III. Clases — URGENTE</div>
             <h3>Materiales del taller</h3>
-            <p>El taller arranca <strong>miércoles 6 de mayo</strong>. Revisar estado de cada clase (Módulo 1/2/3 dentro).</p>
-            <div class="modulos-countdown" data-start="2026-05-06"></div>
+            <p>El taller ya arrancó. Próxima clase: <strong>mié 13 may — Módulo 2 (Max-Diff + Conjoint)</strong>. Revisar estado de cada módulo abajo.</p>
+            <div class="modulos-countdown" data-start="2026-05-13"></div>
             <div class="quick-links">
               <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
               <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Carpeta de módulos</a>
@@ -1604,17 +1616,17 @@
                 <tr><th>#</th><th>Fecha</th><th>Título</th><th>Estado</th><th>Responsables</th></tr>
               </thead>
               <tbody>
-                <tr class="mod-row mod-urgent" data-date="2026-05-06">
+                <tr class="mod-row" data-date="2026-05-06">
                   <td>1</td><td>6 may</td>
                   <td>De la inquietud del cliente al diseño de estudio</td>
-                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Listo:</strong> 3 sesiones × 50 min, anti-ejemplos, conceptos medibles, ejercicio práctico (ONG).<br><strong>Falta:</strong> integrar caso MELI (bueno vs malo), clips de video, materiales descargables (handout PDF), ensayo del flujo.</div></td>
+                  <td><span class="mod-badge mod-done">✅ Dictada</span><div class="mod-note">Clase 1 dictada el 6 may. Slides, caso MELI y materiales integrados.</div></td>
                   <td>Isidora · Lucía · Pablo</td>
                 </tr>
-                <tr class="mod-row" data-date="2026-05-13">
+                <tr class="mod-row mod-urgent" data-date="2026-05-13">
                   <td>2</td><td>13 may</td>
-                  <td>Diseño de instrumentos y calidad en la medición</td>
-                  <td><span class="mod-badge mod-unknown">❓ Sin revisar</span><div class="mod-note">Solo pointer en Drive, estado desconocido</div></td>
-                  <td>Pablo · Daniela · Giancarlo</td>
+                  <td>Diseño de instrumentos y calidad en la medición (Max-Diff + Conjoint)</td>
+                  <td><span class="mod-badge mod-progress">🟡 En desarrollo · FOCO</span><div class="mod-note"><strong>Próxima clase</strong> — armar slides, caso, dinámica y handouts. Bases de ejemplo (Max-Diff + Conjoint) en preparación desde <code>Data Clase 2/</code>.</div></td>
+                  <td>Pablo · Lucía · Isidora</td>
                 </tr>
                 <tr class="mod-row" data-date="2026-05-19">
                   <td>3</td><td>19 may</td>
@@ -1711,6 +1723,11 @@
             <div class="card-kicker">Revenue</div>
             <h3>Expandirse hacia empresas</h3>
             <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
+          </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Producto</div>
+            <h3>Empaquetar el taller</h3>
+            <p>Convertir el contenido (módulos, casos, marco metodológico) en un producto empaquetable: paper, libro, publicación o curso. Vehículo de marca y producto en sí — conecta clases + empresas + comunidad en una visión a 12–24 meses.</p>
           </article>
         </div>
       </section>`;
