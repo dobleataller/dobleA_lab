@@ -72,9 +72,49 @@
       line-height: 1.6;
     }
 
+    /* ── PROMO BANNER ───────────────────────────────────── */
+    .promo-banner {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 101;
+      background: linear-gradient(90deg, var(--magenta) 0%, var(--magenta-bright) 50%, var(--purple-light) 100%);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      padding: 10px 24px;
+      font-size: .92rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 6px 22px rgba(224,64,160,.35);
+      flex-wrap: wrap;
+    }
+    .promo-banner .promo-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,.22);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .promo-banner .promo-text { line-height: 1.35; }
+    .promo-banner .promo-text strong { font-weight: 800; }
+    .promo-banner a.promo-cta {
+      color: #fff;
+      background: rgba(0,0,0,.28);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .04em;
+      border: 1px solid rgba(255,255,255,.35);
+      transition: background .2s, transform .15s;
+      white-space: nowrap;
+    }
+    .promo-banner a.promo-cta:hover { background: rgba(0,0,0,.45); transform: translateY(-1px); }
+
     /* ── NAV ────────────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      position: fixed; top: 44px; left: 0; width: 100%; z-index: 100;
       background: rgba(20, 0, 60, 0.92);
       backdrop-filter: blur(10px);
       display: flex; align-items: center; justify-content: space-between;
@@ -90,7 +130,7 @@
       min-height: 100vh;
       background: linear-gradient(145deg, #2D0A8A 0%, #5B21B6 40%, #9333EA 70%, #C026D3 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 120px 40px 80px;
+      padding: 164px 40px 80px;
       text-align: center;
       position: relative; overflow: hidden;
     }
@@ -1205,9 +1245,17 @@
       .hero-slide-copy p { max-width: none; }
     }
     @media (max-width: 700px) {
-      nav { padding: 12px 20px; }
+      .promo-banner {
+        font-size: .78rem;
+        padding: 8px 14px;
+        gap: 8px;
+      }
+      .promo-banner .promo-pill { font-size: .62rem; padding: 3px 9px; }
+      .promo-banner a.promo-cta { font-size: .72rem; padding: 5px 12px; }
+      nav { top: 64px; padding: 12px 20px; }
       nav ul { gap: 12px; overflow-x: auto; padding-bottom: 4px; }
       nav .logo img { height: 56px; }
+      #hero, #student-hub { padding-top: 184px; }
       section { padding: 60px 20px; }
       .two-cols { grid-template-columns: 1fr; }
       .team-member { grid-template-columns: 1fr; }
@@ -1344,7 +1392,7 @@
     .nav-hub a:hover, .nav-hub a.is-active { background: rgba(224,64,160,.18); color: #fff; }
 
     #student-hub {
-      padding: 120px 24px 80px;
+      padding: 164px 24px 80px;
       width: 100%;
       min-height: 100vh;
       border-bottom: 1px solid rgba(139,92,246,.25);
@@ -1513,13 +1561,20 @@
     #chat-send-btn:disabled { opacity: .4; cursor: not-allowed; }
 
     @media (max-width: 640px) {
-      #student-hub { padding: 100px 16px 60px; }
+      #student-hub { padding: 160px 16px 60px; }
       .hub-chat { height: auto; min-height: 360px; }
       .chat-msg { max-width: 94%; }
     }
   </style>
 </head>
 <body>
+
+<!-- PROMO BANNER · TALLER 2 -->
+<div class="promo-banner" role="region" aria-label="Anuncio Taller 2">
+  <span class="promo-pill">★ Taller 2</span>
+  <span class="promo-text"><strong>Inicia el 17 de junio</strong> · $150.000 general · $80.000 estudiantes · <strong>25% de descuento</strong> hasta el 1 de junio</span>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="promo-cta">Inscríbete →</a>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -2401,11 +2456,9 @@
         <div class="info-key">Fechas</div>
         <div class="info-rule-sm"></div>
         <div class="info-val">
-          <strong>Taller base · 6–9 PM</strong><br>
-          Clase 1 — Miércoles 6 de mayo<br>
-          Clase 2 — Miércoles 13 de mayo<br>
-          Clase 3 — Martes 19 de mayo<br>
-          Clase 4 — Miércoles 27 de mayo
+          <strong>Taller 2 · inicio 17 de junio</strong><br>
+          Cuatro clases base · 6–9 PM · formato híbrido
+          <div class="info-highlight">¡Inscripciones abiertas!</div>
         </div>
       </div>
 
@@ -2420,12 +2473,12 @@
 
       <div class="info-row">
         <div class="info-icon">↗</div>
-        <div class="info-key">Precio base</div>
+        <div class="info-key">Precio Taller 2</div>
         <div class="info-rule-sm"></div>
         <div class="info-val">
-          <strong>Base:</strong><br>$180.000 clp<br>
-          <strong>Estudiantes (pregrado y posgrado):</strong><br>$130.000 clp
-          <div class="info-highlight">50% de descuento si pagas antes del 30 de abril</div>
+          <strong>General:</strong><br>$150.000 clp<br>
+          <strong>Estudiantes (pregrado y posgrado):</strong><br>$80.000 clp
+          <div class="info-highlight">25% de descuento si pagas antes del 1 de junio</div>
         </div>
       </div>
 
