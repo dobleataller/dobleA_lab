@@ -1,0 +1,223 @@
+---
+params:
+  titulo_region: "Reporte NPS"
+title: "`r params$titulo_region`"
+author: "DobleA Consultoría"
+date: today
+format: docx
+---
+
+```{r setup, include=FALSE}
+# include=FALSE: este chunk no aparece ni se imprime en el reporte
+knitr::opts_chunk$set(
+  echo    = FALSE,   # no mostrar código en el documento final
+  eval    = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.height = 5,
+  fig.width  = 7
+)
+
+# Cargar librerías necesarias en el entorno del reporte
+# (necesario porque quarto_render() ejecuta el .qmd en su propio entorno)
+library(tidyverse)
+library(knitr)
+library(stargazer)
+library(viridis)
+library(scales)
+
+# Volver a cargar los datos y recodificaciones
+# para garantizar que el reporte es auto-contenido
+setwd(dirdata)
+encuesta <- read_csv("nps_consultoria.csv", show_col_types = FALSE)
+
+setwd(dircode)
+source("3_recoding.R")
+
+# Filtrar datos para la región de este reporte
+# 'r' viene del loop en 1_masterfile.R (ej. "Norte", "Sur", ...)
+encuesta_region <- encuesta_sub %>% filter(region == r)
+empresas_reg    <- empresas_agg  %>% filter(region == r)
+```
+
+## Introducción
+
+Este reporte presenta los resultados de la encuesta de satisfacción NPS correspondiente a la región **`r r`**.
+
+La muestra regional incluye **`r n_distinct(encuesta_region$empresa_id)` empresas** y un total de **`r nrow(encuesta_region)` respuestas** individuales. El período de medición es `r format(Sys.Date(), '%B %Y')`.
+
+---
+
+## NPS Regional: Resumen Ejecutivo
+
+```{r nps-resumen}
+# Calcular los tres indicadores clave de NPS para esta región
+resumen <- encuesta_region %>%
+  summarise(
+    `% Promotores`  = round(mean(nps_categoria == "Promotor")  * 100, 1),
+    `% Pasivos`     = round(mean(nps_categoria == "Pasivo")    * 100, 1),
+    `% Detractores` = round(mean(nps_categoria == "Detractor") * 100, 1),
+    `NPS Neto`      = round(`% Promotores` - `% Detractores`, 1)
+  )
+
+# kable() produce una tabla formateada compatible con Word
+kable(resumen, caption = paste("Indicadores NPS –", r))
+```
+
+**Lectura:** el NPS Neto de `r resumen[["NPS Neto"]]`% indica que
+`r if(resumen[["NPS Neto"]] > 20) "la región tiene una base sólida de clientes promotores." else if(resumen[["NPS Neto"]] > 0) "hay margen de mejora: los promotores superan a los detractores, pero por poco." else "la región presenta riesgo: los detractores superan a los promotores."`.
+
+---
+
+## Distribución del NPS
+
+```{r hist-nps}
+#| fig-cap: "Distribución del NPS score por categoría"
+
+# Histograma del NPS con zonas coloreadas por categoría
+encuesta_region %>%
+  ggplot(aes(x = nps_score, fill = nps_categoria)) +
+  geom_histogram(binwidth = 1, color = "white", center = 0.5) +
+  geom_vline(xintercept = c(6.5, 8.5),
+             linetype = "dashed", color = "gray30") +
+  scale_fill_manual(values = c(
+    "Detractor" = "#d73027",
+    "Pasivo"    = "#fee08b",
+    "Promotor"  = "#1a9850"
+  )) +
+  scale_x_continuous(breaks = 0:10) +
+  labs(
+    x    = "NPS Score (0–10)",
+    y    = "Frecuencia",
+    fill = "Categoría"
+  ) +
+  theme_minimal()
+```
+
+---
+
+## Satisfacción por Dimensión
+
+```{r sat-tabla}
+# Tabla de satisfacción media por dimensión, comparada con el global
+sat_region <- encuesta_region %>%
+  summarise(across(starts_with("sat_"), ~ round(mean(.x, na.rm = TRUE), 2))) %>%
+  pivot_longer(everything(), names_to = "Dimensión", values_to = r) %>%
+  mutate(Dimensión = recode(Dimensión,
+    "sat_producto" = "Producto",
+    "sat_servicio" = "Servicio",
+    "sat_precio"   = "Precio/Valor",
+    "sat_soporte"  = "Soporte",
+    "sat_entrega"  = "Entrega"
+  ))
+
+sat_global <- encuesta_sub %>%
+  summarise(across(starts_with("sat_"), ~ round(mean(.x, na.rm = TRUE), 2))) %>%
+  pivot_longer(everything(), names_to = "Dimensión", values_to = "Global") %>%
+  mutate(Dimensión = recode(Dimensión,
+    "sat_producto" = "Producto",
+    "sat_servicio" = "Servicio",
+    "sat_precio"   = "Precio/Valor",
+    "sat_soporte"  = "Soporte",
+    "sat_entrega"  = "Entrega"
+  ))
+
+left_join(sat_region, sat_global, by = "Dimensión") %>%
+  kable(caption = paste("Satisfacción media (1–5):", r, "vs. Total"))
+```
+
+```{r sat-barras}
+#| fig-cap: "Satisfacción media por dimensión vs. promedio global"
+
+# Gráfico comparativo: región vs. promedio global
+# geom_segment() dibuja una línea desde el valor global al valor regional
+sat_region %>%
+  left_join(sat_global, by = "Dimensión") %>%
+  rename(region_val = !!r) %>%
+  ggplot(aes(y = Dimensión)) +
+  geom_segment(aes(x = Global, xend = region_val,
+                   yend = Dimensión, color = region_val > Global),
+               linewidth = 1.5) +
+  geom_point(aes(x = Global), color = "gray50", size = 3) +
+  geom_point(aes(x = region_val, color = region_val > Global), size = 4) +
+  scale_color_manual(values = c("TRUE" = "#1a9850", "FALSE" = "#d73027"),
+                     labels = c("TRUE" = "Sobre global", "FALSE" = "Bajo global"),
+                     name   = NULL) +
+  scale_x_continuous(limits = c(1, 5), breaks = 1:5) +
+  labs(
+    x       = "Satisfacción media (1–5)",
+    y       = NULL,
+    caption = "Punto gris = promedio global | Punto color = valor regional"
+  ) +
+  theme_minimal()
+```
+
+---
+
+## NPS por Segmento de Empresa
+
+```{r nps-segmento}
+encuesta_region %>%
+  group_by(Segmento = segmento) %>%
+  summarise(
+    `N resp.`       = n(),
+    `% Promotores`  = round(mean(nps_categoria == "Promotor")  * 100, 1),
+    `% Detractores` = round(mean(nps_categoria == "Detractor") * 100, 1),
+    `NPS Neto`      = round(`% Promotores` - `% Detractores`, 1),
+    .groups         = "drop"
+  ) %>%
+  kable(caption = paste("NPS por Segmento –", r))
+```
+
+---
+
+## Empresas Destacadas
+
+```{r top-bottom}
+# Top 3 y Bottom 3 para mantener el reporte conciso
+top3 <- empresas_reg %>%
+  slice_max(nps_neto, n = 3) %>%
+  select(Empresa = empresa_id, Segmento = segmento,
+         `NPS Neto` = nps_neto, `Sat. Media` = indice_sat_prom)
+
+bot3 <- empresas_reg %>%
+  slice_min(nps_neto, n = 3) %>%
+  select(Empresa = empresa_id, Segmento = segmento,
+         `NPS Neto` = nps_neto, `Sat. Media` = indice_sat_prom)
+
+kable(top3, caption = paste("Top 3 empresas por NPS –", r), digits = 1)
+kable(bot3, caption = paste("Bottom 3 empresas por NPS –", r), digits = 1)
+```
+
+---
+
+## Factores que Explican el NPS
+
+El siguiente modelo de regresión identifica qué dimensiones de satisfacción tienen mayor impacto en el NPS Neto de las empresas en esta región.
+
+```{r regresion}
+#| results: asis
+# results: asis → necesario para que stargazer imprima HTML correctamente
+
+model_rep <- lm(
+  nps_neto ~ sat_producto + sat_servicio + sat_precio + sat_soporte + sat_entrega,
+  data = empresas_reg
+)
+
+stargazer(
+  model_rep,
+  type             = "html",   # Word entiende HTML básico
+  title            = paste("Regresión OLS – Región", r),
+  covariate.labels = c("Producto", "Servicio", "Precio/Valor",
+                       "Soporte", "Entrega"),
+  dep.var.labels   = "NPS Neto (%)",
+  single.row       = TRUE,
+  header           = FALSE
+)
+```
+
+**Interpretación:** Un coeficiente de, por ejemplo, 8.5 en "Servicio" significa que, controlando por las demás dimensiones, una unidad más de satisfacción con el servicio se asocia con un NPS Neto 8.5 puntos mayor.
+
+---
+
+*Reporte generado automáticamente · DobleA Consultoría · `r format(Sys.Date(), '%B %Y')`*
