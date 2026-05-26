@@ -13,15 +13,15 @@ Tres pasos. ~5 minutos.
 5. Debería decir *"Success. No rows returned"*. Si da error, pásame el mensaje.
 
 Qué hace:
-- Crea la tabla `paid_emails` con los 6 correos pagados
+- Crea la tabla `paid_emails` con los 8 correos pagados
 - Crea la tabla `mensajes` (chat) con permisos (solo pagados + admins pueden leer/escribir; solo admins borran)
 - Activa realtime en `mensajes`
 
 ---
 
-## 2) Terminar de invitar a los 6 (cuando pase el rate limit)
+## 2) Confirmar invitaciones de los 8
 
-Ya invitaste 2. Faltan 4. Cuando Supabase te deje de nuevo:
+En Supabase, revisa que las 8 personas pagadas tengan invitación enviada y acceso activo:
 - **Authentication → Users → Add user → Send invitation**
 - Uno por uno:
   - cristobal.castro2@mail.udp.cl
@@ -30,8 +30,9 @@ Ya invitaste 2. Faltan 4. Cuando Supabase te deje de nuevo:
   - macarena.zuazua@ekhos.cl
   - patricio.alarcon@mail.udp.cl
   - cristian.carreno@nyu.edu
+  - francisca.catalina@gmail.com
 
-(Los que ya invitaste pueden aceptar y entrar cuando quieran — el SQL del paso 1 ya los tiene en la whitelist.)
+El SQL del paso 1 ya deja a las 8 personas en la whitelist.
 
 ---
 
@@ -48,13 +49,13 @@ Para probar la **vista de alumno**:
 
 **Lo que verá un alumno pagado al entrar:**
 - Header "Hola, {nombre}" + intro
-- Tab **"Material del taller"**: 4 clases con sus 3 módulos (50 min cada uno), fechas reales, placeholder *"Material próximamente"* (vamos a subir slides/videos/datos ahí después)
+- Tab **"Material del taller"**: PDFs de clases 1 a 4, y placeholders solo para grabaciones, datos y evaluación pendiente
 - Tab **"Chat"**: mensajes en tiempo real — puede escribir preguntas, sugerir temas, etc. Tú ves sus mensajes marcados como alumna/o y los tuyos como **"Equipo"**.
 
 ---
 
 ## Qué sigue (pendiente, lo hacemos después)
 
-- Subir material real a cada módulo (slides, videos, bases de datos) — requiere crear el storage bucket y los botones de upload para admins
+- Subir grabaciones y archivos de práctica faltantes. Slides de clases 1 a 4 ya tienen PDF en el hub.
 - Notificación por email cuando llega un mensaje nuevo al chat (si lo quieres)
 - Personalizar el correo de invitación de Supabase (Authentication → Emails → Email Templates → "Invite user") para que diga "Taller Doble A" en vez de mensaje genérico en inglés

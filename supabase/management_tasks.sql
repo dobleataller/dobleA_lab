@@ -98,12 +98,16 @@ from (
     ('captacion', 'Empujar Instagram', 'Equipo', null, null, 30, false),
     ('captacion', 'Activar LinkedIn', 'Todos', null, null, 40, false),
     ('captacion', 'Follow up con Pato Navia', 'Redes de cada uno', null, null, 50, false),
-    ('captacion', 'Pensar en PTRPS', 'Redes de cada uno', null, null, 60, false),
-    ('seguimiento', 'Hacer seguimiento a quienes ya pagaron', 'Clave', 'Usar la lista viva del dashboard y la planilla compartida para no perder trazabilidad.', 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0', 70, false),
+    ('captacion', 'Segundo taller: validar si hay demanda', 'Equipo', 'Sondear demanda para una segunda edición antes de fijar fecha: lista de espera, referidos, LinkedIn, respuestas del formulario y conversaciones directas.', null, 60, false),
+    ('captacion', 'Decidir publicidad para segunda edición', 'Equipo', 'Evaluar si conviene pauta pagada u orgánica; definir canal, presupuesto y criterio mínimo de demanda.', null, 61, false),
+    ('captacion', 'Mandar sondeo a la base para medir interés', 'Equipo', 'Mensaje corto a la base de datos para estimar demanda real por una segunda edición.', 'https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit', 62, false),
+    ('seguimiento', 'Confirmar accesos de los 8 pagados', 'Clave', 'Revisar que las 8 personas pagadas tengan invitación aceptada o acceso activo al hub.', 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0', 70, false),
     ('modulos', 'Editar archivos de módulos en Google Drive', 'Todos', null, 'https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP', 80, false),
-    ('expansion', 'Hablar con Tania Hutt sobre expansión a mineras', 'Mauricio / Pablo', null, null, 90, false),
+    ('modulos', 'Evaluar Taller 1 al cierre de todos los módulos', 'Equipo', 'Mandar encuesta de evaluación cuando estén dictados todos los módulos. Medir cada módulo, formato, ritmo, utilidad y mejoras para una segunda edición.', null, 90, false),
+    ('expansion', 'Reunión con Tania Hutt — jue 28 may', 'Mauricio / Pablo', 'Expansión a empresas: revisar mineras, B2B outreach, oferta empresas y próximos pasos con Tania.', null, 90, false),
+    ('expansion', 'Preparar reunión con Tania: plan empresas', 'Pablo / Mauricio', 'Llevar hipótesis de demanda B2B, brochure, lista de empresas/mineras y preguntas para validar el siguiente paso.', null, 91, false),
     ('operacion', 'Dar login a quienes pagaron', null, 'Usar el panel de usuarios para activar acceso apenas se confirme el pago.', '#admin-section', 100, false),
-    ('operacion', 'Empezar a subir contenido a la página', null, 'Slides, PDFs, videos y otros materiales del taller.', '#admin-section', 110, false)
+    ('operacion', 'Subir grabaciones y archivos de práctica faltantes', null, 'Slides de clases 1 a 4 ya quedan en el hub. Faltan grabaciones de clases 3 y 4, workflow/archivos de práctica y encuesta final.', '#admin-section', 110, false)
 ) as seed(section_key, title, owner, detail, link_url, sort_order, is_done)
 where not exists (
   select 1
