@@ -606,12 +606,13 @@
 
     .bullet-list { list-style: none; padding: 0; }
     .bullet-list li {
-      padding: 12px 0;
+      padding: 12px 0 12px 22px;
       border-bottom: 1px solid #d4d0cb;
       font-size: .95rem; color: var(--text-mid);
-      display: flex; align-items: flex-start; gap: 10px;
+      line-height: 1.6;
+      position: relative;
     }
-    .bullet-list li::before { content: '•'; color: var(--magenta); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .bullet-list li::before { content: '•'; color: var(--magenta); font-size: 1.1rem; position: absolute; left: 0; top: 12px; }
     .bullet-list li:last-child { border-bottom: none; }
 
     .quienes-box {
@@ -677,19 +678,21 @@
 
     .bullet-list-dark { list-style: none; }
     .bullet-list-dark li {
-      padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.12);
+      padding: 11px 0 11px 22px; border-bottom: 1px solid rgba(255,255,255,.12);
       font-size: .88rem; color: rgba(255,255,255,.8);
-      display: flex; gap: 10px; align-items: flex-start;
+      line-height: 1.6;
+      position: relative;
     }
-    .bullet-list-dark li::before { content: '•'; color: var(--magenta); flex-shrink: 0; margin-top: 2px; }
+    .bullet-list-dark li::before { content: '•'; color: var(--magenta); position: absolute; left: 0; top: 11px; }
     .bullet-list-dark li:last-child { border-bottom: none; }
     .bullet-list-light { list-style: none; }
     .bullet-list-light li {
-      padding: 11px 0; border-bottom: 1px solid #d4d0cb;
+      padding: 11px 0 11px 22px; border-bottom: 1px solid #d4d0cb;
       font-size: .88rem; color: var(--text-mid);
-      display: flex; gap: 10px; align-items: flex-start;
+      line-height: 1.6;
+      position: relative;
     }
-    .bullet-list-light li::before { content: '•'; color: var(--magenta); flex-shrink: 0; margin-top: 2px; }
+    .bullet-list-light li::before { content: '•'; color: var(--magenta); position: absolute; left: 0; top: 11px; }
     .bullet-list-light li:last-child { border-bottom: none; }
     .wide-light-card {
       background: var(--light-bg);
