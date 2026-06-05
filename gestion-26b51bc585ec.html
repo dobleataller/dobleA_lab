@@ -124,6 +124,33 @@
       font-size: .88rem;
       line-height: 1.6;
     }
+    .strategy-card.featured {
+      border-color: rgba(255,255,255,.2);
+      background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(59,15,140,.28));
+    }
+    .mini-module-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .mini-module {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .mini-module strong {
+      color: #fff;
+      font-size: .8rem;
+      line-height: 1.35;
+    }
+    .mini-module span {
+      color: rgba(255,255,255,.58);
+      font-size: .76rem;
+      line-height: 1.4;
+    }
     .management-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -697,6 +724,7 @@
       main { padding: 100px 20px 60px; }
     }
     @media (max-width: 860px) {
+      .strategy-grid,
       .management-grid,
       .pulse-grid,
       .stats-grid,
@@ -883,22 +911,32 @@
       </div>
 
       <section id="strategy-section">
-        <p class="section-label">Visión estratégica</p>
+        <p class="section-label">Arquitectura de oferta</p>
         <div class="strategy-grid">
-          <article class="strategy-card">
-            <div class="card-kicker">Posicionamiento</div>
-            <h3>Módulos para estudiantes</h3>
-            <p>La línea de módulos está pensada sobre todo para estudiantes. Su función principal es darnos a conocer, construir reputación y ampliar comunidad, más que generar plata directa.</p>
+          <article class="strategy-card featured">
+            <div class="card-kicker">Decisión base</div>
+            <h3>Dos talleres, dos públicos</h3>
+            <p>Separar la oferta en <strong>Taller Consultores</strong> y <strong>Taller Analistas</strong>. La idea ordena promesa, nivel técnico, precio y captación: no vender un solo taller que intenta resolver necesidades distintas.</p>
           </article>
           <article class="strategy-card">
-            <div class="card-kicker">Revenue</div>
-            <h3>Expandirse hacia empresas</h3>
-            <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
+            <div class="card-kicker">Taller 1</div>
+            <h3>Consultores — 3 módulos</h3>
+            <p>Producto ejecutivo para quienes venden, dirigen o traducen investigación aplicada frente a clientes. Debe ser corto, práctico y con lenguaje de negocio.</p>
+            <div class="mini-module-list">
+              <div class="mini-module"><strong>1. Diagnóstico y pregunta</strong><span>De la necesidad del cliente a una pregunta investigable y vendible.</span></div>
+              <div class="mini-module"><strong>2. Diseño y propuesta</strong><span>Trade-offs metodológicos, alcance, tiempos, costos y entregables.</span></div>
+              <div class="mini-module"><strong>3. Storyline ejecutivo</strong><span>Convertir hallazgos en recomendaciones, decisión y siguiente paso.</span></div>
+            </div>
           </article>
           <article class="strategy-card">
-            <div class="card-kicker">Producto</div>
-            <h3>Empaquetar el taller</h3>
-            <p>Convertir el contenido (módulos, casos, marco metodológico) en un producto empaquetable: paper, libro, publicación o curso. Vehículo de marca y producto en sí — conecta clases + empresas + comunidad en una visión a 12–24 meses.</p>
+            <div class="card-kicker">Taller 2</div>
+            <h3>Analistas — analizar con Mauricio</h3>
+            <p>Línea más técnica para quienes ejecutan análisis: workflow reproducible, datos, modelamiento e interpretación. Próximo paso: bajarlo con Mauricio y decidir nivel, requisitos y casos.</p>
+          </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Go-to-market</div>
+            <h3>Validar demanda por segmento</h3>
+            <p>Probar mensajes separados para consultores y analistas. Medir señales antes de fijar fecha: base actual, LinkedIn, referidos, empresas y conversaciones directas.</p>
           </article>
         </div>
       </section>
@@ -907,32 +945,35 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Segundo taller</span>
-            <span class="agenda-what"><strong>Validar demanda</strong> para una segunda edición y decidir si conviene activar publicidad.</span>
+            <span class="agenda-when">Arquitectura</span>
+            <span class="agenda-what"><strong>Separar la oferta</strong> en dos talleres: Consultores y Analistas.</span>
+            <span class="agenda-meta">Ir a visión estratégica ↑</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Consultores</span>
+            <span class="agenda-what">Cerrar un taller corto de <strong>3 módulos</strong>: diagnóstico, diseño/propuesta y storyline ejecutivo.</span>
             <span class="agenda-meta">Ir a I. To do list ↓</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Jue 28 may</span>
-            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a empresas, mineras y B2B outreach.</span>
+            <span class="agenda-when">Analistas</span>
+            <span class="agenda-what"><strong>Analizar con Mauricio</strong> el programa técnico: nivel, requisitos, casos y entregables.</span>
             <span class="agenda-meta">Ir a IV. Expansión ↓</span>
-          </div>
-          <div class="agenda-row">
-            <span class="agenda-when">Cierre Taller 1</span>
-            <span class="agenda-what"><strong>Evaluar todos los módulos</strong> y mandar encuesta de evaluación.</span>
-            <span class="agenda-meta">Ir a III. Clases ↓</span>
           </div>
         </div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
-            <h3>Captación de clientes</h3>
-            <p>Frentes activos para medir demanda de una segunda edición y decidir si conviene sumar publicidad.</p>
+            <h3>Arquitectura y captación</h3>
+            <p>Frentes activos para ordenar la nueva oferta en dos talleres y medir demanda por segmento antes de fijar fecha.</p>
             <div class="quick-links">
               <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
               <a class="quick-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
               <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
             </div>
             <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Definir arquitectura de dos talleres: Consultores + Analistas</div><div class="task-detail">Separar públicos, promesa, nivel técnico, precio y canal de captación. Evitar que un solo taller intente hablarle a perfiles demasiado distintos.</div></div><div class="task-meta"><span class="task-chip">Pablo / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Taller Consultores: cerrar programa de 3 módulos</div><div class="task-detail">Propuesta inicial: 1) diagnóstico y pregunta; 2) diseño/propuesta; 3) storyline ejecutivo y venta de hallazgos.</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Taller Analistas: analizar diseño con Mauricio</div><div class="task-detail">Bajar la línea técnica: workflow reproducible, análisis de datos, modelamiento, interpretación y casos. Definir requisitos de entrada y entregable final.</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Ordenar base de datos con inscritos + pagados</div></div><div class="task-meta"><span class="task-chip">Valentina</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer">Abrir base</a></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Enviar emails personalizados</div></div><div class="task-meta"><span class="task-chip">Pablo / Lucia / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div><a class="task-link" href="https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit" target="_blank" rel="noopener noreferrer">Abrir respuestas</a></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Empujar Instagram</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -1019,10 +1060,11 @@
 
           <article class="management-card">
             <div class="card-kicker">IV. Expansión</div>
-            <h3>Mineras + B2B outreach</h3>
-            <p>Preparar la expansión a empresas y la reunión con Tania Hutt del jueves 28 de mayo.</p>
+            <h3>Empresas + nuevos talleres</h3>
+            <p>Conectar la expansión B2B con la nueva arquitectura: Consultores como producto ejecutivo y Analistas como línea técnica a trabajar con Mauricio.</p>
             <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list">
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Validar mensajes separados: Consultores vs Analistas</div><div class="task-detail">Probar dos promesas distintas en LinkedIn, base actual y conversaciones con empresas antes de cerrar fechas.</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">📅 Reunión con María Arcila — lun 11 may · 14h CL / 11h LA</div><div class="task-detail">Conversación estratégica. Llegar con la visión del producto empaquetado (paper / libro / curso) y posibles caminos de colaboración.</div></div><div class="task-meta"><span class="task-chip">Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">📅 Reunión con Tania Hutt — jue 28 may</div><div class="task-detail">Expansión a empresas: revisar mineras, B2B outreach, oferta empresas y próximos pasos con Tania.</div></div><div class="task-meta"><span class="task-chip">Mauricio / Pablo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Preparar reunión con Tania: plan empresas</div><div class="task-detail">Llevar hipótesis de demanda B2B, brochure, lista de empresas/mineras y preguntas para validar el siguiente paso.</div></div><div class="task-meta"><span class="task-chip">Pablo / Mauricio</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
@@ -1196,7 +1238,7 @@
     {
       key: 'captacion',
       kicker: 'I. To do list',
-      title: 'Captación de clientes'
+      title: 'Arquitectura y captación'
     },
     {
       key: 'seguimiento',
@@ -1220,6 +1262,9 @@
     }
   ];
   const DEFAULT_MANAGEMENT_TASKS = [
+    { id: 'seed-offer-architecture', section_key: 'captacion', title: 'Definir arquitectura de dos talleres: Consultores + Analistas', owner: 'Pablo / Mauricio', detail: 'Separar públicos, promesa, nivel técnico, precio y canal de captación. Evitar que un solo taller intente hablarle a perfiles demasiado distintos.', link_url: null, sort_order: 1, is_done: false },
+    { id: 'seed-offer-consultores', section_key: 'captacion', title: 'Taller Consultores: cerrar programa de 3 módulos', owner: 'Equipo', detail: 'Propuesta inicial: 1) diagnóstico y pregunta; 2) diseño/propuesta; 3) storyline ejecutivo y venta de hallazgos.', link_url: null, sort_order: 2, is_done: false },
+    { id: 'seed-offer-analistas', section_key: 'captacion', title: 'Taller Analistas: analizar diseño con Mauricio', owner: 'Mauricio / Pablo', detail: 'Bajar la línea técnica: workflow reproducible, análisis de datos, modelamiento, interpretación y casos. Definir requisitos de entrada y entregable final.', link_url: null, sort_order: 3, is_done: false },
     { id: 'seed-1', section_key: 'captacion', title: 'Ordenar base de datos con inscritos + pagados', owner: 'Valentina', detail: null, link_url: PAYMENT_SHEET_URL, sort_order: 10, is_done: false },
     { id: 'seed-2', section_key: 'captacion', title: 'Enviar emails personalizados', owner: 'Pablo / Lucia / Mauricio', detail: null, link_url: GOOGLE_DRIVE_RESPONSES_URL, sort_order: 20, is_done: false },
     { id: 'seed-3', section_key: 'captacion', title: 'Empujar Instagram', owner: 'Equipo', detail: null, link_url: null, sort_order: 30, is_done: false },
@@ -1255,7 +1300,8 @@
     { id: 'seed-c-eval-taller1', section_key: 'modulos', title: 'Evaluar Taller 1 al cierre de todos los módulos', owner: 'Equipo', detail: 'Mandar encuesta de evaluación cuando estén dictados todos los módulos. Medir cada módulo, formato, ritmo, utilidad y mejoras para una segunda edición.', link_url: null, sort_order: 90, is_done: false },
 
     // Notas reunión 20 abr — Expansión a empresas
-    { id: 'seed-9', section_key: 'expansion', title: '3 targets: 1) público universitario, 2) consultores, 3) empresas', owner: 'Mauricio / Pablo', detail: null, link_url: null, sort_order: 1, is_done: false },
+    { id: 'seed-9', section_key: 'expansion', title: 'Validar mensajes separados: Consultores vs Analistas', owner: 'Equipo', detail: 'Probar dos promesas distintas en LinkedIn, base actual y conversaciones con empresas antes de cerrar fechas.', link_url: null, sort_order: 1, is_done: false },
+    { id: 'seed-e-architecture', section_key: 'expansion', title: 'Conectar B2B con los dos talleres', owner: 'Mauricio / Pablo', detail: 'Empresas puede entrar por una versión ejecutiva para consultores internos o por una línea técnica para analistas. Definir cuál se vende primero.', link_url: null, sort_order: 2, is_done: false },
     { id: 'seed-e1', section_key: 'expansion', title: 'Brochure empresas', owner: 'Mauricio', detail: 'Oferta B2B formal, en paralelo al taller.', link_url: null, sort_order: 91, is_done: false },
     { id: 'seed-e2', section_key: 'expansion', title: 'Conversaciones informales con empresas', owner: 'Mauricio', detail: 'Sondear interés antes del pitch formal.', link_url: null, sort_order: 92, is_done: false },
     { id: 'seed-e3', section_key: 'expansion', title: 'Armar oferta empresas en paralelo al taller', owner: 'Mauricio', detail: null, link_url: null, sort_order: 93, is_done: false },
@@ -1572,26 +1618,26 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Segundo taller</span>
-            <span class="agenda-what"><strong>Validar demanda</strong> para una segunda edición y decidir si conviene activar publicidad.</span>
+            <span class="agenda-when">Arquitectura</span>
+            <span class="agenda-what"><strong>Separar la oferta</strong> en dos talleres: Consultores y Analistas.</span>
+            <span class="agenda-meta">Ir a visión estratégica ↑</span>
+          </div>
+          <div class="agenda-row">
+            <span class="agenda-when">Consultores</span>
+            <span class="agenda-what">Cerrar un taller corto de <strong>3 módulos</strong>: diagnóstico, diseño/propuesta y storyline ejecutivo.</span>
             <span class="agenda-meta">Ir a I. To do list ↓</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Jue 28 may</span>
-            <span class="agenda-what">Reunión con <strong>Tania Hutt</strong> — expansión a empresas, mineras y B2B outreach.</span>
+            <span class="agenda-when">Analistas</span>
+            <span class="agenda-what"><strong>Analizar con Mauricio</strong> el programa técnico: nivel, requisitos, casos y entregables.</span>
             <span class="agenda-meta">Ir a IV. Expansión ↓</span>
-          </div>
-          <div class="agenda-row">
-            <span class="agenda-when">Cierre Taller 1</span>
-            <span class="agenda-what"><strong>Evaluar todos los módulos</strong> y mandar encuesta de evaluación.</span>
-            <span class="agenda-meta">Ir a III. Clases ↓</span>
           </div>
         </div>
         <div class="management-grid">
           <article class="management-card wide">
             <div class="card-kicker">I. To do list</div>
-            <h3>Captación de clientes</h3>
-            <p>Frentes activos para medir demanda de una segunda edición y decidir si conviene sumar publicidad.</p>
+            <h3>Arquitectura y captación</h3>
+            <p>Frentes activos para ordenar la nueva oferta en dos talleres y medir demanda por segmento antes de fijar fecha.</p>
             <div class="quick-links">
               <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
               <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
@@ -1665,8 +1711,8 @@
 
           <article class="management-card">
             <div class="card-kicker">IV. Expansión</div>
-            <h3>Mineras + B2B outreach</h3>
-            <p>Preparar la expansión a empresas y la reunión con Tania Hutt del jueves 28 de mayo.</p>
+            <h3>Empresas + nuevos talleres</h3>
+            <p>Conectar la expansión B2B con la nueva arquitectura: Consultores como producto ejecutivo y Analistas como línea técnica a trabajar con Mauricio.</p>
             <div id="b2b-stats" class="b2b-stats"></div>
             <div class="management-task-list" id="management-list-expansion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
@@ -1728,22 +1774,32 @@
   function strategySectionHTML() {
     return `
       <section id="strategy-section">
-        <p class="section-label">Visión estratégica</p>
+        <p class="section-label">Arquitectura de oferta</p>
         <div class="strategy-grid">
-          <article class="strategy-card">
-            <div class="card-kicker">Posicionamiento</div>
-            <h3>Módulos para estudiantes</h3>
-            <p>La línea de módulos está pensada sobre todo para estudiantes. Su función principal es darnos a conocer, construir reputación y ampliar comunidad, más que generar plata directa.</p>
+          <article class="strategy-card featured">
+            <div class="card-kicker">Decisión base</div>
+            <h3>Dos talleres, dos públicos</h3>
+            <p>Separar la oferta en <strong>Taller Consultores</strong> y <strong>Taller Analistas</strong>. La idea ordena promesa, nivel técnico, precio y captación: no vender un solo taller que intenta resolver necesidades distintas.</p>
           </article>
           <article class="strategy-card">
-            <div class="card-kicker">Revenue</div>
-            <h3>Expandirse hacia empresas</h3>
-            <p>La expansión hacia empresas es la línea que debería traer ingresos. Ahí está la oportunidad comercial más clara y donde conviene empujar crecimiento con foco de negocio.</p>
+            <div class="card-kicker">Taller 1</div>
+            <h3>Consultores — 3 módulos</h3>
+            <p>Producto ejecutivo para quienes venden, dirigen o traducen investigación aplicada frente a clientes. Debe ser corto, práctico y con lenguaje de negocio.</p>
+            <div class="mini-module-list">
+              <div class="mini-module"><strong>1. Diagnóstico y pregunta</strong><span>De la necesidad del cliente a una pregunta investigable y vendible.</span></div>
+              <div class="mini-module"><strong>2. Diseño y propuesta</strong><span>Trade-offs metodológicos, alcance, tiempos, costos y entregables.</span></div>
+              <div class="mini-module"><strong>3. Storyline ejecutivo</strong><span>Convertir hallazgos en recomendaciones, decisión y siguiente paso.</span></div>
+            </div>
           </article>
           <article class="strategy-card">
-            <div class="card-kicker">Producto</div>
-            <h3>Empaquetar el taller</h3>
-            <p>Convertir el contenido (módulos, casos, marco metodológico) en un producto empaquetable: paper, libro, publicación o curso. Vehículo de marca y producto en sí — conecta clases + empresas + comunidad en una visión a 12–24 meses.</p>
+            <div class="card-kicker">Taller 2</div>
+            <h3>Analistas — analizar con Mauricio</h3>
+            <p>Línea más técnica para quienes ejecutan análisis: workflow reproducible, datos, modelamiento e interpretación. Próximo paso: bajarlo con Mauricio y decidir nivel, requisitos y casos.</p>
+          </article>
+          <article class="strategy-card">
+            <div class="card-kicker">Go-to-market</div>
+            <h3>Validar demanda por segmento</h3>
+            <p>Probar mensajes separados para consultores y analistas. Medir señales antes de fijar fecha: base actual, LinkedIn, referidos, empresas y conversaciones directas.</p>
           </article>
         </div>
       </section>`;

@@ -93,6 +93,9 @@ insert into public.management_tasks (section_key, title, owner, detail, link_url
 select *
 from (
   values
+    ('captacion', 'Definir arquitectura de dos talleres: Consultores + Analistas', 'Pablo / Mauricio', 'Separar públicos, promesa, nivel técnico, precio y canal de captación. Evitar que un solo taller intente hablarle a perfiles demasiado distintos.', null, 1, false),
+    ('captacion', 'Taller Consultores: cerrar programa de 3 módulos', 'Equipo', 'Propuesta inicial: 1) diagnóstico y pregunta; 2) diseño/propuesta; 3) storyline ejecutivo y venta de hallazgos.', null, 2, false),
+    ('captacion', 'Taller Analistas: analizar diseño con Mauricio', 'Mauricio / Pablo', 'Bajar la línea técnica: workflow reproducible, análisis de datos, modelamiento, interpretación y casos. Definir requisitos de entrada y entregable final.', null, 3, false),
     ('captacion', 'Ordenar base de datos con inscritos + pagados', 'Vale / Valentina', null, 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0', 10, false),
     ('captacion', 'Enviar emails personalizados', 'Pablo / Lucia / Mauricio', null, 'https://docs.google.com/spreadsheets/d/1uwnpSX7iGTc7N5UcYVjIIVHYudL-ERsdCGSq-T2OJI0/edit', 20, false),
     ('captacion', 'Empujar Instagram', 'Equipo', null, null, 30, false),
@@ -104,6 +107,8 @@ from (
     ('seguimiento', 'Confirmar accesos de los 8 pagados', 'Clave', 'Revisar que las 8 personas pagadas tengan invitación aceptada o acceso activo al hub.', 'https://docs.google.com/spreadsheets/d/1CckvGXAfemvd8AWGtUEewZkWnjofQYL0uNUhft9ZTe0/edit?gid=0#gid=0', 70, false),
     ('modulos', 'Editar archivos de módulos en Google Drive', 'Todos', null, 'https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP', 80, false),
     ('modulos', 'Evaluar Taller 1 al cierre de todos los módulos', 'Equipo', 'Mandar encuesta de evaluación cuando estén dictados todos los módulos. Medir cada módulo, formato, ritmo, utilidad y mejoras para una segunda edición.', null, 90, false),
+    ('expansion', 'Validar mensajes separados: Consultores vs Analistas', 'Equipo', 'Probar dos promesas distintas en LinkedIn, base actual y conversaciones con empresas antes de cerrar fechas.', null, 1, false),
+    ('expansion', 'Conectar B2B con los dos talleres', 'Mauricio / Pablo', 'Empresas puede entrar por una versión ejecutiva para consultores internos o por una línea técnica para analistas. Definir cuál se vende primero.', null, 2, false),
     ('expansion', 'Reunión con Tania Hutt — jue 28 may', 'Mauricio / Pablo', 'Expansión a empresas: revisar mineras, B2B outreach, oferta empresas y próximos pasos con Tania.', null, 90, false),
     ('expansion', 'Preparar reunión con Tania: plan empresas', 'Pablo / Mauricio', 'Llevar hipótesis de demanda B2B, brochure, lista de empresas/mineras y preguntas para validar el siguiente paso.', null, 91, false),
     ('operacion', 'Dar login a quienes pagaron', null, 'Usar el panel de usuarios para activar acceso apenas se confirme el pago.', '#admin-section', 100, false),

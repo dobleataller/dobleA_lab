@@ -1,0 +1,478 @@
+% ============================================================
+%  DobleA LAB — Módulo 2
+%  Diseño de instrumentos y calidad en la medición
+%  Miércoles 13 de mayo · 6–9 PM
+% ============================================================
+\documentclass[aspectratio=169, 12pt]{beamer}
+
+% ── Encoding & language ────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{microtype}
+
+% ── Fonts ──────────────────────────────────────────────────
+\usepackage{lmodern}
+
+% ── Colors (DobleA palette) ────────────────────────────────
+\usepackage{xcolor}
+\definecolor{daPurpleDeep}{HTML}{3B0F8C}
+\definecolor{daPurpleMid}{HTML}{6B21C8}
+\definecolor{daPurpleLight}{HTML}{8B5CF6}
+\definecolor{daMagenta}{HTML}{E040A0}
+\definecolor{daDark}{HTML}{0A0A0A}
+\definecolor{daLightBg}{HTML}{F0EDE8}
+\definecolor{daTextMid}{HTML}{444444}
+
+% ── Beamer theme base ──────────────────────────────────────
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\color{daMagenta}\textbullet}
+\setbeamertemplate{itemize subitem}{\color{daPurpleLight}$\circ$}
+
+% ── Background ─────────────────────────────────────────────
+\setbeamercolor{background canvas}{bg=daDark}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{frametitle}{fg=white, bg=daPurpleDeep}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=daPurpleLight}
+\setbeamercolor{author}{fg=daLightBg}
+\setbeamercolor{date}{fg=daMagenta}
+\setbeamercolor{institute}{fg=daLightBg}
+\setbeamercolor{block title}{bg=daPurpleMid, fg=white}
+\setbeamercolor{block body}{bg=daPurpleDeep!40!black, fg=white}
+\setbeamercolor{alerted text}{fg=daMagenta}
+
+% ── Frametitle style ───────────────────────────────────────
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.55cm, dp=0.25cm, leftskip=0.8cm]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle%
+    \ifx\insertframesubtitle\empty\else
+      \hspace{0.5em}{\color{daMagenta}\small\textit{— \insertframesubtitle}}%
+    \fi
+  \end{beamercolorbox}%
+  \vspace{-0.15cm}%
+  {\color{daMagenta}\rule{\paperwidth}{1.2pt}}%
+}
+
+% ── Footer ─────────────────────────────────────────────────
+\setbeamertemplate{footline}{%
+  {\color{daPurpleDeep!60!black}\rule{\paperwidth}{0.5pt}}%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.45cm, dp=0.15cm]{normal text}%
+    \hspace{0.6cm}%
+    {\color{daMagenta}\tiny DobleA LAB}%
+    \hfill%
+    {\color{daLightBg!60!black}\tiny Módulo 2 · Diseño de instrumentos y calidad en la medición}%
+    \hfill%
+    {\color{daPurpleLight}\tiny\insertframenumber/\inserttotalframenumber\hspace{0.5cm}}%
+  \end{beamercolorbox}%
+}
+
+% ── Title page template ────────────────────────────────────
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    % Gradient background strip
+    \fill[daPurpleDeep] (current page.north west) rectangle ([yshift=-0.45\paperheight]current page.north east);
+    \fill[daPurpleMid!60!daDark] ([yshift=-0.45\paperheight]current page.north west) rectangle (current page.south east);
+    % Magenta accent line
+    \draw[daMagenta, line width=2pt] ([yshift=-0.45\paperheight]current page.north west) -- ([yshift=-0.45\paperheight]current page.north east);
+  \end{tikzpicture}%
+  \vspace{0.8cm}
+  \begin{center}
+    {\color{daMagenta}\footnotesize\textbf{\MakeUppercase{DobleA LAB · Taller de Investigación Aplicada}}}\\[0.3cm]
+    {\color{white}\LARGE\textbf{\inserttitle}}\\[0.3cm]
+    {\color{daPurpleLight}\small\insertsubtitle}\\[0.6cm]
+    {\color{daLightBg}\footnotesize\insertauthor}\\[0.15cm]
+    {\color{daMagenta}\footnotesize\insertdate}
+  \end{center}
+}
+
+% ── TikZ for title bg ──────────────────────────────────────
+\usepackage{tikz}
+
+% ── Metadata ───────────────────────────────────────────────
+\title{Diseño de instrumentos\\y calidad en la medición}
+\subtitle{Módulo 2}
+\author{Pablo Argote \and Daniela Urbina \and Giancarlo Visconti \textit{(invitado)}}
+\date{Miércoles 13 de mayo · 6--9 PM}
+\institute{DobleA LAB}
+
+% ── Helper command: session header ─────────────────────────
+\newcommand{\sesion}[2]{%
+  \begin{beamercolorbox}[wd=\linewidth, ht=0.4cm, dp=0.15cm, leftskip=0.3cm, rounded=true]{block title}%
+    {\small\textbf{Sesión #1} \hfill \textit{\footnotesize #2}}%
+  \end{beamercolorbox}\vspace{0.15cm}%
+}
+
+% ============================================================
+\begin{document}
+
+% ── Title slide ────────────────────────────────────────────
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ── Overview ───────────────────────────────────────────────
+\begin{frame}{Contenidos del módulo}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \sesion{1}{50 min}
+      {\small
+      \begin{itemize}
+        \item De conceptos a preguntas claras
+        \item Tipos de preguntas y escalas
+        \item Estructura de instrumentos
+      \end{itemize}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \sesion{2}{50 min}
+      {\small
+      \begin{itemize}
+        \item Diseño de cuestionarios y pautas
+        \item Errores y sesgos de medición
+      \end{itemize}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \sesion{3}{50 min}
+      {\small
+      \begin{itemize}
+        \item Experimentos en encuestas
+        \item Diseño experimental aplicado
+        \item Ejercicio práctico
+      \end{itemize}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 1
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 1}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large De conceptos a preguntas medibles%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{De la operacionalización al instrumento}
+  \begin{block}{Recapitulación del Módulo 1}
+    Ya tenemos una pregunta de investigación, conceptos definidos y una estrategia metodológica. Ahora hay que \alert{construir el instrumento} que recoge los datos.
+  \end{block}
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item \textbf{Concepto} → \textbf{Dimensión} → \textbf{Indicador} → \textbf{Pregunta concreta}
+    \item Cada pregunta del instrumento debe poder vincularse a un objetivo del estudio.
+    \item Si una pregunta no responde a ningún objetivo, sobra.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de preguntas}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}Cerradas}
+      \begin{itemize}
+        \small
+        \item Dicotómicas (sí/no)
+        \item Opción múltiple (selección única)
+        \item Opción múltiple (selección múltiple)
+        \item Ranking / ordenamiento
+        \item Escalas (Likert, diferencial semántico)
+      \end{itemize}
+      \vspace{0.2cm}
+      {\color{daTextMid}\tiny Ventaja: comparables, codificables, rápidas.}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}Abiertas}
+      \begin{itemize}
+        \small
+        \item Respuesta libre corta
+        \item Respuesta libre extendida
+        \item Asociación espontánea
+        \item Completación de frases
+      \end{itemize}
+      \vspace{0.2cm}
+      {\color{daTextMid}\tiny Ventaja: riqueza, profundidad, descubrimiento.}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  {\small La elección depende de si queremos \alert{medir} o \alert{explorar}.}
+\end{frame}
+
+\begin{frame}{Escalas de medición}
+  \begin{itemize}
+    \item \textbf{Likert:} grado de acuerdo (1 = muy en desacuerdo … 5 = muy de acuerdo).
+    \begin{itemize}
+      \item Decidir: ¿punto neutro o escala par (sin neutro)?
+    \end{itemize}
+    \item \textbf{Diferencial semántico:} pares de adjetivos opuestos (moderno–anticuado, confiable–poco confiable).
+    \item \textbf{NPS (Net Promoter Score):} 0--10, clasifica en detractores · pasivos · promotores.
+    \item \textbf{Escalas visuales:} termómetros, estrellas, emojis. Útiles en contextos de baja escolaridad o mobile.
+  \end{itemize}
+  \vspace{0.3cm}
+  \begin{alertblock}{Cuidado}
+    La escala define el nivel de medición (ordinal vs.\ intervalar) y condiciona qué análisis puedes hacer después.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Estructura de un instrumento}
+  \begin{enumerate}
+    \item \textbf{Presentación:} quién hace el estudio, propósito, confidencialidad, duración estimada.
+    \item \textbf{Filtro / screening:} preguntas para verificar que el participante califica.
+    \item \textbf{Cuerpo temático:} bloques organizados por tema; de lo general a lo específico.
+    \item \textbf{Datos de clasificación:} sociodemográficos al final (edad, ingreso, educación).
+    \item \textbf{Cierre:} agradecimiento, espacio para comentarios, datos de contacto.
+  \end{enumerate}
+  \vspace{0.3cm}
+  \begin{block}{Principio de flujo}
+    El instrumento debe sentirse como una conversación lógica, no como un interrogatorio.
+  \end{block}
+\end{frame}
+
+% ── Descanso ───────────────────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daDark] (current page.north west) rectangle (current page.south east);
+    \draw[daMagenta, line width=1pt] ([xshift=2cm, yshift=-2cm]current page.north west) rectangle ([xshift=-2cm, yshift=2cm]current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{daPurpleLight}\large\textit{— break 10 min —}%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 2
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 2}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large Diseño de cuestionarios y sesgos%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Diseño de cuestionarios}
+  \framesubtitle{Buenas prácticas}
+  \begin{itemize}
+    \item \textbf{Una idea por pregunta.} Evitar preguntas dobles:\\
+          {\small\color{daTextMid} Mal: ``¿El servicio fue rápido y amable?'' → ¿qué pasa si fue rápido pero no amable?}
+    \item \textbf{Lenguaje simple y neutro.} Evitar jerga técnica, dobles negaciones y palabras cargadas.
+    \item \textbf{Opciones exhaustivas y excluyentes.} Que cubran todas las posibilidades sin superponerse.
+    \item \textbf{Orden lógico.} Primero lo general, luego lo específico; lo menos sensible antes que lo más sensible.
+    \item \textbf{Longitud razonable.} Cada pregunta adicional tiene un costo en calidad de respuesta.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Diseño de pautas cualitativas}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}Pauta de entrevista}
+      \begin{itemize}
+        \small
+        \item Guía temática, no cuestionario rígido.
+        \item Preguntas abiertas que inviten al relato.
+        \item Sondeos preparados (``cuéntame más'', ``¿a qué te refieres?'').
+        \item Secuencia: rapport → temas centrales → cierre reflexivo.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}Pauta de focus group}
+      \begin{itemize}
+        \small
+        \item Menos preguntas, más interacción.
+        \item Incluir estímulos (imágenes, conceptos, prototipos).
+        \item Pregunta de apertura fácil para romper el hielo.
+        \item Pregunta de cierre: ``¿hay algo que no hayamos tocado?''
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.3cm}
+  {\small En ambos casos: \alert{pilotar} antes de salir a terreno.}
+\end{frame}
+
+\begin{frame}{Errores y sesgos de medición}
+  \begin{itemize}
+    \item \textbf{Deseabilidad social:} el participante responde lo que cree ``correcto'' o socialmente aceptable.
+    \begin{itemize}
+      \item {\small Ej.: sobrereportar reciclaje, subreportar consumo de alcohol.}
+    \end{itemize}
+    \item \textbf{Aquiescencia:} tendencia a responder ``sí'' o ``de acuerdo'' a todo.
+    \begin{itemize}
+      \item {\small Solución parcial: incluir ítems invertidos.}
+    \end{itemize}
+    \item \textbf{Efecto de orden:} la respuesta cambia según el lugar de la pregunta en el instrumento.
+    \item \textbf{Efecto de anclaje:} la primera opción o valor presentado condiciona la respuesta.
+    \item \textbf{Fatiga del encuestado:} las respuestas se degradan conforme avanza el instrumento.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{¿Cómo mitigar sesgos?}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}En el diseño}
+      \begin{itemize}
+        \small
+        \item Redacción neutra y balanceada.
+        \item Aleatorizar orden de opciones.
+        \item Incluir ítems de control e invertidos.
+        \item Garantizar anonimato real (y comunicarlo).
+        \item Usar formatos indirectos para temas sensibles.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}En la aplicación}
+      \begin{itemize}
+        \small
+        \item Pilotaje con participantes reales.
+        \item Entrevista cognitiva: pedir al participante que ``piense en voz alta'' mientras responde.
+        \item Monitorear tiempos de respuesta.
+        \item Revisar patrones sospechosos (straightlining, respuestas contradictorias).
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── Descanso ───────────────────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daDark] (current page.north west) rectangle (current page.south east);
+    \draw[daMagenta, line width=1pt] ([xshift=2cm, yshift=-2cm]current page.north west) rectangle ([xshift=-2cm, yshift=2cm]current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{daPurpleLight}\large\textit{— break 10 min —}%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 3
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 3}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large Experimentos en encuestas%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{¿Por qué experimentar dentro de una encuesta?}
+  \begin{block}{El problema}
+    A veces preguntar directamente no funciona: el participante no sabe, no quiere o no puede responder con precisión.
+  \end{block}
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item Los \alert{experimentos de encuesta} (survey experiments) asignan aleatoriamente a los participantes a versiones distintas de una pregunta o estímulo.
+    \item Permiten estimar el \textbf{efecto causal} de un cambio en el fraseo, en la información disponible o en el contexto.
+    \item Son una herramienta para \textbf{medir mejor} lo que las preguntas directas no capturan bien.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de diseños experimentales en encuestas}
+  \begin{itemize}
+    \item \textbf{Experimento de viñeta (vignette):} se presenta un escenario que varía aleatoriamente en uno o más atributos.
+    \begin{itemize}
+      \item {\small Ej.: evaluar un candidato cuyo CV varía en género, universidad, experiencia.}
+    \end{itemize}
+    \item \textbf{Experimento de lista (list experiment):} técnica para medir prevalencia de conductas sensibles sin que el encuestado revele su respuesta individual.
+    \item \textbf{Experimento de conjoint:} se presentan perfiles con múltiples atributos combinados; el participante elige o evalúa.
+    \begin{itemize}
+      \item {\small Ej.: ¿qué atributos pesan más al elegir un plan de salud?}
+    \end{itemize}
+    \item \textbf{Framing / priming:} variar el encuadre de una pregunta para medir cómo afecta la respuesta.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo: experimento de viñeta}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{\centering Grupo A}
+        \small``María, 32 años, egresada de una universidad pública, con 5 años de experiencia en el sector. ¿Qué tan apta la consideras para el cargo?''
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{\centering Grupo B}
+        \small``Pedro, 32 años, egresado de una universidad privada, con 5 años de experiencia en el sector. ¿Qué tan apto lo consideras para el cargo?''
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item La asignación aleatoria permite aislar el efecto de \alert{género} y \alert{tipo de universidad}.
+    \item El participante no sabe que hay otra versión → reduce deseabilidad social.
+    \item La diferencia entre grupos es el \textbf{efecto causal estimado}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Claves para un buen experimento de encuesta}
+  \begin{enumerate}
+    \item \textbf{Aleatorización efectiva:} que los grupos sean comparables en todo excepto el tratamiento.
+    \item \textbf{Tamaño de muestra suficiente:} el experimento requiere \textit{n} por grupo, no solo \textit{n} total.
+    \item \textbf{Estímulo realista:} la viñeta o el escenario debe ser creíble para el participante.
+    \item \textbf{Una sola variación a la vez} (o diseño factorial si se quieren interacciones).
+    \item \textbf{Pre-registro:} definir hipótesis y análisis antes de recolectar datos.
+  \end{enumerate}
+  \vspace{0.3cm}
+  \begin{alertblock}{Ventaja clave}
+    Combinan la \textbf{representatividad} de la encuesta con la \textbf{lógica causal} del experimento.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Ejercicio práctico}
+  \begin{block}{Instrucción}
+    En grupos de 3, elijan uno de los siguientes escenarios y diseñen un instrumento breve:
+  \end{block}
+  \vspace{0.3cm}
+  \textbf{Escenario A:} Una empresa de delivery quiere entender por qué las evaluaciones de sus repartidores son más bajas en comunas de altos ingresos.\\[0.3cm]
+  \textbf{Escenario B:} Una fundación educacional quiere medir la percepción de calidad de sus talleres entre apoderados.\\[0.3cm]
+  \begin{enumerate}
+    \item Redacta \textbf{5 preguntas} (al menos 2 cerradas y 1 abierta).
+    \item Diseña \textbf{1 experimento de viñeta} que mida algo que una pregunta directa no capturaría bien.
+    \item Identifica \textbf{2 sesgos potenciales} de tu instrumento y propón cómo mitigarlos.
+  \end{enumerate}
+\end{frame}
+
+% ── Cierre ─────────────────────────────────────────────────
+\begin{frame}{Cierre del módulo}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}Lo que aprendimos hoy}
+      \begin{itemize}
+        \small
+        \item Traducir conceptos en preguntas claras.
+        \item Tipos de preguntas, escalas y estructura.
+        \item Diseñar cuestionarios y pautas cualitativas.
+        \item Identificar y mitigar sesgos de medición.
+        \item Usar experimentos para medir mejor.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}Próximo módulo}
+      \begin{itemize}
+        \small
+        \item Trabajo de campo y recolección de datos.
+        \item Gestión de equipos en terreno.
+        \item Miércoles 20 de mayo · 6--9 PM
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{center}
+    {\color{daMagenta}\rule{6cm}{0.8pt}}\\[0.3cm]
+    {\small\color{daLightBg!70!black} Preguntas · Comentarios · Dudas}
+  \end{center}
+\end{frame}
+
+\end{document}

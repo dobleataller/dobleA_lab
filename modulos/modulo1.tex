@@ -1,0 +1,429 @@
+% ============================================================
+%  DobleA LAB — Módulo 1
+%  De la inquietud del cliente al diseño de estudio
+%  Miércoles 6 de mayo · 6–9 PM
+% ============================================================
+\documentclass[aspectratio=169, 12pt]{beamer}
+
+% ── Encoding & language ────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{microtype}
+
+% ── Fonts ──────────────────────────────────────────────────
+\usepackage{lmodern}
+
+% ── Colors (DobleA palette) ────────────────────────────────
+\usepackage{xcolor}
+\definecolor{daPurpleDeep}{HTML}{3B0F8C}
+\definecolor{daPurpleMid}{HTML}{6B21C8}
+\definecolor{daPurpleLight}{HTML}{8B5CF6}
+\definecolor{daMagenta}{HTML}{E040A0}
+\definecolor{daDark}{HTML}{0A0A0A}
+\definecolor{daLightBg}{HTML}{F0EDE8}
+\definecolor{daTextMid}{HTML}{444444}
+
+% ── Beamer theme base ──────────────────────────────────────
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\color{daMagenta}\textbullet}
+\setbeamertemplate{itemize subitem}{\color{daPurpleLight}$\circ$}
+
+% ── Background ─────────────────────────────────────────────
+\setbeamercolor{background canvas}{bg=daDark}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{frametitle}{fg=white, bg=daPurpleDeep}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=daPurpleLight}
+\setbeamercolor{author}{fg=daLightBg}
+\setbeamercolor{date}{fg=daMagenta}
+\setbeamercolor{institute}{fg=daLightBg}
+\setbeamercolor{block title}{bg=daPurpleMid, fg=white}
+\setbeamercolor{block body}{bg=daPurpleDeep!40!black, fg=white}
+\setbeamercolor{alerted text}{fg=daMagenta}
+
+% ── Frametitle style ───────────────────────────────────────
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.55cm, dp=0.25cm, leftskip=0.8cm]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle%
+    \ifx\insertframesubtitle\empty\else
+      \hspace{0.5em}{\color{daMagenta}\small\textit{— \insertframesubtitle}}%
+    \fi
+  \end{beamercolorbox}%
+  \vspace{-0.15cm}%
+  {\color{daMagenta}\rule{\paperwidth}{1.2pt}}%
+}
+
+% ── Footer ─────────────────────────────────────────────────
+\setbeamertemplate{footline}{%
+  {\color{daPurpleDeep!60!black}\rule{\paperwidth}{0.5pt}}%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=0.45cm, dp=0.15cm]{normal text}%
+    \hspace{0.6cm}%
+    {\color{daMagenta}\tiny DobleA LAB}%
+    \hfill%
+    {\color{daLightBg!60!black}\tiny Módulo 1 · De la inquietud del cliente al diseño de estudio}%
+    \hfill%
+    {\color{daPurpleLight}\tiny\insertframenumber/\inserttotalframenumber\hspace{0.5cm}}%
+  \end{beamercolorbox}%
+}
+
+% ── Title page template ────────────────────────────────────
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    % Gradient background strip
+    \fill[daPurpleDeep] (current page.north west) rectangle ([yshift=-0.45\paperheight]current page.north east);
+    \fill[daPurpleMid!60!daDark] ([yshift=-0.45\paperheight]current page.north west) rectangle (current page.south east);
+    % Magenta accent line
+    \draw[daMagenta, line width=2pt] ([yshift=-0.45\paperheight]current page.north west) -- ([yshift=-0.45\paperheight]current page.north east);
+  \end{tikzpicture}%
+  \vspace{0.8cm}
+  \begin{center}
+    {\color{daMagenta}\footnotesize\textbf{\MakeUppercase{DobleA LAB · Taller de Investigación Aplicada}}}\\[0.3cm]
+    {\color{white}\LARGE\textbf{\inserttitle}}\\[0.3cm]
+    {\color{daPurpleLight}\small\insertsubtitle}\\[0.6cm]
+    {\color{daLightBg}\footnotesize\insertauthor}\\[0.15cm]
+    {\color{daMagenta}\footnotesize\insertdate}
+  \end{center}
+}
+
+% ── TikZ for title bg ──────────────────────────────────────
+\usepackage{tikz}
+
+% ── Metadata ───────────────────────────────────────────────
+\title{De la inquietud del cliente\\al diseño de estudio}
+\subtitle{Módulo 1}
+\author{Isidora Aninat \and Lucía Argote \and Pablo Argote}
+\date{Miércoles 6 de mayo · 6--9 PM}
+\institute{DobleA LAB}
+
+% ── Helper command: session header ─────────────────────────
+\newcommand{\sesion}[2]{%
+  \begin{beamercolorbox}[wd=\linewidth, ht=0.4cm, dp=0.15cm, leftskip=0.3cm, rounded=true]{block title}%
+    {\small\textbf{Sesión #1} \hfill \textit{\footnotesize #2}}%
+  \end{beamercolorbox}\vspace{0.15cm}%
+}
+
+% ============================================================
+\begin{document}
+
+% ── Title slide ────────────────────────────────────────────
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ── Overview ───────────────────────────────────────────────
+\begin{frame}{Contenidos del módulo}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \sesion{1}{50 min}
+      {\small
+      \begin{itemize}
+        \item Del problema a la pregunta de investigación
+        \item Objetivos y conceptos medibles
+      \end{itemize}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \sesion{2}{50 min}
+      {\small
+      \begin{itemize}
+        \item Estrategias metodológicas
+        \item Técnicas cualitativas
+      \end{itemize}}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \sesion{3}{50 min}
+      {\small
+      \begin{itemize}
+        \item Diseño del estudio
+        \item Muestreo cualitativo
+        \item Ejercicio práctico
+      \end{itemize}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 1
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 1}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large Del problema al diseño%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Recoger la necesidad del cliente}
+  \begin{block}{Punto de partida}
+    Todo estudio comienza con una \alert{inquietud}: algo que no se sabe y que importa saber.
+  \end{block}
+  \vspace{0.4cm}
+  \begin{itemize}
+    \item Escuchar y estructurar la necesidad de información del cliente.
+    \item Distinguir entre \textit{problema de negocio} y \textit{pregunta de investigación}.
+    \item Identificar qué decisión se quiere informar con el estudio.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{De la inquietud a la pregunta de investigación}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Inquietud del cliente}
+        \small``No sabemos por qué nuestros clientes se van después del primer año.''
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Pregunta de investigación}
+        \small¿Qué factores están asociados a la no renovación de contrato entre clientes de primer año?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{itemize}
+    \item La pregunta debe ser \alert{específica}, \alert{investigable} y \alert{relevante}.
+    \item Definir objetivos generales y específicos.
+    \item Operacionalizar conceptos: ¿qué vamos a medir exactamente?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Preguntas que no funcionan}
+  \framesubtitle{Anti-ejemplos}
+  \small
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}Mal formulada}
+      \begin{itemize}
+        \item ``¿Es bueno nuestro servicio?''\\
+              {\color{daTextMid}\tiny Demasiado vaga; no se puede operacionalizar.}
+        \item ``¿Por qué la gente no nos compra?''\\
+              {\color{daTextMid}\tiny Asume que hay una sola razón; no define población.}
+        \item ``¿Cómo mejorar las ventas?''\\
+              {\color{daTextMid}\tiny Es un objetivo de negocio, no una pregunta investigable.}
+        \item ``¿Los millennials prefieren nuestra marca?''\\
+              {\color{daTextMid}\tiny Contiene sesgo de confirmación; categoría imprecisa.}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}Bien formulada}
+      \begin{itemize}
+        \item ``¿Cómo evalúan la experiencia de postventa los clientes que renovaron vs.\ los que no?''
+        \item ``¿Qué factores inciden en la decisión de no compra entre mujeres 25--40 en la RM?''
+        \item ``¿Qué barreras perciben los equipos de venta para cerrar negocios en el segmento PYME?''
+        \item ``¿Qué atributos de marca asocian espontáneamente los consumidores 20--35 a nuestra categoría?''
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{¿Por qué fallan?}
+  \framesubtitle{Errores frecuentes al formular preguntas}
+  \begin{enumerate}
+    \item \textbf{Vaguedad:} no define qué se quiere saber ni sobre quién.
+    \item \textbf{Sesgo implícito:} la pregunta ya contiene la respuesta que se espera.
+    \item \textbf{Confundir objetivo de negocio con pregunta de investigación:}\\
+          {\small ``aumentar ventas'' no es algo que se investiga, es algo que se \textit{decide} a partir de la investigación.}
+    \item \textbf{No investigable:} no se puede responder con datos recolectables\\
+          {\small (ej.\ ``¿Qué va a pasar con el mercado en 10 años?'').}
+    \item \textbf{Demasiado amplia:} intenta responder todo a la vez.
+  \end{enumerate}
+  \vspace{0.3cm}
+  \begin{alertblock}{Test rápido}
+    Si no puedes imaginar \textit{qué dato} responde tu pregunta, la pregunta no está lista.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Definir conceptos medibles}
+  \begin{itemize}
+    \item Un concepto abstracto (\textit{satisfacción}, \textit{confianza}) debe traducirse en indicadores observables.
+    \item \textbf{Dimensiones} → \textbf{Indicadores} → \textbf{Ítems de medición}
+  \end{itemize}
+  \vspace{0.4cm}
+  \begin{exampleblock}{Ejemplo: ``Satisfacción con el servicio''}
+    \small
+    \textbf{Dimensiones:} calidad percibida · tiempo de respuesta · trato recibido\\
+    \textbf{Indicadores:} NPS · tiempos de resolución · escala de valoración\\
+    \textbf{Ítems:} ``¿Cuán probable es que recomiende este servicio? (0–10)''
+  \end{exampleblock}
+\end{frame}
+
+% ── Descanso ───────────────────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daDark] (current page.north west) rectangle (current page.south east);
+    \draw[daMagenta, line width=1pt] ([xshift=2cm, yshift=-2cm]current page.north west) rectangle ([xshift=-2cm, yshift=2cm]current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{daPurpleLight}\large\textit{— break 10 min —}%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 2
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 2}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large Estrategias metodológicas%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{¿Cuándo usar qué metodología?}
+  \begin{columns}[T]
+    \begin{column}{0.31\textwidth}
+      \begin{block}{\centering Cualitativa}
+        \small Comprender \textit{por qué} y \textit{cómo}.\\ Explorar significados.\\ Hipótesis emergentes.
+      \end{block}
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \begin{block}{\centering Cuantitativa}
+        \small Medir \textit{cuánto} y \textit{con qué frecuencia}.\\ Generalizar a poblaciones.\\ Probar hipótesis.
+      \end{block}
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \begin{block}{\centering Mixta}
+        \small Combinar profundidad y representatividad.\\ Triangulación de resultados.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.4cm}
+  {\small La elección depende de la \alert{pregunta de investigación}, no de la preferencia del investigador.}
+\end{frame}
+
+\begin{frame}{Técnicas cualitativas}
+  \begin{itemize}
+    \item \textbf{Entrevista en profundidad:} diálogo individual, relato detallado, alta flexibilidad.
+    \begin{itemize}
+      \item Ideal para trayectorias, experiencias personales, temas sensibles.
+    \end{itemize}
+    \item \textbf{Grupos focales:} interacción grupal, construcción colectiva de sentido.
+    \begin{itemize}
+      \item Ideal para normas sociales, discursos compartidos, evaluación de productos.
+    \end{itemize}
+    \item \textbf{Etnografía / observación:} presencia en el campo, comportamiento natural.
+    \begin{itemize}
+      \item Ideal para prácticas cotidianas, entornos específicos.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Criterios de elección de técnica}
+  \begin{block}{Preguntas para elegir}
+    \begin{itemize}
+      \item ¿Qué tipo de dato necesito? (narrativo · numérico · conductual)
+      \item ¿Cuánta profundidad vs.\ amplitud requiero?
+      \item ¿Qué recursos y tiempo tengo disponibles?
+      \item ¿Qué tan sensible es el tema para los participantes?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% ── Descanso ───────────────────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daDark] (current page.north west) rectangle (current page.south east);
+    \draw[daMagenta, line width=1pt] ([xshift=2cm, yshift=-2cm]current page.north west) rectangle ([xshift=-2cm, yshift=2cm]current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{daPurpleLight}\large\textit{— break 10 min —}%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+% ============================================================
+%  SESIÓN 3
+% ============================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[daPurpleMid] (current page.north west) rectangle (current page.south east);
+    \node[anchor=center] at (current page.center) {%
+      \color{white}\Huge\textbf{Sesión 3}%
+    };
+    \node[anchor=center, yshift=-1.2cm] at (current page.center) {%
+      \color{daMagenta}\large Diseño del estudio y muestreo%
+    };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Definir la estrategia de estudio}
+  \begin{itemize}
+    \item \textbf{Tipo de estudio:} exploratorio · descriptivo · explicativo · evaluativo
+    \item \textbf{Alcance:} transversal vs.\ longitudinal
+    \item \textbf{Unidad de análisis:} persona · hogar · organización · evento
+    \item \textbf{Población objetivo:} ¿a quiénes queremos conocer?
+  \end{itemize}
+  \vspace{0.3cm}
+  \begin{alertblock}{Regla de oro}
+    El diseño responde a la pregunta: no al revés.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Muestreo en estudios cualitativos}
+  \begin{itemize}
+    \item El objetivo no es representatividad estadística sino \alert{representatividad tipológica}.
+    \item \textbf{Criterios de selección:} relevancia · variedad · acceso
+    \item \textbf{Saturación teórica:} cuando los casos nuevos ya no agregan información nueva.
+    \item Tamaño típico: 8--20 entrevistas (depende de la homogeneidad del grupo).
+  \end{itemize}
+  \vspace{0.3cm}
+  \begin{block}{Tipos de muestreo}
+    Intencional · bola de nieve · máxima variación · casos típicos
+  \end{block}
+\end{frame}
+
+\begin{frame}{Ejercicio práctico}
+  \begin{block}{Instrucción}
+    En grupos de 3, tomen el siguiente escenario y desarrollen:
+  \end{block}
+  \vspace{0.3cm}
+  \textbf{Escenario:} Una ONG quiere saber por qué la participación en sus talleres comunitarios bajó un 40\% en el último año.
+  \vspace{0.3cm}
+  \begin{enumerate}
+    \item Formula una \textbf{pregunta de investigación} precisa.
+    \item Elige una \textbf{estrategia metodológica} y justifícala.
+    \item Define la \textbf{técnica} y los \textbf{criterios de selección} de participantes.
+    \item ¿Cuántos casos necesitarías y por qué?
+  \end{enumerate}
+\end{frame}
+
+% ── Cierre ─────────────────────────────────────────────────
+\begin{frame}{Cierre del módulo}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daMagenta}Lo que aprendimos hoy}
+      \begin{itemize}
+        \small
+        \item Traducir necesidades en preguntas investigables.
+        \item Operacionalizar conceptos.
+        \item Elegir estrategia y técnica metodológica.
+        \item Diseñar un muestreo cualitativo.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\color{daPurpleLight}Próximo módulo}
+      \begin{itemize}
+        \small
+        \item Diseño de instrumentos de medición.
+        \item Calidad en la medición.
+        \item Miércoles 13 de mayo · 6--9 PM
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{center}
+    {\color{daMagenta}\rule{6cm}{0.8pt}}\\[0.3cm]
+    {\small\color{daLightBg!70!black} Preguntas · Comentarios · Dudas}
+  \end{center}
+\end{frame}
+
+\end{document}
