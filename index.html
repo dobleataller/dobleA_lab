@@ -319,6 +319,128 @@
       min-height: 352px;
       background: #fff;
     }
+    .hero-slide--testimonials {
+      padding: 36px;
+    }
+    .hero-testimonials-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(300px, 420px);
+      gap: 32px;
+      align-items: center;
+      text-align: left;
+    }
+    .hero-testimonials-copy p {
+      max-width: 560px;
+    }
+    .hero-testimonial-chips {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-testimonial-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.84);
+      font-size: .82rem;
+      font-weight: 750;
+    }
+    .hero-testimonial-actions {
+      grid-column: 1;
+    }
+    .hero-testimonial-panel {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: grid;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero-testimonial-stage {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .hero-testimonial-window {
+      width: min(100%, 340px);
+      aspect-ratio: 4 / 5;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 28px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,.26);
+      box-shadow: 0 24px 60px rgba(8, 0, 34, .34);
+    }
+    .hero-testimonial-track {
+      height: 100%;
+      display: flex;
+      transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+      will-change: transform;
+    }
+    .hero-testimonial-frame {
+      min-width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    .hero-testimonial-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .hero-testimonial-arrow {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .hero-testimonial-arrow:hover,
+    .hero-testimonial-arrow:focus-visible {
+      background: rgba(255,255,255,.2);
+      border-color: rgba(255,255,255,.4);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .hero-testimonial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .hero-testimonial-dot {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      background: rgba(255,255,255,.3);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .hero-testimonial-dot.is-active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+    .hero-testimonial-caption {
+      color: rgba(255,255,255,.62);
+      font-size: .78rem;
+      line-height: 1.5;
+      text-align: center;
+    }
     .hero-carousel-nav {
       display: flex;
       justify-content: center;
@@ -1242,6 +1364,12 @@
       .visual-topline, .visual-frame { grid-template-columns: 1fr; }
       .insight-mini-grid { grid-template-columns: 1fr 1fr; }
       .hero-slide-grid { grid-template-columns: 1fr; }
+      .hero-testimonials-grid { grid-template-columns: 1fr; }
+      .hero-testimonial-actions,
+      .hero-testimonial-panel {
+        grid-column: auto;
+        grid-row: auto;
+      }
       .hero-slide-copy p { max-width: none; }
     }
     @media (max-width: 700px) {
@@ -1273,10 +1401,36 @@
       .hero-carousel-window { order: 1; }
       .hero-carousel-arrow[data-carousel-next] { order: 3; }
       .hero-slide { min-height: auto; padding: 28px 22px; }
+      .hero-slide--testimonials { padding: 28px 18px; }
       .hero-slide-grid { text-align: center; }
+      .hero-testimonials-grid { text-align: center; gap: 24px; }
+      .hero-testimonials-copy { order: 1; }
+      .hero-testimonial-panel { order: 2; }
+      .hero-testimonial-actions { order: 3; }
       .hero-slide-kicker,
       .hero-slide-copy .hero-slide-kicker { margin-left: auto; margin-right: auto; }
       .hero-slide-links { justify-content: center; }
+      .hero-testimonial-chips { justify-content: center; }
+      .hero-testimonial-stage {
+        grid-template-columns: 1fr;
+        gap: 0;
+        position: relative;
+      }
+      .hero-testimonial-window { width: min(100%, 300px); border-radius: 22px; }
+      .hero-testimonial-arrow {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        z-index: 3;
+        transform: translateY(-50%);
+      }
+      .hero-testimonial-arrow[data-testimonial-prev] { left: 8px; }
+      .hero-testimonial-arrow[data-testimonial-next] { right: 8px; }
+      .hero-testimonial-arrow:hover,
+      .hero-testimonial-arrow:focus-visible {
+        transform: translateY(-50%);
+      }
       .hero-media-card { min-height: 280px; }
       .hero-media-card--spotify iframe,
       .hero-media-card--pdf iframe { min-height: 300px; }
@@ -1758,7 +1912,7 @@
       <button class="hero-carousel-arrow" type="button" aria-label="Ver panel anterior" data-carousel-prev>‹</button>
       <div class="hero-carousel-window">
         <div class="hero-carousel-track" data-carousel-track>
-          <article class="hero-slide" data-hero-slide aria-label="Panel 1 de 3">
+          <article class="hero-slide" data-hero-slide aria-label="Panel 1 de 4">
             <div class="hero-slide-intro">
               <h1 class="hero-title">Cómo transformar necesidades de información en resultados que orientan decisiones</h1>
               <div class="hero-divider2"></div>
@@ -1775,7 +1929,68 @@
               </div>
             </div>
           </article>
-          <article class="hero-slide" data-hero-slide aria-label="Panel 2 de 3">
+          <article class="hero-slide hero-slide--testimonials" data-hero-slide aria-label="Panel 2 de 4">
+            <div class="hero-testimonials-grid">
+              <div class="hero-slide-copy hero-testimonials-copy">
+                <span class="hero-slide-kicker">Testimonios</span>
+                <h2>Así se vivió DobleA LAB</h2>
+                <p>Participantes de la primera edición cuentan cómo el taller les ayudó a traducir investigación, datos y metodología en herramientas aplicables para su trabajo.</p>
+              </div>
+              <div class="hero-testimonial-actions">
+                <div class="hero-testimonial-chips" aria-label="Ideas destacadas de los testimonios">
+                  <span class="hero-testimonial-chip">Experiencia muy valiosa</span>
+                  <span class="hero-testimonial-chip">Útil para la carrera profesional</span>
+                  <span class="hero-testimonial-chip">Muy recomendable</span>
+                </div>
+                <div class="hero-slide-links">
+                  <a class="hero-link-btn hero-link-btn--primary" href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer">Inscríbete a la próxima edición</a>
+                  <a class="hero-link-btn" href="materiales/testimonios-doblea-lab.pdf" target="_blank" rel="noopener noreferrer">Ver carrusel completo</a>
+                </div>
+              </div>
+              <div class="hero-testimonial-panel" data-testimonial-carousel aria-label="Carrusel de testimonios de participantes">
+                <div class="hero-testimonial-stage">
+                  <button class="hero-testimonial-arrow" type="button" aria-label="Ver testimonio anterior" data-testimonial-prev>‹</button>
+                  <div class="hero-testimonial-window">
+                    <div class="hero-testimonial-track" data-testimonial-track>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-1.png" width="960" height="1200" alt="Portada del carrusel: Así se vivió DobleA LAB, testimonios reales de participantes." loading="eager" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-2.png" width="960" height="1200" alt="Testimonio 1 de Patricio Alarcón sobre el aporte del taller para su trabajo en marketing." loading="lazy" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-3.png" width="960" height="1200" alt="Testimonio 2 de Melanie Ballesteros sobre la utilidad del taller para su carrera profesional y el sector público." loading="lazy" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-4.png" width="960" height="1200" alt="Testimonio 3 de Macarena Zuazua sobre una experiencia valiosa, clara y aplicada." loading="lazy" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-5.png" width="960" height="1200" alt="Testimonio 4 de María Cecilia Arcila sobre investigación, datos y tecnologías aplicadas a la toma de decisiones." loading="lazy" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-6.png" width="960" height="1200" alt="Testimonio 5 de Francisca Acevedo sobre la utilidad de la clase de presentación y gráficos para su trabajo." loading="lazy" decoding="async">
+                      </figure>
+                      <figure class="hero-testimonial-frame" data-testimonial-slide>
+                        <img src="img/testimonios/testimonios-doblea-7.png" width="960" height="1200" alt="Cierre del carrusel con invitación a escribir a contacto@dobleachile.cl para la próxima edición." loading="lazy" decoding="async">
+                      </figure>
+                    </div>
+                  </div>
+                  <button class="hero-testimonial-arrow" type="button" aria-label="Ver siguiente testimonio" data-testimonial-next>›</button>
+                </div>
+                <div class="hero-testimonial-dots" role="tablist" aria-label="Navegación de testimonios">
+                  <button class="hero-testimonial-dot is-active" type="button" aria-label="Ir a la portada de testimonios" aria-selected="true" data-testimonial-dot="0"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al testimonio 1" aria-selected="false" data-testimonial-dot="1"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al testimonio 2" aria-selected="false" data-testimonial-dot="2"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al testimonio 3" aria-selected="false" data-testimonial-dot="3"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al testimonio 4" aria-selected="false" data-testimonial-dot="4"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al testimonio 5" aria-selected="false" data-testimonial-dot="5"></button>
+                  <button class="hero-testimonial-dot" type="button" aria-label="Ir al cierre de testimonios" aria-selected="false" data-testimonial-dot="6"></button>
+                </div>
+                <p class="hero-testimonial-caption">Desliza los testimonios reales de la primera edición.</p>
+              </div>
+            </div>
+          </article>
+          <article class="hero-slide" data-hero-slide aria-label="Panel 3 de 4">
             <div class="hero-slide-grid">
               <div class="hero-slide-copy">
                 <h2>Podcast DobleA:</h2>
@@ -1789,7 +2004,7 @@
               </div>
             </div>
           </article>
-          <article class="hero-slide" data-hero-slide aria-label="Panel 3 de 3">
+          <article class="hero-slide" data-hero-slide aria-label="Panel 4 de 4">
             <div class="hero-slide-grid">
               <div class="hero-slide-copy">
                 <span class="hero-slide-kicker">Equipo docente</span>
@@ -1812,8 +2027,9 @@
       <button class="hero-carousel-dot is-active" type="button" aria-label="Ir al panel 1" aria-selected="true" data-carousel-dot="0"></button>
       <button class="hero-carousel-dot" type="button" aria-label="Ir al panel 2" aria-selected="false" data-carousel-dot="1"></button>
       <button class="hero-carousel-dot" type="button" aria-label="Ir al panel 3" aria-selected="false" data-carousel-dot="2"></button>
+      <button class="hero-carousel-dot" type="button" aria-label="Ir al panel 4" aria-selected="false" data-carousel-dot="3"></button>
     </div>
-    <p class="hero-carousel-status" data-carousel-status>Panel 1 de 3</p>
+    <p class="hero-carousel-status" data-carousel-status>Panel 1 de 4</p>
   </div>
   <!-- Spinner decoration -->
   <div class="spinner-icon">
@@ -2632,6 +2848,79 @@
       render(currentIndex + 1);
       startAutoRotate();
     });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        render(index);
+        startAutoRotate();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoRotate);
+    carousel.addEventListener('mouseleave', startAutoRotate);
+    carousel.addEventListener('focusin', stopAutoRotate);
+    carousel.addEventListener('focusout', startAutoRotate);
+
+    render(0);
+    startAutoRotate();
+  }());
+
+  (function initTestimonialCarousel() {
+    const carousel = document.querySelector('[data-testimonial-carousel]');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('[data-testimonial-track]');
+    const slides = Array.from(carousel.querySelectorAll('[data-testimonial-slide]'));
+    const prevBtn = carousel.querySelector('[data-testimonial-prev]');
+    const nextBtn = carousel.querySelector('[data-testimonial-next]');
+    const dots = Array.from(carousel.querySelectorAll('[data-testimonial-dot]'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!track || slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoRotate = null;
+
+    function render(index) {
+      currentIndex = (index + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+      slides.forEach((slide, slideIndex) => {
+        slide.setAttribute('aria-hidden', slideIndex === currentIndex ? 'false' : 'true');
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === currentIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    function stopAutoRotate() {
+      if (!autoRotate) return;
+      window.clearInterval(autoRotate);
+      autoRotate = null;
+    }
+
+    function startAutoRotate() {
+      if (prefersReducedMotion) return;
+      stopAutoRotate();
+      autoRotate = window.setInterval(() => render(currentIndex + 1), 4200);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        render(currentIndex - 1);
+        startAutoRotate();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        render(currentIndex + 1);
+        startAutoRotate();
+      });
+    }
 
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
