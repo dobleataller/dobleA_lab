@@ -1223,7 +1223,7 @@
     ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
     : null;
   const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
-  const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v3-20260608';
+  const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v4-20260608';
   const CURRENT_TODO_ANCHOR_TITLE = 'Correr Taller 2 al 4 de agosto de 2026';
   const SHOW_MANAGEMENT_TASK_LINKS = false;
   const MANAGEMENT_ADMIN_EMAILS = new Set([
@@ -1239,11 +1239,6 @@
   const GOOGLE_DRIVE_LOCAL_RESPONSES_PATH = `${GOOGLE_DRIVE_LOCAL_ROOT}/Inscripción DobleA LAB  (Responses).gsheet`;
   const MODULES_DRIVE_URL = 'https://drive.google.com/drive/folders/15PttPjVKjH1D3NkL8welw4kul-9iOouP';
   const MANAGEMENT_SECTIONS = [
-    {
-      key: 'captacion',
-      kicker: 'Notas',
-      title: 'Notas'
-    },
     {
       key: 'seguimiento',
       kicker: 'Taller 2',
@@ -1266,9 +1261,6 @@
     }
   ];
   const DEFAULT_MANAGEMENT_TASKS = [
-    { id: 'todo-notas-dashboard', section_key: 'captacion', title: 'Ordenar dashboard de gestión', owner: 'Pablo', detail: 'Dejar esta página como to do list clara: sin explicación interna arriba y sin links a bases de datos.', link_url: null, sort_order: 10, is_done: true },
-    { id: 'todo-notas-taller1', section_key: 'captacion', title: 'Taller 1 cerrado', owner: 'Equipo', detail: 'El Taller 1 ya pasó; sacar sus pendientes antiguos del foco principal.', link_url: null, sort_order: 20, is_done: true },
-
     { id: 'todo-taller2-fecha', section_key: 'seguimiento', title: CURRENT_TODO_ANCHOR_TITLE, owner: 'Equipo', detail: 'Mover el Taller 2 y dejarlo fechado para el martes 4 de agosto de 2026.', link_url: null, sort_order: 10, is_done: false },
     { id: 'todo-taller2-arica', section_key: 'seguimiento', title: 'M. Paz le escribe a Arica', owner: 'M. Paz', detail: 'Coordinar el contacto de Arica para el Taller 2.', link_url: null, sort_order: 20, is_done: false },
     { id: 'todo-taller2-flyer-consultores', section_key: 'seguimiento', title: 'Flyer para consultores', owner: 'Lucía / Isi / Pablo', detail: 'Preparar pieza enfocada en consultores.', link_url: null, sort_order: 30, is_done: false },
@@ -1598,31 +1590,17 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Taller 1</span>
-            <span class="agenda-what"><strong>Cerrado.</strong> Ya no está en los pendientes activos.</span>
-            <span class="agenda-meta">Hecho</span>
+            <span class="agenda-when">4 ago 2026</span>
+            <span class="agenda-what"><strong>Taller 2</strong>: fecha movida y flyers cerrados.</span>
+            <span class="agenda-meta">Deadline</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Taller 2</span>
-            <span class="agenda-what">Moverlo al <strong>4 de agosto de 2026</strong> y cerrar flyers.</span>
-            <span class="agenda-meta">Prioridad</span>
-          </div>
-          <div class="agenda-row">
-            <span class="agenda-when">Consultoras</span>
-            <span class="agenda-what">Hacer barrido y seguimiento con plazo de <strong>una semana</strong>.</span>
-            <span class="agenda-meta">En curso</span>
+            <span class="agenda-when">1 semana</span>
+            <span class="agenda-what"><strong>Expansión a consultoras</strong>: barrido y seguimiento.</span>
+            <span class="agenda-meta">Deadline</span>
           </div>
         </div>
         <div class="management-grid">
-          <article class="management-card">
-            <div class="card-kicker">Notas</div>
-            <h3>Notas</h3>
-            <p>Estado general del tablero y limpieza de pendientes antiguos.</p>
-            <div class="management-task-list" id="management-list-captacion">
-              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
-            </div>
-          </article>
-
           <article class="management-card">
             <div class="card-kicker">Taller 2</div>
             <h3>Taller 2</h3>
