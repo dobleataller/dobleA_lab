@@ -888,6 +888,8 @@
 <script>
   (function renderLocalManagementPreview() {
     const isPreview = window.location.protocol === 'file:' || new URLSearchParams(window.location.search).get('preview') === '1';
+    void isPreview;
+    return;
     if (!isPreview) return;
 
     window.__dashboardPreviewRendered = true;
@@ -945,19 +947,19 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Arquitectura</span>
-            <span class="agenda-what"><strong>Separar la oferta</strong> en dos talleres: Consultores y Analistas.</span>
-            <span class="agenda-meta">Ir a visión estratégica ↑</span>
+            <span class="agenda-when">Taller 1</span>
+            <span class="agenda-what"><strong>Cerrado.</strong> Ya no está en los pendientes activos.</span>
+            <span class="agenda-meta">Hecho</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Consultores</span>
-            <span class="agenda-what">Cerrar un taller corto de <strong>3 módulos</strong>: diagnóstico, diseño/propuesta y storyline ejecutivo.</span>
-            <span class="agenda-meta">Ir a I. To do list ↓</span>
+            <span class="agenda-when">Taller 2</span>
+            <span class="agenda-what">Moverlo al <strong>4 de agosto de 2026</strong> y cerrar flyers.</span>
+            <span class="agenda-meta">Prioridad</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Analistas</span>
-            <span class="agenda-what"><strong>Analizar con Mauricio</strong> el programa técnico: nivel, requisitos, casos y entregables.</span>
-            <span class="agenda-meta">Ir a IV. Expansión ↓</span>
+            <span class="agenda-when">Consultoras</span>
+            <span class="agenda-what">Hacer barrido y seguimiento con plazo de <strong>una semana</strong>.</span>
+            <span class="agenda-meta">En curso</span>
           </div>
         </div>
         <div class="management-grid">
@@ -1221,7 +1223,9 @@
     ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
     : null;
   const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
-  const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v1';
+  const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v3-20260608';
+  const CURRENT_TODO_ANCHOR_TITLE = 'Correr Taller 2 al 4 de agosto de 2026';
+  const SHOW_MANAGEMENT_TASK_LINKS = false;
   const MANAGEMENT_ADMIN_EMAILS = new Set([
     'p.argotetironi@gmail.com',
     'lucia.argote@dobleachile.cl',
@@ -1237,85 +1241,56 @@
   const MANAGEMENT_SECTIONS = [
     {
       key: 'captacion',
-      kicker: 'I. To do list',
-      title: 'Arquitectura y captación'
+      kicker: 'Notas',
+      title: 'Notas'
     },
     {
       key: 'seguimiento',
-      kicker: 'II. Accesos',
-      title: 'Pagos y activación'
+      kicker: 'Taller 2',
+      title: 'Taller 2'
     },
     {
       key: 'modulos',
-      kicker: 'III. Clases',
-      title: 'Materiales del taller'
+      kicker: 'Consultoras',
+      title: 'Expansión a consultoras'
     },
     {
       key: 'expansion',
-      kicker: 'IV. Expansión',
-      title: 'Mineras + B2B outreach'
+      kicker: 'Trailer',
+      title: 'Trailer'
     },
     {
       key: 'operacion',
-      kicker: 'V. Operación',
-      title: 'Logins y contenidos'
+      kicker: 'SENCE + DIPRES',
+      title: 'Certificación y postulación'
     }
   ];
   const DEFAULT_MANAGEMENT_TASKS = [
-    { id: 'seed-offer-architecture', section_key: 'captacion', title: 'Definir arquitectura de dos talleres: Consultores + Analistas', owner: 'Pablo / Mauricio', detail: 'Separar públicos, promesa, nivel técnico, precio y canal de captación. Evitar que un solo taller intente hablarle a perfiles demasiado distintos.', link_url: null, sort_order: 1, is_done: false },
-    { id: 'seed-offer-consultores', section_key: 'captacion', title: 'Taller Consultores: cerrar programa de 3 módulos', owner: 'Equipo', detail: 'Propuesta inicial: 1) diagnóstico y pregunta; 2) diseño/propuesta; 3) storyline ejecutivo y venta de hallazgos.', link_url: null, sort_order: 2, is_done: false },
-    { id: 'seed-offer-analistas', section_key: 'captacion', title: 'Taller Analistas: analizar diseño con Mauricio', owner: 'Mauricio / Pablo', detail: 'Bajar la línea técnica: workflow reproducible, análisis de datos, modelamiento, interpretación y casos. Definir requisitos de entrada y entregable final.', link_url: null, sort_order: 3, is_done: false },
-    { id: 'seed-1', section_key: 'captacion', title: 'Ordenar base de datos con inscritos + pagados', owner: 'Valentina', detail: null, link_url: PAYMENT_SHEET_URL, sort_order: 10, is_done: false },
-    { id: 'seed-2', section_key: 'captacion', title: 'Enviar emails personalizados', owner: 'Pablo / Lucia / Mauricio', detail: null, link_url: GOOGLE_DRIVE_RESPONSES_URL, sort_order: 20, is_done: false },
-    { id: 'seed-3', section_key: 'captacion', title: 'Empujar Instagram', owner: 'Equipo', detail: null, link_url: null, sort_order: 30, is_done: false },
-    { id: 'seed-4', section_key: 'captacion', title: 'Activar LinkedIn', owner: 'Todos', detail: null, link_url: null, sort_order: 40, is_done: false },
-    { id: 'seed-5', section_key: 'captacion', title: 'Follow up con Pato Navia', owner: 'Redes de cada uno', detail: null, link_url: null, sort_order: 50, is_done: false },
-    { id: 'seed-6', section_key: 'captacion', title: 'Mantener captación activa para próxima cohorte', owner: 'Equipo', detail: 'Aunque ya arrancamos la cohorte actual, seguir empujando inscripciones para la siguiente edición — emails, redes, referidos.', link_url: null, sort_order: 60, is_done: false },
-    // Nuevas tareas — segunda edición
-    { id: 'seed-cap-segundo-taller', section_key: 'captacion', title: 'Segundo taller: validar si hay demanda', owner: 'Equipo', detail: 'Sondear demanda para una segunda edición antes de fijar fecha: lista de espera, referidos, LinkedIn, respuestas del formulario y conversaciones directas.', link_url: null, sort_order: 61, is_done: false },
-    { id: 'seed-cap-publicidad', section_key: 'captacion', title: 'Decidir publicidad para segunda edición', owner: 'Equipo', detail: 'Evaluar si conviene pauta pagada u orgánica; definir canal, presupuesto y criterio mínimo de demanda.', link_url: null, sort_order: 62, is_done: false },
-    { id: 'seed-cap-sondeo-bbdd', section_key: 'captacion', title: 'Mandar sondeo a la base para medir interés', owner: 'Equipo', detail: 'Mensaje corto a la base de datos para estimar demanda real por una segunda edición.', link_url: GOOGLE_DRIVE_RESPONSES_URL, sort_order: 63, is_done: false },
-    { id: 'seed-7', section_key: 'seguimiento', title: 'Confirmar accesos de los 8 pagados', owner: 'Clave', detail: 'Revisar que las 8 personas pagadas tengan invitación aceptada o acceso activo al hub.', link_url: PAYMENT_SHEET_URL, sort_order: 70, is_done: false },
-    // Notas reunión 20 abr — Info para inscritas pagadas
-    { id: 'seed-s1', section_key: 'seguimiento', title: 'Abrir chat con dudas para inscritas pagadas', owner: 'Equipo', detail: 'Canal directo para que las pagadas pregunten antes del taller.', link_url: null, sort_order: 71, is_done: false },
-    { id: 'seed-s2', section_key: 'seguimiento', title: '"Algo que quieras saber" — recoger inputs de pagadas', owner: 'Equipo', detail: 'Encuesta corta a las 8 pagadas para incluir sus temas en el taller.', link_url: null, sort_order: 72, is_done: false },
-    { id: 'seed-s3', section_key: 'seguimiento', title: 'Encuesta a empresas', owner: 'Equipo', detail: 'Instrumento para sondear necesidades del lado empresa.', link_url: null, sort_order: 73, is_done: false },
-    { id: 'seed-s4', section_key: 'seguimiento', title: 'Definir estructura de la página: clases y dónde van', owner: 'Pablo', detail: null, link_url: null, sort_order: 74, is_done: false },
+    { id: 'todo-notas-dashboard', section_key: 'captacion', title: 'Ordenar dashboard de gestión', owner: 'Pablo', detail: 'Dejar esta página como to do list clara: sin explicación interna arriba y sin links a bases de datos.', link_url: null, sort_order: 10, is_done: true },
+    { id: 'todo-notas-taller1', section_key: 'captacion', title: 'Taller 1 cerrado', owner: 'Equipo', detail: 'El Taller 1 ya pasó; sacar sus pendientes antiguos del foco principal.', link_url: null, sort_order: 20, is_done: true },
 
-    // Notas reunión 20 abr — Clases (materiales + formato)
-    { id: 'seed-c0', section_key: 'modulos', title: 'Terminar Módulo 1 (slides + caso + materiales)', owner: 'Isidora · Lucía · Pablo', detail: 'Clase 1 lista — slides, caso MELI, clips de video y materiales integrados.', link_url: MODULES_DRIVE_URL, sort_order: 5, is_done: true },
-    { id: 'seed-c-roadmap', section_key: 'modulos', title: 'Clase 1, Módulo 1: hacer roadmap de todo el taller', owner: 'Pablo', detail: null, link_url: null, sort_order: 6, is_done: true },
-    { id: 'seed-c-foco2', section_key: 'modulos', title: 'Clase 2 / Módulo 2 (Max-Diff + Conjoint)', owner: 'Pablo · Lucía · Isidora', detail: 'Clase dictada el 13 may. Capturar aprendizajes, preguntas y mejoras para la evaluación final.', link_url: MODULES_DRIVE_URL, sort_order: 7, is_done: true },
-    { id: 'seed-c-clase3vf', section_key: 'modulos', title: 'Clase 3 vf', owner: null, detail: null, link_url: 'https://drive.google.com/drive/folders/1CM5APAy9NuNY_EahO7_FDUSqnmiFDqIF', sort_order: 8, is_done: false },
-    { id: 'seed-c1', section_key: 'modulos', title: 'Formatear slides de las clases siguientes', owner: 'Pablo', detail: 'Clase 1 lista. Pendiente formato de Clase 2 (en curso) y resto del taller.', link_url: MODULES_DRIVE_URL, sort_order: 80, is_done: false },
-    { id: 'seed-c2', section_key: 'modulos', title: 'Dinámica Clase 1: 50 min por módulo, 2 breaks, casos reales', owner: 'Lucía / Isi', detail: 'Estructura: 3 módulos de 50 min + breaks. Trabajar con casos reales. Framing: Clase 1 se ubica en el momento previo a ganar la propuesta → enseñar a GANARSE propuestas de investigación.', link_url: null, sort_order: 81, is_done: true },
-    { id: 'seed-c3', section_key: 'modulos', title: 'Profundizar caso MELI (bueno vs malo)', owner: 'Equipo', detail: 'Comparar un caso que funcionó vs uno que falló. Puntos: externalización excesiva, costos de reunión, mal uso de AI.', link_url: null, sort_order: 82, is_done: true },
-    { id: 'seed-c4', section_key: 'modulos', title: 'Conseguir clips de video MELI', owner: 'Equipo', detail: 'Material de apoyo para los casos reales.', link_url: null, sort_order: 83, is_done: true },
-    { id: 'seed-c5', section_key: 'modulos', title: 'Configurar Zoom Doble A', owner: null, detail: null, link_url: null, sort_order: 84, is_done: false },
-    { id: 'seed-c6', section_key: 'modulos', title: 'Definir formato webinar', owner: null, detail: null, link_url: null, sort_order: 85, is_done: false },
-    { id: 'seed-c7', section_key: 'modulos', title: 'Preparar herramientas para clases', owner: null, detail: null, link_url: null, sort_order: 86, is_done: false },
-    { id: 'seed-c8', section_key: 'modulos', title: 'Grabar clases', owner: null, detail: null, link_url: null, sort_order: 87, is_done: false },
-    { id: 'seed-c9', section_key: 'modulos', title: 'Editar archivos de clases en Google Drive', owner: 'Todos', detail: null, link_url: MODULES_DRIVE_URL, sort_order: 88, is_done: false },
-    { id: 'seed-c10', section_key: 'modulos', title: 'Base de datos de ejemplo para Clase 2 (Max-Diff + Conjoint)', owner: 'Pablo', detail: 'Preparar 2 bases anonimizadas desde Data Clase 2/. Sin referencia al cliente MELI, cambiar frases/atributos para copyright. Mantener estructura wide para enseñar reshape long.', link_url: null, sort_order: 89, is_done: false },
-    { id: 'seed-c-eval-taller1', section_key: 'modulos', title: 'Evaluar Taller 1 al cierre de todos los módulos', owner: 'Equipo', detail: 'Mandar encuesta de evaluación cuando estén dictados todos los módulos. Medir cada módulo, formato, ritmo, utilidad y mejoras para una segunda edición.', link_url: null, sort_order: 90, is_done: false },
+    { id: 'todo-taller2-fecha', section_key: 'seguimiento', title: CURRENT_TODO_ANCHOR_TITLE, owner: 'Equipo', detail: 'Mover el Taller 2 y dejarlo fechado para el martes 4 de agosto de 2026.', link_url: null, sort_order: 10, is_done: false },
+    { id: 'todo-taller2-arica', section_key: 'seguimiento', title: 'M. Paz le escribe a Arica', owner: 'M. Paz', detail: 'Coordinar el contacto de Arica para el Taller 2.', link_url: null, sort_order: 20, is_done: false },
+    { id: 'todo-taller2-flyer-consultores', section_key: 'seguimiento', title: 'Flyer para consultores', owner: 'Lucía / Isi / Pablo', detail: 'Preparar pieza enfocada en consultores.', link_url: null, sort_order: 30, is_done: false },
+    { id: 'todo-taller2-flyer-egresados', section_key: 'seguimiento', title: 'Flyer para recién egresados', owner: 'Lucía / Isi / Pablo', detail: 'Preparar pieza enfocada en recién egresados.', link_url: null, sort_order: 40, is_done: false },
 
-    // Notas reunión 20 abr — Expansión a empresas
-    { id: 'seed-9', section_key: 'expansion', title: 'Validar mensajes separados: Consultores vs Analistas', owner: 'Equipo', detail: 'Probar dos promesas distintas en LinkedIn, base actual y conversaciones con empresas antes de cerrar fechas.', link_url: null, sort_order: 1, is_done: false },
-    { id: 'seed-e-architecture', section_key: 'expansion', title: 'Conectar B2B con los dos talleres', owner: 'Mauricio / Pablo', detail: 'Empresas puede entrar por una versión ejecutiva para consultores internos o por una línea técnica para analistas. Definir cuál se vende primero.', link_url: null, sort_order: 2, is_done: false },
-    { id: 'seed-e1', section_key: 'expansion', title: 'Brochure empresas', owner: 'Mauricio', detail: 'Oferta B2B formal, en paralelo al taller.', link_url: null, sort_order: 91, is_done: false },
-    { id: 'seed-e2', section_key: 'expansion', title: 'Conversaciones informales con empresas', owner: 'Mauricio', detail: 'Sondear interés antes del pitch formal.', link_url: null, sort_order: 92, is_done: false },
-    { id: 'seed-e3', section_key: 'expansion', title: 'Armar oferta empresas en paralelo al taller', owner: 'Mauricio', detail: null, link_url: null, sort_order: 93, is_done: false },
-    { id: 'seed-e4', section_key: 'expansion', title: '🎯 Visión estratégica: empaquetar el taller en un producto', owner: 'Pablo / Mauricio', detail: 'Convertir el contenido del taller (módulos, casos, ejercicios, marco metodológico) en un producto empaquetable: paper, libro, publicación, curso. Sirve como vehículo de marca, producto en sí, y conecta captación + clases + empresas en una visión a 12-24 meses.', link_url: null, sort_order: 95, is_done: false },
-    { id: 'seed-e6', section_key: 'expansion', title: '📅 Reunión con María Arcila — lun 11 may · 14h CL / 11h LA', owner: 'Pablo', detail: 'Conversación estratégica. Llegar con la visión del producto empaquetado (paper / libro / curso) y posibles caminos de colaboración.', link_url: null, sort_order: 90, is_done: false },
-    { id: 'seed-e7', section_key: 'expansion', title: '📅 Reunión con Tania Hutt — jue 28 may', owner: 'Pablo / Mauricio', detail: 'Expansión a empresas: revisar mineras, B2B outreach, oferta empresas y próximos pasos con Tania.', link_url: null, sort_order: 94, is_done: false },
-    { id: 'seed-e-descarga', section_key: 'expansion', title: 'Discutir: ofrecer descarga pagada de videos y slides', owner: 'Equipo', detail: 'Definir si abrimos la opción de descargar materiales (slides + grabaciones) como producto pagado independiente del taller en vivo.', link_url: null, sort_order: 96, is_done: false },
-    { id: 'seed-e-reunion28may', section_key: 'expansion', title: 'Preparar reunión con Tania: plan empresas', owner: 'Pablo / Mauricio', detail: 'Llevar hipótesis de demanda B2B, brochure, lista de empresas/mineras y preguntas para validar el siguiente paso.', link_url: null, sort_order: 97, is_done: false },
+    { id: 'todo-consultoras-criteria', section_key: 'modulos', title: 'Criteria: esperar respuesta', owner: 'Equipo', detail: 'A la espera de Criteria para definir siguiente paso.', link_url: null, sort_order: 10, is_done: false },
+    { id: 'todo-consultoras-datavoz', section_key: 'modulos', title: 'Datavoz: coordinar vía Fábrega', owner: 'Pablo', detail: 'Abrir contacto con Datavoz por Fábrega.', link_url: null, sort_order: 20, is_done: false },
+    { id: 'todo-consultoras-feedback', section_key: 'modulos', title: 'Feedback', owner: 'Mauricio', detail: null, link_url: null, sort_order: 30, is_done: false },
+    { id: 'todo-consultoras-activa', section_key: 'modulos', title: 'Activa', owner: 'Lucía', detail: null, link_url: null, sort_order: 40, is_done: false },
+    { id: 'todo-consultoras-paola', section_key: 'modulos', title: 'Paola Assael', owner: 'Mauricio', detail: null, link_url: null, sort_order: 50, is_done: false },
+    { id: 'todo-consultoras-udd', section_key: 'modulos', title: 'Panel UDD', owner: 'Pablo', detail: null, link_url: null, sort_order: 60, is_done: false },
+    { id: 'todo-consultoras-netquest', section_key: 'modulos', title: 'Netquest', owner: 'Lucía', detail: null, link_url: null, sort_order: 70, is_done: false },
+    { id: 'todo-consultoras-guell', section_key: 'modulos', title: 'Tania: Guell', owner: 'Fundación', detail: null, link_url: null, sort_order: 80, is_done: false },
+    { id: 'todo-consultoras-barridos', section_key: 'modulos', title: 'Barridos de consultores', owner: 'M. Paz / Vale', detail: 'Hacer barrido de consultores para expansión.', link_url: null, sort_order: 90, is_done: false },
+    { id: 'todo-consultoras-plazo', section_key: 'modulos', title: 'Cerrar barrido en una semana', owner: 'Equipo', detail: 'Plazo de seguimiento para expansión a consultoras.', link_url: null, sort_order: 100, is_done: false },
 
-    { id: 'seed-10', section_key: 'operacion', title: 'Dar login a quienes pagaron', owner: null, detail: '✓ 8/8 con login: Cristobal Castro, Francisca Acevedo, Melanie Ballesteros, Carola Zurob, Macarena Zuazua, Patricio Alarcón, Cristian Carreño, Francisca Perez. Pendiente: confirmar que todos completaron el signup.', link_url: '#admin-section', sort_order: 100, is_done: true },
-    { id: 'seed-11', section_key: 'operacion', title: 'Subir grabaciones y archivos de práctica faltantes', owner: null, detail: 'Slides de clases 1 a 4 ya quedan en el hub. Faltan grabaciones de clases 3 y 4, workflow/archivos de práctica y encuesta final.', link_url: '#admin-section', sort_order: 110, is_done: false },
-    { id: 'seed-op-certificacion', section_key: 'operacion', title: 'Averiguar cómo obtener certificación oficial para dar capacitación', owner: null, detail: 'Investigar requisitos para emitir certificaciones oficiales del taller.', link_url: null, sort_order: 120, is_done: false },
-    { id: 'seed-op-gastos', section_key: 'operacion', title: 'Mandar gastos a María Paz (copia a Lucía)', owner: 'Pablo', detail: null, link_url: null, sort_order: 130, is_done: false },
-    { id: 'seed-op-bienvenida', section_key: 'operacion', title: 'Email de bienvenida al equipo', owner: 'Pablo', detail: null, link_url: null, sort_order: 145, is_done: false }
+    { id: 'todo-trailer-8min', section_key: 'expansion', title: 'Trailer Doble A de 8 minutos', owner: 'Doble A', detail: 'Armar trailer de 8 minutos para Doble A.', link_url: null, sort_order: 10, is_done: false },
+    { id: 'todo-trailer-pagina', section_key: 'expansion', title: 'Poner trailer en la página', owner: 'Pablo', detail: 'Subir el trailer al sitio cuando esté listo.', link_url: null, sort_order: 20, is_done: false },
+    { id: 'todo-trailer-ministerios', section_key: 'expansion', title: 'Ministerio de Ciencias y Segpres', owner: 'Pablo', detail: 'Revisar salida o contacto asociado al trailer.', link_url: null, sort_order: 30, is_done: false },
+
+    { id: 'todo-sence-certificado', section_key: 'operacion', title: 'Certificado SENCE', owner: 'Doble A', detail: 'Avanzar la línea de certificación SENCE.', link_url: null, sort_order: 10, is_done: false },
+    { id: 'todo-dipres-detalles', section_key: 'operacion', title: 'Postulación DIPRES: revisar detalles', owner: 'Mauricio', detail: 'Revisar detalles de la postulación DIPRES.', link_url: null, sort_order: 20, is_done: false }
   ];
   const PREVIEW_PAID_USERS = [
     { id: 'preview-paid-1', full_name: 'Cristóbal Castro Baeza', email: 'cristobal.castro2@mail.udp.cl', phone: null, level: 'Intermedio', created_at: '2026-04-10T12:00:00Z', is_paid: true, is_admin: false, status_label: 'Pagado' },
@@ -1448,6 +1423,12 @@
       .filter((task) => shouldKeepManagementTask(task));
     writeLocalManagementTasks(seedTasks);
     return seedTasks;
+  }
+
+  function hasCurrentTodoPlan(tasks) {
+    if (!Array.isArray(tasks)) return false;
+    const anchor = normalizeEmail(CURRENT_TODO_ANCHOR_TITLE);
+    return tasks.some((task) => normalizeEmail(task?.title) === anchor);
   }
 
   async function waitForSession() {
@@ -1585,12 +1566,11 @@
     const main = document.getElementById('main-content');
     main.innerHTML = `
       <div class="page-header">
-        <h1>${isAdmin ? 'Management — Dashboard Doble A Lab' : 'Área de miembros'}</h1>
-        <p>Hola, <strong style="color:#c4b5fd">${currentProfile.full_name || currentUser.email}</strong> — ${isAdmin ? 'aquí tienes el tablero interno con prioridades, accesos y operación clave del taller.' : 'aquí encontrarás todos los materiales del taller.'}</p>
+        <h1>${isAdmin ? 'To do Doble A Lab' : 'Área de miembros'}</h1>
+        <p>Hola, <strong style="color:#c4b5fd">${currentProfile.full_name || currentUser.email}</strong> — ${isAdmin ? 'Taller 1 cerrado. Este es el tablero activo para ordenar próximos pasos.' : 'aquí encontrarás todos los materiales del taller.'}</p>
         ${isAdmin ? '<div class="admin-note">Solo visible para cuentas con acceso de administración</div>' : ''}
       </div>
 
-      ${isAdmin ? strategySectionHTML() : ''}
       ${isAdmin ? managementDashboardHTML() : ''}
 
       <section id="materials-section">
@@ -1618,116 +1598,62 @@
         <p class="section-label">Gestión interna</p>
         <div class="management-alert agenda">
           <div class="agenda-row">
-            <span class="agenda-when">Arquitectura</span>
-            <span class="agenda-what"><strong>Separar la oferta</strong> en dos talleres: Consultores y Analistas.</span>
-            <span class="agenda-meta">Ir a visión estratégica ↑</span>
+            <span class="agenda-when">Taller 1</span>
+            <span class="agenda-what"><strong>Cerrado.</strong> Ya no está en los pendientes activos.</span>
+            <span class="agenda-meta">Hecho</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Consultores</span>
-            <span class="agenda-what">Cerrar un taller corto de <strong>3 módulos</strong>: diagnóstico, diseño/propuesta y storyline ejecutivo.</span>
-            <span class="agenda-meta">Ir a I. To do list ↓</span>
+            <span class="agenda-when">Taller 2</span>
+            <span class="agenda-what">Moverlo al <strong>4 de agosto de 2026</strong> y cerrar flyers.</span>
+            <span class="agenda-meta">Prioridad</span>
           </div>
           <div class="agenda-row">
-            <span class="agenda-when">Analistas</span>
-            <span class="agenda-what"><strong>Analizar con Mauricio</strong> el programa técnico: nivel, requisitos, casos y entregables.</span>
-            <span class="agenda-meta">Ir a IV. Expansión ↓</span>
+            <span class="agenda-when">Consultoras</span>
+            <span class="agenda-what">Hacer barrido y seguimiento con plazo de <strong>una semana</strong>.</span>
+            <span class="agenda-meta">En curso</span>
           </div>
         </div>
         <div class="management-grid">
-          <article class="management-card wide">
-            <div class="card-kicker">I. To do list</div>
-            <h3>Arquitectura y captación</h3>
-            <p>Frentes activos para ordenar la nueva oferta en dos talleres y medir demanda por segmento antes de fijar fecha.</p>
-            <div class="quick-links">
-              <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
-              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
-              <a class="quick-link" href="#drive-section">Ver fuentes conectadas</a>
-            </div>
+          <article class="management-card">
+            <div class="card-kicker">Notas</div>
+            <h3>Notas</h3>
+            <p>Estado general del tablero y limpieza de pendientes antiguos.</p>
             <div class="management-task-list" id="management-list-captacion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
-            <div id="seguimiento-pendientes"></div>
           </article>
 
           <article class="management-card">
-            <div class="card-kicker">II. Accesos</div>
-            <h3>Pagos y activación</h3>
-            <p>La lista de abajo se alimenta desde <code>profiles.is_paid</code> y se refresca sola cuando cambia el estado de pago.</p>
-            <div class="quick-links">
-              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir planilla inscritos + pagados</a>
-              <a class="quick-link" href="#admin-section">Dar login / activar accesos</a>
-            </div>
-            <div class="inline-note">Clave: confirmar que quienes pagaron tengan acceso activo al hub y a los materiales.</div>
+            <div class="card-kicker">Taller 2</div>
+            <h3>Taller 2</h3>
+            <p>Fecha, contacto de Arica y piezas de difusión.</p>
             <div class="management-task-list" id="management-list-seguimiento">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
           </article>
 
-          <article class="management-card wide modulos-urgent">
-            <div class="card-kicker" style="color:#ef4444;">III. Clases y evaluación</div>
-            <h3>Materiales y evaluación del Taller 1</h3>
-            <p>Cerrar todos los módulos del primer taller y dejar lista la encuesta de evaluación para medir aprendizajes, formato y mejoras para una segunda edición.</p>
-            <div class="modulos-countdown" data-start="2026-05-27" data-label="cierre del Taller 1" data-focus="Foco: todos los módulos dictados y encuesta de evaluación lista."></div>
-            <div class="quick-links">
-              <a class="quick-link" href="https://drive.google.com/drive/folders/1crMWn14mOyFi7YWpjipHcVpQOAurFVHA" target="_blank" rel="noopener noreferrer">Carpeta del taller en Drive</a>
-              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Carpeta de módulos</a>
-              <a class="quick-link" href="#materials-section">Revisar materiales publicados</a>
-            </div>
-            <table class="modulos-status-table">
-              <thead>
-                <tr><th>#</th><th>Fecha</th><th>Título</th><th>Estado</th><th>Responsables</th></tr>
-              </thead>
-              <tbody>
-                <tr class="mod-row" data-date="2026-05-06">
-                  <td>1</td><td>6 may</td>
-                  <td>De la inquietud del cliente al diseño de estudio</td>
-                  <td><span class="mod-badge mod-done">✅ Dictada</span><div class="mod-note">Clase 1 dictada el 6 may. Slides, caso MELI y materiales integrados.</div></td>
-                  <td>Isidora · Lucía · Pablo</td>
-                </tr>
-                <tr class="mod-row" data-date="2026-05-13">
-                  <td>2</td><td>13 may</td>
-                  <td>Diseño de instrumentos y calidad en la medición (Max-Diff + Conjoint)</td>
-                  <td><span class="mod-badge mod-done">✅ Dictada</span><div class="mod-note">Recoger aprendizajes del módulo para la evaluación final.</div></td>
-                  <td>Pablo · Lucía · Isidora</td>
-                </tr>
-                <tr class="mod-row" data-date="2026-05-19">
-                  <td>3</td><td>19 may</td>
-                  <td>Producción y análisis de datos</td>
-                  <td><span class="mod-badge mod-done">✅ Dictada</span><div class="mod-note">Incluir preguntas específicas del módulo en la evaluación.</div></td>
-                  <td>Pablo · Mauricio · Tania</td>
-                </tr>
-                <tr class="mod-row mod-urgent" data-date="2026-05-27">
-                  <td>4</td><td>27 may</td>
-                  <td>Interpretación de resultados y toma de decisiones</td>
-                  <td><span class="mod-badge mod-progress">🟡 Cierre próximo</span><div class="mod-note">Clase final del Taller 1. Dejar encuesta de evaluación lista para enviar.</div></td>
-                  <td>Mauricio · Lucía</td>
-                </tr>
-              </tbody>
-            </table>
+          <article class="management-card wide">
+            <div class="card-kicker">Consultoras</div>
+            <h3>Expansión a consultoras</h3>
+            <p>Barrido de contactos y seguimiento con plazo de una semana.</p>
             <div class="management-task-list" id="management-list-modulos">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
           </article>
 
           <article class="management-card">
-            <div class="card-kicker">IV. Expansión</div>
-            <h3>Empresas + nuevos talleres</h3>
-            <p>Conectar la expansión B2B con la nueva arquitectura: Consultores como producto ejecutivo y Analistas como línea técnica a trabajar con Mauricio.</p>
-            <div id="b2b-stats" class="b2b-stats"></div>
+            <div class="card-kicker">Trailer</div>
+            <h3>Trailer</h3>
+            <p>Producción, publicación y salida institucional.</p>
             <div class="management-task-list" id="management-list-expansion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
           </article>
 
-          <article class="management-card wide">
-            <div class="card-kicker">V. Operación</div>
-            <h3>Logins y contenidos</h3>
-            <p>Resolver accesos y carga de contenido sin que quede nada suelto.</p>
-            <div class="quick-links">
-              <a class="quick-link" href="#admin-section">Ir al panel admin</a>
-              <a class="quick-link" href="#materials-section">Revisar materiales</a>
-              <a class="quick-link" href="#drive-section">Ir a Google Drive</a>
-            </div>
+          <article class="management-card">
+            <div class="card-kicker">SENCE + DIPRES</div>
+            <h3>Certificación y postulación</h3>
+            <p>Certificado SENCE y revisión de la postulación DIPRES.</p>
             <div class="management-task-list" id="management-list-operacion">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
@@ -1766,102 +1692,16 @@
             </div>
           </article>
         </div>
-      </section>
-
-      ${googleDriveSectionHTML({ preview: PREVIEW_MODE })}`;
+      </section>`;
   }
 
   function strategySectionHTML() {
-    return `
-      <section id="strategy-section">
-        <p class="section-label">Arquitectura de oferta</p>
-        <div class="strategy-grid">
-          <article class="strategy-card featured">
-            <div class="card-kicker">Decisión base</div>
-            <h3>Dos talleres, dos públicos</h3>
-            <p>Separar la oferta en <strong>Taller Consultores</strong> y <strong>Taller Analistas</strong>. La idea ordena promesa, nivel técnico, precio y captación: no vender un solo taller que intenta resolver necesidades distintas.</p>
-          </article>
-          <article class="strategy-card">
-            <div class="card-kicker">Taller 1</div>
-            <h3>Consultores — 3 módulos</h3>
-            <p>Producto ejecutivo para quienes venden, dirigen o traducen investigación aplicada frente a clientes. Debe ser corto, práctico y con lenguaje de negocio.</p>
-            <div class="mini-module-list">
-              <div class="mini-module"><strong>1. Diagnóstico y pregunta</strong><span>De la necesidad del cliente a una pregunta investigable y vendible.</span></div>
-              <div class="mini-module"><strong>2. Diseño y propuesta</strong><span>Trade-offs metodológicos, alcance, tiempos, costos y entregables.</span></div>
-              <div class="mini-module"><strong>3. Storyline ejecutivo</strong><span>Convertir hallazgos en recomendaciones, decisión y siguiente paso.</span></div>
-            </div>
-          </article>
-          <article class="strategy-card">
-            <div class="card-kicker">Taller 2</div>
-            <h3>Analistas — analizar con Mauricio</h3>
-            <p>Línea más técnica para quienes ejecutan análisis: workflow reproducible, datos, modelamiento e interpretación. Próximo paso: bajarlo con Mauricio y decidir nivel, requisitos y casos.</p>
-          </article>
-          <article class="strategy-card">
-            <div class="card-kicker">Go-to-market</div>
-            <h3>Validar demanda por segmento</h3>
-            <p>Probar mensajes separados para consultores y analistas. Medir señales antes de fijar fecha: base actual, LinkedIn, referidos, empresas y conversaciones directas.</p>
-          </article>
-        </div>
-      </section>`;
+    return '';
   }
 
   function googleDriveSectionHTML({ preview = false } = {}) {
-    const localNote = preview
-      ? `<div class="inline-note">Unidad montada en este Mac: <code>${escapeHTML(GOOGLE_DRIVE_LOCAL_ROOT)}</code><br>Planilla local detectada: <code>${escapeHTML(GOOGLE_DRIVE_LOCAL_RESPONSES_PATH)}</code></div>`
-      : '<div class="inline-note">Google Drive ya quedó dentro del flujo de management para revisar respuestas del formulario, pagos y materiales del taller.</div>';
-
-    return `
-      <section id="drive-section">
-        <p class="section-label">Google Drive</p>
-        <div class="pulse-grid">
-          <article class="pulse-card">
-            <h3>Conexión activa</h3>
-            <p>${preview ? 'Google Drive ya quedó montado en este equipo, así que desde esta vista local tenemos una referencia directa a respuestas, bases y materiales.' : 'Google Drive concentra respuestas del formulario, base de pagos y materiales de módulos para el equipo.'}</p>
-            <div class="quick-links">
-              <a class="quick-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas del formulario</a>
-              <a class="quick-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir inscritos + pagados</a>
-              <a class="quick-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta de módulos</a>
-            </div>
-            ${localNote}
-          </article>
-
-          <article class="pulse-card">
-            <h3>Fuentes clave</h3>
-            <div class="management-task-list">
-              <div class="task-item">
-                <div class="task-topline">
-                  <div class="task-copy">
-                    <div class="task-title">Respuestas del formulario</div>
-                    <div class="task-detail">Acá entran los nuevos inscritos al taller y desde esta planilla los podemos rastrear.</div>
-                  </div>
-                  <div class="task-meta"><span class="task-chip">Google Sheets</span></div>
-                </div>
-                <a class="task-link" href="${GOOGLE_DRIVE_RESPONSES_URL}" target="_blank" rel="noopener noreferrer">Abrir respuestas</a>
-              </div>
-              <div class="task-item">
-                <div class="task-topline">
-                  <div class="task-copy">
-                    <div class="task-title">Base de inscritos + pagados</div>
-                    <div class="task-detail">Sirve para ordenar pagos, accesos y señales para una segunda edición.</div>
-                  </div>
-                  <div class="task-meta"><span class="task-chip">Pagos</span></div>
-                </div>
-                <a class="task-link" href="${PAYMENT_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir base</a>
-              </div>
-              <div class="task-item">
-                <div class="task-topline">
-                  <div class="task-copy">
-                    <div class="task-title">Carpeta de módulos</div>
-                    <div class="task-detail">Sigue siendo la fuente central para editar materiales antes de subirlos al sitio.</div>
-                  </div>
-                  <div class="task-meta"><span class="task-chip">Materiales</span></div>
-                </div>
-                <a class="task-link" href="${MODULES_DRIVE_URL}" target="_blank" rel="noopener noreferrer">Abrir carpeta</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>`;
+    void preview;
+    return '';
   }
 
   // ── Materials ─────────────────────────────────────────────────────────
@@ -1943,10 +1783,7 @@
                 <label>Detalle (opcional)</label>
                 <textarea id="task-detail" placeholder="Contexto, siguiente paso, notas, etc."></textarea>
               </div>
-              <div class="upload-field">
-                <label>Link (opcional)</label>
-                <input type="text" id="task-link" placeholder="https://..." />
-              </div>
+              <input type="hidden" id="task-link" value="" />
               <div class="upload-field">
                 <label>Orden</label>
                 <input type="number" id="task-order" value="10" min="0" step="10" />
@@ -2098,16 +1935,16 @@
     const editorMsgEl = document.getElementById('task-editor-msg');
 
     if (PREVIEW_MODE) {
-      managementTasksMode = 'preview';
-      managementTasksAvailable = false;
-      managementTasksCache = [];
-      renderManagementTasks(DEFAULT_MANAGEMENT_TASKS, { editable: false });
+      managementTasksMode = 'local';
+      managementTasksAvailable = true;
+      managementTasksCache = localManagementTasks();
+      renderManagementTasks(managementTasksCache, { editable: true });
       if (statusEl) {
         statusEl.className = 'management-alert';
-        statusEl.textContent = 'Vista previa local del management. Aquí ya puedes revisar la estructura; la edición compartida se activa en el sitio publicado con Supabase.';
+        statusEl.textContent = 'Vista previa local del to do. Los checks y ediciones se guardan solo en este navegador.';
       }
       if (editorStatusEl) {
-        editorStatusEl.textContent = 'Vista previa local: este formulario muestra cómo se editará la agenda, pero no guarda cambios desde archivo local.';
+        editorStatusEl.textContent = 'Vista previa local: puedes editar esta agenda en este navegador.';
       }
       if (editorMsgEl) {
         editorMsgEl.style.display = 'none';
@@ -2132,6 +1969,25 @@
       }
       if (editorStatusEl) {
         editorStatusEl.textContent = 'Edición local activa en este navegador. Puedes crear, editar y marcar tareas aunque la tabla compartida aún no exista.';
+      }
+      if (editorMsgEl) {
+        editorMsgEl.style.display = 'none';
+      }
+      updateTaskEditorAvailability();
+      return;
+    }
+
+    if (!hasCurrentTodoPlan(tasks)) {
+      managementTasksMode = 'local';
+      managementTasksAvailable = true;
+      managementTasksCache = localManagementTasks();
+      renderManagementTasks(managementTasksCache, { editable: true });
+      if (statusEl) {
+        statusEl.className = 'management-alert';
+        statusEl.textContent = 'Agenda actualizada mostrada desde esta página. La tabla compartida tiene una versión anterior; mientras tanto los cambios se guardan en este navegador.';
+      }
+      if (editorStatusEl) {
+        editorStatusEl.textContent = 'Agenda local activa para esta versión. Puedes editar tareas y checks en este navegador.';
       }
       if (editorMsgEl) {
         editorMsgEl.style.display = 'none';
@@ -2182,7 +2038,7 @@
     const followupHTML = shouldShowFollowupContacts(task)
       ? paidFollowupListHTML(getFollowupPaidUsers())
       : '';
-    const linkHTML = linkUrl
+    const linkHTML = SHOW_MANAGEMENT_TASK_LINKS && linkUrl
       ? `<a class="task-link" href="${escapeAttribute(linkUrl)}" target="${linkUrl.startsWith('#') ? '_self' : '_blank'}" rel="noopener noreferrer">Abrir enlace</a>`
       : '';
 
