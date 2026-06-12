@@ -956,6 +956,11 @@
             <span class="agenda-meta">Prioridad</span>
           </div>
           <div class="agenda-row">
+            <span class="agenda-when">Webinar</span>
+            <span class="agenda-what">Fecha potencial: <strong>8 de julio de 2026</strong>.</span>
+            <span class="agenda-meta">Potencial</span>
+          </div>
+          <div class="agenda-row">
             <span class="agenda-when">Consultoras</span>
             <span class="agenda-what">Hacer barrido y seguimiento con plazo de <strong>una semana</strong>.</span>
             <span class="agenda-meta">En curso</span>
@@ -980,6 +985,7 @@
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Empujar Instagram</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Activar LinkedIn</div></div><div class="task-meta"><span class="task-chip">Todos</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Segundo taller: validar si hay demanda</div><div class="task-detail">Revisar señales de interés para una segunda edición antes de fijar fecha: lista de espera, referidos, LinkedIn, respuestas del formulario y conversaciones directas.</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
+              <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Webinar: fecha potencial 8 de julio de 2026</div><div class="task-detail">Dejar el webinar como hito potencial y definir formato, convocatoria y pieza de difusión.</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Decidir publicidad para segunda edición</div><div class="task-detail">Definir si se prueba pauta pagada u orgánica, con presupuesto, canal y criterio mínimo de demanda.</div></div><div class="task-meta"><span class="task-chip">Equipo</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
               <div class="task-item"><div class="task-topline"><div class="task-copy"><div class="task-title">Follow up con Pato Navia</div></div><div class="task-meta"><span class="task-chip">Redes de cada uno</span><label class="task-status"><input class="task-check" type="checkbox" onchange="localPreviewToggleTask(this)" />Hecha</label></div></div></div>
             </div>
@@ -1186,7 +1192,8 @@
     : null;
   const DASHBOARD_SESSION_BRIDGE_KEY = 'doblea-dashboard-session-bridge';
   const LOCAL_MANAGEMENT_TASKS_KEY = 'doblea-management-tasks-local-v4-20260608';
-  const CURRENT_TODO_ANCHOR_TITLE = 'Correr Taller 2 al 4 de agosto de 2026';
+  const CURRENT_TODO_ANCHOR_TITLE = 'Webinar: fecha potencial 8 de julio de 2026';
+  const TALLER2_TODO_TITLE = 'Correr Taller 2 al 4 de agosto de 2026';
   const SHOW_MANAGEMENT_TASK_LINKS = false;
   const MANAGEMENT_ADMIN_EMAILS = new Set([
     'p.argotetironi@gmail.com',
@@ -1207,6 +1214,11 @@
       title: 'Taller 2'
     },
     {
+      key: 'webinar',
+      kicker: 'Webinar',
+      title: 'Webinar'
+    },
+    {
       key: 'modulos',
       kicker: 'Consultoras',
       title: 'Expansión a consultoras'
@@ -1223,10 +1235,12 @@
     }
   ];
   const DEFAULT_MANAGEMENT_TASKS = [
-    { id: 'todo-taller2-fecha', section_key: 'seguimiento', title: CURRENT_TODO_ANCHOR_TITLE, owner: 'Equipo', detail: 'Mover el Taller 2 y dejarlo fechado para el martes 4 de agosto de 2026.', link_url: null, sort_order: 10, is_done: false },
+    { id: 'todo-taller2-fecha', section_key: 'seguimiento', title: TALLER2_TODO_TITLE, owner: 'Equipo', detail: 'Mover el Taller 2 y dejarlo fechado para el martes 4 de agosto de 2026.', link_url: null, sort_order: 10, is_done: false },
     { id: 'todo-taller2-arica', section_key: 'seguimiento', title: 'M. Paz le escribe a Arica', owner: 'M. Paz', detail: 'Coordinar el contacto de Arica para el Taller 2.', link_url: null, sort_order: 20, is_done: false },
     { id: 'todo-taller2-flyer-consultores', section_key: 'seguimiento', title: 'Flyer para consultores', owner: 'Lucía / Isi / Pablo', detail: 'Preparar pieza enfocada en consultores.', link_url: null, sort_order: 30, is_done: false },
     { id: 'todo-taller2-flyer-egresados', section_key: 'seguimiento', title: 'Flyer para recién egresados', owner: 'Lucía / Isi / Pablo', detail: 'Preparar pieza enfocada en recién egresados.', link_url: null, sort_order: 40, is_done: false },
+
+    { id: 'todo-webinar-fecha', section_key: 'webinar', title: CURRENT_TODO_ANCHOR_TITLE, owner: 'Equipo', detail: 'Dejar como fecha potencial el miércoles 8 de julio de 2026 y definir formato, convocatoria y pieza de difusión.', link_url: null, sort_order: 10, is_done: false },
 
     { id: 'todo-consultoras-criteria', section_key: 'modulos', title: 'Criteria: esperar respuesta', owner: 'Equipo', detail: 'A la espera de Criteria para definir siguiente paso.', link_url: null, sort_order: 10, is_done: false },
     { id: 'todo-consultoras-datavoz', section_key: 'modulos', title: 'Datavoz: coordinar vía Fábrega', owner: 'Pablo', detail: 'Abrir contacto con Datavoz por Fábrega.', link_url: null, sort_order: 20, is_done: false },
@@ -1371,10 +1385,22 @@
 
   function localManagementTasks() {
     const storedTasks = readLocalManagementTasks();
-    if (storedTasks && storedTasks.length) return storedTasks;
     const seedTasks = DEFAULT_MANAGEMENT_TASKS
       .map((task, index) => sanitizeTask(task, index))
       .filter((task) => shouldKeepManagementTask(task));
+    if (storedTasks && storedTasks.length) {
+      const storedIds = new Set(storedTasks.map((task) => String(task.id)));
+      const storedTitles = new Set(storedTasks.map((task) => normalizeEmail(task.title)));
+      const missingSeedTasks = seedTasks.filter((task) => (
+        !storedIds.has(String(task.id)) &&
+        !storedTitles.has(normalizeEmail(task.title))
+      ));
+      if (!missingSeedTasks.length) return storedTasks;
+      const mergedTasks = storedTasks.concat(missingSeedTasks)
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+      writeLocalManagementTasks(mergedTasks);
+      return mergedTasks;
+    }
     writeLocalManagementTasks(seedTasks);
     return seedTasks;
   }
@@ -1557,6 +1583,11 @@
             <span class="agenda-meta">Deadline</span>
           </div>
           <div class="agenda-row">
+            <span class="agenda-when">8 jul 2026</span>
+            <span class="agenda-what"><strong>Webinar</strong>: fecha potencial.</span>
+            <span class="agenda-meta">Potencial</span>
+          </div>
+          <div class="agenda-row">
             <span class="agenda-when">1 semana</span>
             <span class="agenda-what"><strong>Expansión a consultoras</strong>: barrido y seguimiento.</span>
             <span class="agenda-meta">Deadline</span>
@@ -1568,6 +1599,15 @@
             <h3>Taller 2</h3>
             <p>Fecha, contacto de Arica y piezas de difusión.</p>
             <div class="management-task-list" id="management-list-seguimiento">
+              <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
+            </div>
+          </article>
+
+          <article class="management-card">
+            <div class="card-kicker">Webinar</div>
+            <h3>Webinar</h3>
+            <p>Fecha potencial, formato y convocatoria.</p>
+            <div class="management-task-list" id="management-list-webinar">
               <div class="loading-screen" style="min-height:120px"><div class="spinner"></div></div>
             </div>
           </article>
