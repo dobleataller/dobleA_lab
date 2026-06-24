@@ -14,7 +14,7 @@
 
       if (!link) return;
 
-      if (link.href && link.href.indexOf('docs.google.com/forms') !== -1) {
+      if (link.href && (link.href.indexOf('docs.google.com/forms') !== -1 || link.href.indexOf('dobleachile.cl/clase-gratuita') !== -1)) {
         gtag('event', 'generate_lead', {
           event_category: 'engagement',
           event_label: link.textContent.trim() || 'Google Form CTA',
@@ -1671,7 +1671,7 @@
 <div class="promo-banner" role="region" aria-label="Anuncio clase gratuita y Taller 2">
   <span class="promo-pill">Clase gratuita</span>
   <span class="promo-text"><strong>7 de julio · 18:30 h · vía Zoom</strong> · Introducción al taller · <strong>25% de descuento</strong> si pagas antes del 15 de julio</span>
-  <a href="#clase-gratuita" class="promo-cta">Ver detalles →</a>
+  <a href="https://www.dobleachile.cl/clase-gratuita" target="_blank" rel="noopener noreferrer" class="promo-cta">Inscríbete gratis →</a>
 </div>
 
 <!-- NAV -->
@@ -2009,7 +2009,7 @@
         </div>
       </div>
       <div class="free-class-actions">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="free-class-btn">Inscríbete para recibir el link →</a>
+        <a href="https://www.dobleachile.cl/clase-gratuita" target="_blank" rel="noopener noreferrer" class="free-class-btn">Inscríbete para recibir el link →</a>
         <span class="free-class-note">Clase introductoria al Taller 2.</span>
       </div>
     </div>
