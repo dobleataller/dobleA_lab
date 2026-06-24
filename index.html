@@ -600,9 +600,9 @@
 
     /* ── CLASE GRATUITA ─────────────────────────────────── */
     #clase-gratuita {
-      background: #10001f;
+      background: #120021;
       color: #fff;
-      padding: 84px 40px;
+      padding: 88px 40px;
       position: relative;
       overflow: hidden;
       scroll-margin-top: 136px;
@@ -611,31 +611,30 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #5f1cff 0%, #c817d4 48%, #2438ff 100%);
+      background:
+        linear-gradient(135deg, rgba(59,15,140,.98) 0%, rgba(224,64,160,.94) 52%, rgba(37,99,235,.9) 100%);
     }
     #clase-gratuita::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(12,0,42,.08), rgba(12,0,42,.32));
+      background: linear-gradient(180deg, rgba(10,0,32,.18), rgba(10,0,32,.38));
       pointer-events: none;
     }
     .free-class-wrap {
       position: relative;
       z-index: 1;
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 34px;
-      align-items: center;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      gap: 36px;
+      align-items: stretch;
     }
     .free-class-copy {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
       min-width: 0;
     }
     .free-class-label {
@@ -647,10 +646,10 @@
       margin-bottom: 16px;
     }
     .free-class-copy h2 {
-      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-size: clamp(2.1rem, 4vw, 3.6rem);
       font-weight: 900;
-      line-height: 1.08;
-      max-width: 720px;
+      line-height: 1.06;
+      max-width: 700px;
       margin-bottom: 20px;
       letter-spacing: 0;
     }
@@ -658,18 +657,18 @@
       color: rgba(255,255,255,.78);
       font-size: 1rem;
       line-height: 1.65;
-      max-width: 620px;
+      max-width: 560px;
     }
     .free-class-details {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       margin: 28px 0 24px;
-      width: min(100%, 680px);
+      width: min(100%, 620px);
     }
     .free-class-detail {
       border: 1px solid rgba(255,255,255,.22);
-      border-radius: 14px;
+      border-radius: 10px;
       padding: 14px;
       background: rgba(255,255,255,.08);
       backdrop-filter: blur(8px);
@@ -694,7 +693,6 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      justify-content: center;
     }
     .free-class-btn {
       display: inline-block;
@@ -716,98 +714,110 @@
       font-size: .88rem;
     }
     .free-class-flyer {
-      width: min(100%, 860px);
-      justify-self: center;
-      min-height: 520px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 28px;
-      padding: 38px;
-      border: 1px solid rgba(255,255,255,.24);
-      border-radius: 26px;
-      background:
-        linear-gradient(135deg, rgba(110,30,255,.96) 0%, rgba(214,20,203,.9) 48%, rgba(38,56,255,.96) 100%);
-      box-shadow: 0 30px 80px rgba(18,0,74,.34);
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 18px;
+      background: rgba(9,0,36,.38);
+      box-shadow: 0 24px 70px rgba(18,0,74,.28);
+      backdrop-filter: blur(14px);
       min-width: 0;
     }
     .free-class-flyer-top,
     .free-class-flyer-bottom {
       display: flex;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
       align-items: flex-start;
     }
     .free-class-mini-title {
       color: rgba(255,255,255,.88);
-      font-size: clamp(1.15rem, 1.9vw, 1.55rem);
-      line-height: 1.35;
-      font-weight: 300;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      line-height: 1.4;
+      text-transform: uppercase;
       overflow-wrap: break-word;
       min-width: 0;
     }
     .free-class-mini-title strong {
       display: block;
       color: #fff;
-      font-weight: 500;
-      margin-top: 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+      line-height: 1.25;
+      text-transform: none;
+      margin-top: 10px;
     }
     .free-class-date {
-      color: rgba(255,255,255,.86);
-      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-      font-weight: 500;
-      line-height: 1.6;
-      text-align: right;
+      color: #fff;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.35;
+      text-align: center;
       white-space: nowrap;
       min-width: 0;
     }
+    .free-class-date span {
+      display: block;
+      color: rgba(255,255,255,.7);
+      font-size: .8rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
     .free-class-flyer-main {
       display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 26px;
-      align-items: center;
-      min-width: 0;
-    }
-    .free-class-spinner {
-      width: min(22vw, 220px);
-      aspect-ratio: 1;
-      position: relative;
-      margin: auto;
-      opacity: .56;
-    }
-    .free-class-spinner span {
-      --r: 0deg;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 18px;
-      height: 72px;
-      margin-left: -9px;
-      margin-top: -36px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.5);
-      transform: rotate(var(--r)) translateY(-80px);
-      transform-origin: center;
+      gap: 16px;
     }
     .free-class-headline {
       color: #fff;
-      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-      line-height: 1.2;
+      font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+      line-height: 1.18;
       font-weight: 900;
-      text-align: right;
-      text-transform: uppercase;
       overflow-wrap: break-word;
       min-width: 0;
     }
+    .free-class-points {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+    }
+    .free-class-points li {
+      color: rgba(255,255,255,.78);
+      font-size: .94rem;
+      line-height: 1.5;
+      padding-left: 18px;
+      position: relative;
+    }
+    .free-class-points li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .7em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: .82;
+    }
     .free-class-logo {
-      width: 188px;
-      max-width: 42vw;
+      width: 118px;
+      max-width: 32vw;
       display: block;
       mix-blend-mode: screen;
     }
     .free-class-speakers {
       color: rgba(255,255,255,.84);
-      font-size: .94rem;
+      font-size: .9rem;
       line-height: 1.55;
       text-align: right;
       overflow-wrap: break-word;
@@ -1307,7 +1317,7 @@
       .free-class-copy { text-align: center; align-items: center; }
       .free-class-details { width: min(100%, 640px); }
       .free-class-actions { justify-content: center; }
-      .free-class-flyer { min-height: auto; }
+      .free-class-flyer { max-width: 680px; justify-self: center; }
     }
     @media (max-width: 700px) {
       .promo-banner {
@@ -1394,15 +1404,7 @@
         text-align: left;
       }
       .free-class-date { white-space: normal; line-height: 1.35; }
-      .free-class-flyer-main { grid-template-columns: 1fr; }
-      .free-class-spinner { width: 188px; }
-      .free-class-spinner span {
-        width: 13px;
-        height: 50px;
-        margin-left: -6.5px;
-        margin-top: -25px;
-        transform: rotate(var(--r)) translateY(-68px);
-      }
+      .free-class-points li { font-size: .9rem; }
       .free-class-logo { width: 150px; max-width: 68vw; }
       .cta-actions { flex-direction: column; align-items: stretch; }
       .cta-btn, .cta-btn-secondary { text-align: center; }
@@ -2030,32 +2032,22 @@
       </div>
     </div>
 
-    <div class="free-class-flyer" aria-label="Flyer de clase gratuita DobleA LAB">
+    <div class="free-class-flyer" aria-label="Resumen de la clase gratuita DobleA LAB">
       <div class="free-class-flyer-top">
         <div class="free-class-mini-title">
-          CLASE GRATUITA:<br>
-          Introducción al taller de INVESTIGACIÓN APLICADA
-          <strong>DobleA LAB</strong>
+          Sesión abierta
+          <strong>Clase gratuita DobleA LAB</strong>
         </div>
-        <div class="free-class-date">07/07<br>18:30 h<br>vía Zoom</div>
+        <div class="free-class-date">07/07<span>18:30 h</span></div>
       </div>
 
       <div class="free-class-flyer-main">
-        <div class="free-class-spinner" aria-hidden="true">
-          <span style="--r:0deg"></span>
-          <span style="--r:30deg"></span>
-          <span style="--r:60deg"></span>
-          <span style="--r:90deg"></span>
-          <span style="--r:120deg"></span>
-          <span style="--r:150deg"></span>
-          <span style="--r:180deg"></span>
-          <span style="--r:210deg"></span>
-          <span style="--r:240deg"></span>
-          <span style="--r:270deg"></span>
-          <span style="--r:300deg"></span>
-          <span style="--r:330deg"></span>
-        </div>
-        <div class="free-class-headline">Aprende cómo formular mejores preguntas, analizar evidencia y apoyar la toma de decisiones</div>
+        <div class="free-class-headline">Aprende a formular mejores preguntas, leer evidencia y apoyar decisiones.</div>
+        <ul class="free-class-points">
+          <li>Cómo convertir una inquietud de negocio en una pregunta investigable.</li>
+          <li>Qué mirar al analizar evidencia para evitar conclusiones débiles.</li>
+          <li>Cómo conectar hallazgos con decisiones concretas.</li>
+        </ul>
       </div>
 
       <div class="free-class-flyer-bottom">
