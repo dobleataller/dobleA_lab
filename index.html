@@ -544,6 +544,17 @@
       gap: 10px;
       justify-content: center;
     }
+    .hero-promo-note {
+      margin: 20px auto 0;
+      max-width: 680px;
+      color: rgba(255,255,255,.82);
+      font-size: .92rem;
+      line-height: 1.55;
+    }
+    .hero-promo-note strong {
+      color: #fff;
+      font-weight: 900;
+    }
 
     /* ── RESUMEN RÁPIDO ─────────────────────────────────── */
     #resumen {
@@ -709,9 +720,31 @@
       transform: translateY(-2px);
       box-shadow: 0 20px 46px rgba(20,0,60,.35);
     }
+    .free-class-btn.secondary {
+      color: #fff;
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.28);
+      box-shadow: none;
+    }
     .free-class-note {
       color: rgba(255,255,255,.68);
       font-size: .88rem;
+    }
+    .free-class-promo {
+      width: min(100%, 620px);
+      margin: 0 0 22px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.13);
+      border: 1.5px solid rgba(255,255,255,.28);
+      color: rgba(255,255,255,.86);
+      font-size: .94rem;
+      line-height: 1.55;
+      box-shadow: 0 16px 38px rgba(20,0,60,.16);
+    }
+    .free-class-promo strong {
+      color: #fff;
+      font-weight: 900;
     }
     .free-class-flyer {
       display: flex;
@@ -1687,9 +1720,9 @@
 
 <!-- PROMO BANNER · TALLER 2 -->
 <div class="promo-banner" role="region" aria-label="Anuncio Taller 2">
-  <span class="promo-pill">Taller 2</span>
-  <span class="promo-text"><strong>Inicio: 4 de agosto</strong> · $150.000 general · $80.000 estudiantes · <strong>25% de descuento</strong> si pagas antes del 20 de julio</span>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="promo-cta">Inscríbete →</a>
+  <span class="promo-pill">Promo Webinar</span>
+  <span class="promo-text"><strong>Asiste hoy a la clase gratuita</strong> e inscríbete al Taller 2 con <strong>25% de descuento</strong> · inicio 4 de agosto · válido hasta el 20 de julio</span>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="promo-cta">Inscríbete al taller →</a>
 </div>
 
 <!-- NAV -->
@@ -1877,6 +1910,7 @@
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
                 <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
               </div>
+              <p class="hero-promo-note"><strong>Promo Webinar:</strong> quienes participen en la clase gratuita de hoy pueden inscribirse al Taller 2 con 25% de descuento hasta el 20 de julio.</p>
               <div class="hero-pay-cluster">
                 <div class="hero-pay-label">¿Ya te inscribiste? Paga acá:</div>
                 <div class="hero-pay-buttons">
@@ -2026,8 +2060,12 @@
           <strong>Vía Zoom</strong>
         </div>
       </div>
+      <div class="free-class-promo">
+        <strong>Promo para asistentes:</strong> participa en el webinar e inscríbete al Taller 2 con 25% de descuento si completas tu inscripción y pago antes del 20 de julio.
+      </div>
       <div class="free-class-actions">
         <a href="https://www.dobleachile.cl/clase-gratuita" target="_blank" rel="noopener noreferrer" class="free-class-btn">Inscríbete para recibir el link →</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="free-class-btn secondary">Inscríbete al Taller 2 →</a>
         <span class="free-class-note">Clase introductoria al Taller 2.</span>
       </div>
     </div>
@@ -2035,18 +2073,19 @@
     <div class="free-class-flyer" aria-label="Resumen de la clase gratuita DobleA LAB">
       <div class="free-class-flyer-top">
         <div class="free-class-mini-title">
-          Sesión abierta
+          Sesión abierta + promo
           <strong>Clase gratuita DobleA LAB</strong>
         </div>
         <div class="free-class-date">07/07<span>18:30 h</span></div>
       </div>
 
       <div class="free-class-flyer-main">
-        <div class="free-class-headline">Aprende a formular mejores preguntas, leer evidencia y apoyar decisiones.</div>
+        <div class="free-class-headline">Aprende a formular mejores preguntas, leer evidencia y acceder a la promo del Taller 2.</div>
         <ul class="free-class-points">
           <li>Cómo convertir una inquietud de negocio en una pregunta investigable.</li>
           <li>Qué mirar al analizar evidencia para evitar conclusiones débiles.</li>
           <li>Cómo conectar hallazgos con decisiones concretas.</li>
+          <li>25% de descuento para asistentes que se inscriban y paguen antes del 20 de julio.</li>
         </ul>
       </div>
 
@@ -2501,6 +2540,10 @@
         <h3>¿Habrá material disponible en la página?</h3>
         <p>Sí. El material principal queda disponible para quienes participan en el espacio del taller.</p>
       </div>
+      <div class="faq-item">
+        <h3>¿Hay promoción para asistentes del webinar?</h3>
+        <p>Sí. Quienes participen en la clase gratuita del 7 de julio pueden inscribirse al Taller 2 con 25% de descuento si completan inscripción y pago antes del 20 de julio.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2510,6 +2553,7 @@
   <div class="container">
     <p class="cta-label">¿Listo para dar el siguiente paso?</p>
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
+    <p class="cta-sub">Asistentes del webinar del 7 de julio tienen 25% de descuento al inscribirse y pagar antes del 20 de julio.</p>
     <div class="cta-actions">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
     </div>
@@ -2565,7 +2609,7 @@
         <div class="info-val">
           <strong>General:</strong><br>$150.000 CLP<br>
           <strong>Estudiantes (pregrado y posgrado):</strong><br>$80.000 CLP
-          <div class="info-highlight">25% de descuento si pagas antes del 20 de julio</div>
+          <div class="info-highlight">Promo Webinar: 25% de descuento para asistentes que se inscriban y paguen antes del 20 de julio</div>
         </div>
       </div>
 
