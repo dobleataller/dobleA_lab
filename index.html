@@ -72,9 +72,49 @@
       line-height: 1.6;
     }
 
+    /* ── PROMO BANNER ───────────────────────────────────── */
+    .promo-banner {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 101;
+      background: linear-gradient(90deg, var(--magenta) 0%, var(--magenta-bright) 50%, var(--purple-light) 100%);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+      padding: 10px 24px;
+      font-size: .92rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 6px 22px rgba(224,64,160,.35);
+      flex-wrap: wrap;
+    }
+    .promo-banner .promo-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,.22);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .promo-banner .promo-text { line-height: 1.35; }
+    .promo-banner .promo-text strong { font-weight: 800; }
+    .promo-banner a.promo-cta {
+      color: #fff;
+      background: rgba(0,0,0,.28);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .04em;
+      border: 1px solid rgba(255,255,255,.35);
+      transition: background .2s, transform .15s;
+      white-space: nowrap;
+    }
+    .promo-banner a.promo-cta:hover { background: rgba(0,0,0,.45); transform: translateY(-1px); }
+
     /* ── NAV ────────────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      position: fixed; top: 44px; left: 0; width: 100%; z-index: 100;
       background: rgba(20, 0, 60, 0.92);
       backdrop-filter: blur(10px);
       display: flex; align-items: center; justify-content: space-between;
@@ -90,7 +130,7 @@
       min-height: 100vh;
       background: linear-gradient(145deg, #2D0A8A 0%, #5B21B6 40%, #9333EA 70%, #C026D3 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 120px 40px 80px;
+      padding: 164px 40px 80px;
       text-align: center;
       position: relative; overflow: hidden;
     }
@@ -1313,10 +1353,17 @@
       .free-class-flyer { max-width: 680px; justify-self: center; }
     }
     @media (max-width: 700px) {
-      nav { top: 0; padding: 12px 20px; }
+      .promo-banner {
+        font-size: .78rem;
+        padding: 8px 14px;
+        gap: 8px;
+      }
+      .promo-banner .promo-pill { font-size: .62rem; padding: 3px 9px; }
+      .promo-banner a.promo-cta { font-size: .72rem; padding: 5px 12px; }
+      nav { top: 64px; padding: 12px 20px; }
       nav ul { gap: 12px; overflow-x: auto; padding-bottom: 4px; }
       nav .logo img { height: 56px; }
-      #hero, #student-hub { padding-top: 120px; }
+      #hero, #student-hub { padding-top: 184px; }
       section { padding: 60px 20px; }
       .two-cols { grid-template-columns: 1fr; }
       .team-member { grid-template-columns: 1fr; }
@@ -1671,6 +1718,13 @@
 </head>
 <body>
 
+<!-- PROMO BANNER · CLASE GRATUITA -->
+<div class="promo-banner" role="region" aria-label="Anuncio clase gratuita">
+  <span class="promo-pill">Clase gratuita</span>
+  <span class="promo-text"><strong>Lunes 20 a las 19 horas</strong> · sesión online abierta de DobleA LAB</span>
+  <a href="https://www.dobleachile.cl/clase-gratuita" target="_blank" rel="noopener noreferrer" class="promo-cta">Inscríbete →</a>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="logo"><a href="#"><img src="img/logo.jpg" alt="DobleA LAB"></a></div>
@@ -1856,7 +1910,7 @@
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">Inscríbete acá →</a>
                 <a href="Brochure_TallerDobleA.pdf" download class="hero-btn-secondary">↓ Descargar brochure</a>
               </div>
-              <p class="hero-promo-note"><strong>Promo Webinar:</strong> quienes participen en la clase gratuita de hoy pueden inscribirse al Taller 2 con 25% de descuento hasta el 20 de julio.</p>
+              <p class="hero-promo-note"><strong>Clase gratuita:</strong> lunes 20 a las 19 horas. Inscríbete para recibir el link de Zoom.</p>
               <div class="hero-pay-cluster">
                 <div class="hero-pay-label">¿Ya te inscribiste? Paga acá:</div>
                 <div class="hero-pay-buttons">
@@ -1995,11 +2049,11 @@
       <div class="free-class-details" aria-label="Datos de la clase gratuita">
         <div class="free-class-detail">
           <span>Fecha</span>
-          <strong>7 de julio de 2026</strong>
+          <strong>Lunes 20 de julio de 2026</strong>
         </div>
         <div class="free-class-detail">
           <span>Hora</span>
-          <strong>18:30 h</strong>
+          <strong>19:00 h</strong>
         </div>
         <div class="free-class-detail">
           <span>Formato</span>
@@ -2007,7 +2061,7 @@
         </div>
       </div>
       <div class="free-class-promo">
-        <strong>Promo para asistentes:</strong> participa en el webinar e inscríbete al Taller 2 con 25% de descuento si completas tu inscripción y pago antes del 20 de julio.
+        <strong>Promo para asistentes:</strong> participa en la clase gratuita e inscríbete al Taller 2 con 25% de descuento si completas tu inscripción y pago antes del 20 de julio.
       </div>
       <div class="free-class-actions">
         <a href="https://www.dobleachile.cl/clase-gratuita" target="_blank" rel="noopener noreferrer" class="free-class-btn">Inscríbete para recibir el link →</a>
@@ -2022,7 +2076,7 @@
           Sesión abierta + promo
           <strong>Clase gratuita DobleA LAB</strong>
         </div>
-        <div class="free-class-date">07/07<span>18:30 h</span></div>
+        <div class="free-class-date">20/07<span>19:00 h</span></div>
       </div>
 
       <div class="free-class-flyer-main">
@@ -2487,8 +2541,8 @@
         <p>Sí. El material principal queda disponible para quienes participan en el espacio del taller.</p>
       </div>
       <div class="faq-item">
-        <h3>¿Hay promoción para asistentes del webinar?</h3>
-        <p>Sí. Quienes participen en la clase gratuita del 7 de julio pueden inscribirse al Taller 2 con 25% de descuento si completan inscripción y pago antes del 20 de julio.</p>
+        <h3>¿Hay promoción para asistentes de la clase gratuita?</h3>
+        <p>Sí. Quienes participen en la clase gratuita del lunes 20 pueden inscribirse al Taller 2 con 25% de descuento si completan inscripción y pago antes del 20 de julio.</p>
       </div>
     </div>
   </div>
@@ -2499,7 +2553,7 @@
   <div class="container">
     <p class="cta-label">¿Listo para dar el siguiente paso?</p>
     <h2 class="cta-title">Inscríbete en DobleA LAB</h2>
-    <p class="cta-sub">Asistentes del webinar del 7 de julio tienen 25% de descuento al inscribirse y pagar antes del 20 de julio.</p>
+    <p class="cta-sub">Asistentes de la clase gratuita del lunes 20 tienen 25% de descuento al inscribirse y pagar antes del 20 de julio.</p>
     <div class="cta-actions">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM2_emGgcrdw1LpvsR8CvWamaxUORD-G4oqFx1yGNxC-4mLA/viewform" target="_blank" rel="noopener noreferrer" class="cta-btn">Inscríbete acá</a>
     </div>
@@ -2553,7 +2607,7 @@
         <div class="info-val">
           <strong>General:</strong><br>$150.000 CLP<br>
           <strong>Estudiantes (pregrado y posgrado):</strong><br>$80.000 CLP
-          <div class="info-highlight">Promo Webinar: 25% de descuento para asistentes que se inscriban y paguen antes del 20 de julio</div>
+          <div class="info-highlight">Promo clase gratuita: 25% de descuento para asistentes que se inscriban y paguen antes del 20 de julio</div>
         </div>
       </div>
 
