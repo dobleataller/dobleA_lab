@@ -81,31 +81,8 @@ create policy "delete mensajes admin"
   to authenticated
   using (public.has_taller_admin_access());
 
-drop policy if exists "read materiales paid or admin" on public.materiales;
-create policy "read materiales paid or admin"
-  on public.materiales for select
-  to authenticated
-  using (public.has_taller_access());
-
-drop policy if exists "write materiales admin" on public.materiales;
-create policy "write materiales admin"
-  on public.materiales for all
-  to authenticated
-  using (public.has_taller_admin_access())
-  with check (public.has_taller_admin_access());
-
-drop policy if exists "read materiales bucket" on storage.objects;
-create policy "read materiales bucket"
-  on storage.objects for select
-  to authenticated
-  using (bucket_id = 'materiales' and public.has_taller_access());
-
-drop policy if exists "write materiales bucket" on storage.objects;
-create policy "write materiales bucket"
-  on storage.objects for all
-  to authenticated
-  using (bucket_id = 'materiales' and public.has_taller_admin_access())
-  with check (bucket_id = 'materiales' and public.has_taller_admin_access());
+-- `materiales` y su bucket son opcionales y no existen en todos los proyectos.
+-- Sus politicas se instalan por separado al habilitar el modulo de materiales.
 
 -- Concede admin a cualquiera de las dos cuentas de Pablo si ya existe.
 update public.profiles
@@ -134,3 +111,17 @@ set
     else public.profiles.full_name
   end,
   is_paid = true;
+
+-- Mantiene compatibilidad con el chat antiguo, que todavia consulta paid_emails.
+insert into public.paid_emails (email, nombre)
+select
+  lower(u.email),
+  coalesce(u.raw_user_meta_data ->> 'full_name', '')
+from auth.users u
+where u.id = '051909a5-c725-467a-a3a8-dc499cb522a9'
+on conflict (email) do update
+set nombre = case
+  when public.paid_emails.nombre is null or public.paid_emails.nombre = ''
+    then excluded.nombre
+  else public.paid_emails.nombre
+end;
