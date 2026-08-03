@@ -8,6 +8,7 @@ select
 from auth.users as u
 where lower(u.email) in (
   lower('p.argotetironi@gmail.com'),
+  lower('pablo.argote@dobleachile.cl'),
   lower('lucia.argote@dobleachile.cl')
 )
 on conflict (id) do update
@@ -23,6 +24,7 @@ select id, email, is_admin
 from public.profiles
 where lower(email) in (
   lower('p.argotetironi@gmail.com'),
+  lower('pablo.argote@dobleachile.cl'),
   lower('lucia.argote@dobleachile.cl')
 )
 order by email;

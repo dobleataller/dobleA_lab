@@ -2797,6 +2797,7 @@
 
   const ADMIN_EMAILS = new Set([
     'p.argotetironi@gmail.com',
+    'pablo.argote@dobleachile.cl',
     'lucia.argote@dobleachile.cl',
     'isidora.aninat@dobleachile.cl',
     'mauricio.bucca@dobleachile.cl',
@@ -2805,7 +2806,7 @@
 
   let authMode = 'login'; // 'login' | 'signup' | 'reset'
   let currentUser = null;
-  let currentAccess = null; // 'admin' | 'paid' | 'none'
+  let currentAccess = null; // 'admin' | 'paid' | 'none' | 'error'
   let chatChannel = null;
   let chatLoaded = false;
 
@@ -2815,13 +2816,30 @@
   async function resolveAccess(user) {
     if (!user) return 'none';
     if (isAdminEmail(user.email)) return 'admin';
-    const { data, error } = await sb
+
+    // profiles.is_paid is the source of truth used by the management panel.
+    // Keep paid_emails only as a compatibility fallback for Taller 1 accounts.
+    const { data: profile, error: profileError } = await sb
+      .from('profiles')
+      .select('is_paid,is_admin')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    if (!profileError && profile?.is_admin) return 'admin';
+    if (!profileError && profile?.is_paid) return 'paid';
+
+    const { data: legacyPaid, error: legacyError } = await sb
       .from('paid_emails')
       .select('email')
       .eq('email', normalizeEmail(user.email))
       .maybeSingle();
-    if (error) { console.warn('paid_emails lookup failed', error); return 'none'; }
-    return data ? 'paid' : 'none';
+
+    if (legacyPaid) return 'paid';
+    if (profileError || legacyError) {
+      console.warn('Access lookup failed', { profileError, legacyError });
+      return 'error';
+    }
+    return 'none';
   }
 
   // ── Auth state listener ───────────────────────────────────────────────
@@ -2846,6 +2864,10 @@
     if (!currentUser) { exitHubMode(); return; }
     if (currentAccess === 'admin' || currentAccess === 'paid') {
       enterHubMode();
+    } else if (currentAccess === 'error') {
+      exitHubMode();
+      showError('No pudimos verificar tu acceso en este momento. Recarga la página o vuelve a intentarlo en unos minutos.');
+      openAuthModal();
     } else {
       exitHubMode();
       // sesión activa pero sin acceso → avisar en modal
